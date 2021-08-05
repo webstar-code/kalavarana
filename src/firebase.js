@@ -1,7 +1,5 @@
 
 import firebase from "firebase";
-import 'firebase/firestore';
-import 'firebase/auth'
 const firebaseConfig = {
     apiKey: "AIzaSyAz6Cc3aBTD-5uXCIMsmXo7Z9trTjhSAk4",
     authDomain: "amzonclone-36565.firebaseapp.com",

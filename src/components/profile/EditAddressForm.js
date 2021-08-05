@@ -2,28 +2,27 @@ import React ,{useState}from 'react'
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import {connect} from 'react-redux'
-import {addAdress,addSingleAdd} from '../../actions/address'
+import {updateAddress} from '../../actions/address'
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import '../../styles/addressform.css'
 const AddressForm = (props) => {
-    const [country,setCountry]=useState('')
-    const [timing,setTiming]=useState('Home-7am to 9am')
-    const [pinCode,setPinCode]=useState('')
-    const [adress1,setAdd1]=useState('')
-    const [adress2,setAdd2]=useState('')
-    const [landmark,setLanmark]=useState('')
-    const [city,setCity]=useState('')
-    const [name,setName]=useState('')
-    const [number,setNumber]=useState('')
+    const [country,setCountry]=useState(props.country)
+    const [timing,setTiming]=useState(props.timing)
+    const [pinCode,setPinCode]=useState(props.pinCode)
+    const [adress1,setAdd1]=useState(props.adress1)
+    const [adress2,setAdd2]=useState(props.adress2)
+    const [landmark,setLanmark]=useState(props.landmark)
+    const [city,setCity]=useState(props.city)
+    const [name,setName]=useState(props.name)
+    const [number,setNumber]=useState(props.number)
     const [showFirstForm,setShowFirstForm]=useState(true)
-    const [state,setState]=useState('')
+    const [state,setState]=useState(props.state)
 
   const submitAddress=(e)=>{
   e.preventDefault()
- props.addAdress({name,number,country,state,timing,pinCode,adress1,adress2,landmark,city})
- props.addSingleAdd({name,number,country,state,timing,pinCode,adress1,adress2,landmark,city})
-  setShowFirstForm(true)
+ props.updateAddress(props.id,{name,number,country,state,timing,pinCode,adress1,adress2,landmark,city})
+ setShowFirstForm(true)
   props.setShowForm(false)
   }
 
@@ -56,6 +55,7 @@ const AddressForm = (props) => {
             label="PIN CODE" 
             variant="outlined"
             placeholder="PIN CODE"
+            value={pinCode}
             onChange={(e)=>setPinCode(e.target.value)}
             />
             <TextField 
@@ -65,6 +65,7 @@ const AddressForm = (props) => {
             variant="outlined"
             onChange={(e)=>setAdd1(e.target.value)}
             placeholder="FLAT, HOUSE, BUILDING, COMPANY"
+            value={adress1}
             />
             <TextField 
             autoComplete="off"
@@ -73,6 +74,7 @@ const AddressForm = (props) => {
             variant="outlined"
             placeholder="AREA, COLONY, STREET, SECTOR, VILLAGE"
             onChange={(e)=>setAdd2(e.target.value)}
+            value={adress2}
             />
             <TextField 
             autoComplete="off"
@@ -80,6 +82,7 @@ const AddressForm = (props) => {
             label="LANDMARK" 
             variant="outlined"
             placeholder="LANDMARK"
+            value={landmark}
             onChange={(e)=>setLanmark(e.target.value)}
             />
             <TextField 
@@ -88,11 +91,12 @@ const AddressForm = (props) => {
             label="TOWN/CITY" 
             variant="outlined"
             placeholder="TOWN/CITY"
+            value={city}
             onChange={(e)=>setCity(e.target.value)}
             />
 
             
-            <button className="update-profile-btn" type="submit">NEXT</button>
+            <button className="update-profile-btn" type="submit">UPDATE</button>
             </form>)}
           
          
@@ -113,6 +117,7 @@ const AddressForm = (props) => {
             variant="outlined"
             placeholder="Full Name"
             onChange={(e)=>setName(e.target.value)}
+            value={name}
             />
             <TextField 
             autoComplete="off"
@@ -120,6 +125,7 @@ const AddressForm = (props) => {
             label="MOBILE NUMBER" 
             variant="outlined"
             placeholder="Mobile Number"
+            value={number}
             onChange={(e)=>setNumber(e.target.value)}
             />
 
@@ -132,9 +138,8 @@ const AddressForm = (props) => {
           onChange={(e)=>setCountry(e.target.value)}
           label="STATE"
         >
-          <option ria-label="None" value="">
-          </option>
-          <option selected={true} value={'India'}>India</option>
+
+          <option value={'India'}>India</option>
           <option value={'USA'}>USA</option>
           <option value={'Italy'}>Italy</option>
         </Select>
@@ -164,4 +169,4 @@ const AddressForm = (props) => {
     )
 }
 
-export default connect(null,{addAdress,addSingleAdd})(AddressForm)
+export default connect(null,{updateAddress})(AddressForm)

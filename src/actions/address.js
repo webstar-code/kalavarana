@@ -1,5 +1,5 @@
 import {db} from '../firebase';
-import { ADD_ADDRES, GET_ADDRESS ,MSG,ADD_SINGLE_ADDRESS, DELETE_ADDRESS} from './types';
+import { ADD_ADDRES, GET_ADDRESS ,MSG,ADD_SINGLE_ADDRESS, DELETE_ADDRESS, UPDATE_ADDRESS} from './types';
 
 export const notification=(msg)=>{
     return{type:MSG,payload:msg}
@@ -58,6 +58,25 @@ export const deleteAdress=(id)=>async dispatch=>{
    .catch((err)=>{
      console.log(err)
      dispatch(notification({msg:"Unable deleted",err:true}))
+     setTimeout(()=>{
+        dispatch(notification({msg:"",err:false}))
+      },2000)
+   })
+}
+
+
+//update specific address
+
+export const updateAddress=(id,data)=>async(dispatch)=>{
+   db.address.doc(id).update(data).then(()=>{
+     dispatch({type:UPDATE_ADDRESS,payload:data})
+     dispatch(notification({msg:"Address Updated",err:false}))
+     setTimeout(()=>{
+        dispatch(notification({msg:"",err:false}))
+      },2000)
+   }).catch((err)=>{
+     console.log(err)
+     dispatch(notification({msg:"Unable to update address",err:true}))
      setTimeout(()=>{
         dispatch(notification({msg:"",err:false}))
       },2000)

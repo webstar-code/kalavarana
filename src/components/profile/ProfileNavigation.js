@@ -1,10 +1,17 @@
 import React from 'react'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import{logout} from '../../actions/index'
+import {connect} from 'react-redux'
 import { Link ,useHistory } from 'react-router-dom';
-const ProfileNavigation = () => {
+const ProfileNavigation = (props) => {
     const history=useHistory();
     const path =history.location.pathname;
+
+    const handleLogout=()=>{
+        props.logout()
+      }
+
     return (
         <div className="profile-nav">
             <h1>< KeyboardBackspaceIcon/> Profile</h1>
@@ -20,10 +27,10 @@ const ProfileNavigation = () => {
                    <p>Privacy Policy</p>
                <p>Terms of Service</p>
                <p>Return Policy</p>
-                 <p>Logout</p>
+                 <p className="cursor-pointer" onClick={handleLogout}>Logout</p>
                </div>
         </div>
     )
 }
 
-export default ProfileNavigation
+export default connect(null,{logout})(ProfileNavigation)
