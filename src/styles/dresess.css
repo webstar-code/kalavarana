@@ -51,6 +51,7 @@
 .dress-card{
     height: 437px;
     width: 261px;
+    transition: all 0.3s ease-in-out;
 }
 .dress-img{
     height: 80%;
@@ -120,4 +121,27 @@
 .rotate{
     transform: rotate(-180deg);
     transition: all 0.3s ease;
+}
+.dress-icons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 24px;
+    
+}
+.view-icon{
+    font-size: 22px;
+    color: #F3F3F3;
+    cursor: pointer;
+}
+.view-icon.active{
+    color: #000;
+}
+.dress-icons .view-icon.large{
+    font-size: 24px;
+}
+.dress-card.width-full{
+    width: 461px;
+    height: 637px;
+    transition: all 0.3s ease-in-out;
 }

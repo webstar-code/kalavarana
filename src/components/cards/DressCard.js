@@ -1,8 +1,8 @@
 import React from 'react'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-const DressCard = ({name,price,originalPrice}) => {
+const DressCard = ({name,price,originalPrice,widthFull}) => {
     return (
-        <div className="dress-card">
+        <div className={`dress-card ${widthFull&& 'width-full'} `}>
             <div className="dress-img">
             <div className="on-sale">ON SALE</div>
             </div>

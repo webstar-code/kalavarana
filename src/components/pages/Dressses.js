@@ -1,6 +1,8 @@
 import React,{useState} from 'react'
 import '../../styles/dresess.css';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import ViewComfyIcon from '@material-ui/icons/ViewComfy';
 import Header from '../Header';
 import DressCard from '../cards/DressCard'
 import Footer from '../Footer';
@@ -8,7 +10,16 @@ const Dressses = () => {
    
     const [sort,setSort]=useState(false)
      const [filter,setFilter]=useState(false);
-
+     const [fullScreen,setFullScreen]=useState(true)
+     const [halfScreen,setHalfScreen]=useState(false)
+     const handleFullScreen=()=>{
+           setFullScreen(true)
+           setHalfScreen(false)
+     }
+    const handleHalfScreen=()=>{
+        setHalfScreen(true)
+        setFullScreen(false)
+    }
   const handleSort=()=>{
    setSort(!sort)
    setFilter(false)
@@ -108,7 +119,8 @@ const Dressses = () => {
             <div className="dress-cards-sec">
               <div className="dress-view">
                     <div className="dress-icons">
-
+                        <div onClick={handleFullScreen}><ViewComfyIcon  className={`view-icon ${fullScreen&& 'active'}`}/></div>
+                        <div onClick={handleHalfScreen}><ViewModuleIcon className={`view-icon large ${halfScreen&& 'active'}`}/></div>
                     </div>
                     <div className="dress-filters">
                         <p  onClick={handleFilter}>Filter<ArrowDropDownIcon className={`filter-btn ${filter&& 'rotate'}`}/> </p>
@@ -119,6 +131,7 @@ const Dressses = () => {
                {dresess.map((dress,i)=>(
                    <DressCard k={i} name={dress.name} price={dress.price} 
                     originalPrice={dress.originalPrice}
+                    widthFull={halfScreen?true:false}
                    />
                ))}
 
