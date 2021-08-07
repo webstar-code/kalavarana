@@ -16,7 +16,9 @@ const MainPage = () => {
         <Header/>
         <div className="w-full h-screen mb-12" style={{marginBottom:'20px'}}>
            <Banner img={banner1}/>
-           <Cards bannerTitle="SPRING OASIS" featuredCollection colors/>
+           <Cards bannerTitle="SPRING OASIS"
+           collection="spring-oasis-product"
+            featuredCollection colors/>
            <Banner
            img={banner2}
 

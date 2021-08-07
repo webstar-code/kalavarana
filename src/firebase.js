@@ -16,6 +16,8 @@ const firebaseConfig = {
   export const db={
     users:firestore.collection('users'),
     address:firestore.collection('addresses'),
+    wishlist:firestore.collection('wishlist'),
+    reviews:firestore.collection('reviews'),
     formatedDoc:doc=>{
       return{id:doc.id,...doc.data()}
     },

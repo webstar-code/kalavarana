@@ -14,6 +14,7 @@ import Loading from './components/Loading'
 import Adress from './components/profile/Adress'
 import Orders from './components/pages/Orders'
 import WhisList from './components/pages/WhisList'
+import ProductDescription from './components/pages/ProductDescription'
 const App = (props) => {
     useEffect(()=>{
         const unsubscribe=auth.onAuthStateChanged(user=>{
@@ -39,6 +40,8 @@ const App = (props) => {
           <Route path="/profile/address" exact component={Adress}/>
           <Route path="/profile/orders" exact component={Orders}/>
           <Route path="/profile/whislist" exact component={WhisList}/>
+          <Route path="/profile/orders" exact component={Orders}/>
+          <Route path="/products/:id" exact component={ProductDescription}/>
           </Switch>
         </Router>
     )
