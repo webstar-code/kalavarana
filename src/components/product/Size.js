@@ -3,7 +3,6 @@ import React,{useState} from 'react'
 const Size = ({size,getSize}) => {
     const [Size,setSize]=useState('')
     const element = document.querySelectorAll('.size')
-    console.log(element)
     if (element) {
     
         element.forEach(function(el, key){
@@ -32,9 +31,9 @@ const Size = ({size,getSize}) => {
 
 
     return (
-        <div className={`size`} onClick={handleSize}>
+        <button className={`size`} onClick={handleSize}>
             {size}
-        </div>
+        </button>
     )
 }
 

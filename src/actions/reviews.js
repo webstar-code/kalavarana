@@ -1,5 +1,5 @@
 import{db,storage} from '../firebase'
-import{ADD_REVIEW} from './types'
+import{ADD_REVIEW, GET_REVIEWS} from './types'
 import {notification} from './index'
 export const addReview=(reviewText,stars,productId,files)=>async(dispatch,getState)=>{
     const userId=getState().user?.user?.userId
@@ -35,4 +35,14 @@ export const addReview=(reviewText,stars,productId,files)=>async(dispatch,getSta
             dispatch(notification({msg:"",err:false}))
       },2000)
  })
+}
+
+
+export const getReviews=(productId)=>(dispatch,getState)=>{
+    db.reviews
+    .where('productId','==',productId)
+    .onSnapshot((sanpShot)=>{
+        console.log(sanpShot.docs.map(db.formatedDoc))
+        dispatch({type:GET_REVIEWS,payload:sanpShot.docs.map(db.formatedDoc)})
+    })
 }

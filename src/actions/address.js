@@ -27,22 +27,16 @@ export const addAdress=(data)=>async(dispatch,getState)=>{
 
 export const getAddresses =()=>async(dispatch,getState)=>{
     const userId=getState().user?.user?.userId
-    if(userId){
    db.address.where('userId','==',userId)
-   .get()
-   .then((sanpShot)=>{
+   .onSnapshot((sanpShot)=>{
        console.log(sanpShot.docs.map(db.formatedDoc))
      dispatch({type:GET_ADDRESS,payload:sanpShot.docs.map(db.formatedDoc)})
    })
-   .catch((err)=>{
-       console.log(err);
-   })
-}
 }
 
-export const addSingleAdd=(address)=>{
-  return{type:ADD_SINGLE_ADDRESS,payload:address}
-}
+// export const addSingleAdd=(address)=>{
+//   return{type:ADD_SINGLE_ADDRESS,payload:address}
+// }
 
 //delete address
 

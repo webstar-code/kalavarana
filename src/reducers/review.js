@@ -1,9 +1,11 @@
-import {ADD_REVIEW} from '../actions/types'
+import {ADD_REVIEW, GET_REVIEWS} from '../actions/types'
 
-const addReviewReducer=(state={},action)=>{
+const addReviewReducer=(state=[],action)=>{
     switch (action.type) {
         case ADD_REVIEW:
-            return {...state,review:action.payload}
+            return state
+        case GET_REVIEWS:
+            return [...action.payload]    
         default:
             return state;
     }

@@ -4,8 +4,9 @@ import {AiOutlineUser} from 'react-icons/ai'
 import {FiShoppingCart} from 'react-icons/fi'
 import {AiOutlineBell} from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import {connect} from 'react-redux'
 import logo from '../assets/img/ana-logo.png'
-const Header = () => {
+const Header = (props) => {
     return (
         <div  className="fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full pt-6 px-3 flex z-10">
             <div className="flex items-center justify-around">
@@ -18,7 +19,7 @@ const Header = () => {
              <div className="flex justify-evenly text-black">
               <BiSearch className="text-xl mx-3"/>
               <Link to="/profile"><AiOutlineUser className="text-xl mx-3"/></Link>
-              <FiShoppingCart className="text-xl mx-3"/>
+              <Link to="/cart"><div className="cart-icon"><span>{props.cart?.length}</span><FiShoppingCart className="text-xl mx-3"/></div></Link>
               <AiOutlineBell className="text-xl mx-3"/>
              </div>
             </div>
@@ -37,4 +38,8 @@ const Header = () => {
     )
 }
 
-export default Header
+const mapStateToProps=(state)=>{
+    return{cart:state.cart}
+}
+
+export default connect(mapStateToProps)(Header)

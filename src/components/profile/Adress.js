@@ -9,9 +9,7 @@ import AddressForm from './AddressForm';
 import Msg from '../notification/Msg'
 const Adress = (props) => {
   const [showForm,setShowForm]=useState(false)
-  useEffect(()=>{
-   props.getAddresses()
-  },[props?.userId,props?.address])
+  
 
     return (
         <>
@@ -46,7 +44,6 @@ const mapStateToProps=(state)=>{
         
         addresses:state.addresses,
         userId:state.user?.user?.userId,
-        address:state.address
     }
 }
 

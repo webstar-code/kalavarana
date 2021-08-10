@@ -18,6 +18,7 @@ const firebaseConfig = {
     address:firestore.collection('addresses'),
     wishlist:firestore.collection('wishlist'),
     reviews:firestore.collection('reviews'),
+    cart:firestore.collection('cart'),
     formatedDoc:doc=>{
       return{id:doc.id,...doc.data()}
     },

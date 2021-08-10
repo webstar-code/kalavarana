@@ -9,7 +9,7 @@ const Color = ({color,hex,getColor}) => {
       element.forEach(function(el, key){
         
          el.addEventListener('click', function () {
-            console.log(key);
+            
          
             el.classList.toggle("act");
             
@@ -17,7 +17,7 @@ const Color = ({color,hex,getColor}) => {
                  if(key !== els) {
                      ell.classList.remove('act');
                  }
-                  console.log(els);
+                
              });
          });
       });

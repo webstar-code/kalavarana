@@ -1,7 +1,8 @@
 import React from 'react'
 import StarIcon from '@material-ui/icons/Star';
+import {connect} from 'react-redux'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-const Description = ({text}) => {
+const Description = (props) => {
     return (
         <div className="product-review-area">
             <div className="review-perecent-area">
@@ -13,7 +14,7 @@ const Description = ({text}) => {
                      <StarIcon className="star-icon"/>
                      <StarBorderIcon className="star-icon"/>
                  </div>
-                 <p>Based on 447 Reviews</p>
+                 <p>Based on {props.reviews?.length} Reviews</p>
                  <div className="percentage">
                      <div className="per-area">
                          <p>4.0</p>
@@ -42,7 +43,7 @@ const Description = ({text}) => {
                  </div>
             </div>
             <div className="product-des-text">
-                <p>{text}</p>
+                <p>{props.text}</p>
 
                 <h3>Measurements: 180 cm x 70 cm</h3>
             </div>
@@ -50,4 +51,7 @@ const Description = ({text}) => {
     )
 }
 
-export default Description
+const mapStateToProps=(state)=>{
+return{reviews:state.reviews}
+} 
+export default connect(mapStateToProps)(Description)

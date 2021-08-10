@@ -2,7 +2,7 @@ import React ,{useState}from 'react'
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import {connect} from 'react-redux'
-import {addAdress,addSingleAdd} from '../../actions/address'
+import {addAdress} from '../../actions/address'
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import '../../styles/addressform.css'
@@ -22,8 +22,7 @@ const AddressForm = (props) => {
   const submitAddress=(e)=>{
   e.preventDefault()
  props.addAdress({name,number,country,state,timing,pinCode,adress1,adress2,landmark,city})
- props.addSingleAdd({name,number,country,state,timing,pinCode,adress1,adress2,landmark,city})
-  setShowFirstForm(true)
+setShowFirstForm(true)
   props.setShowForm(false)
   }
 
@@ -164,4 +163,4 @@ const AddressForm = (props) => {
     )
 }
 
-export default connect(null,{addAdress,addSingleAdd})(AddressForm)
+export default connect(null,{addAdress})(AddressForm)

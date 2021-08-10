@@ -4,15 +4,14 @@ import '../../styles/review.css'
 import SearchIcon from '@material-ui/icons/Search';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import {connect} from 'react-redux'
+import {getReviews} from '../../actions/reviews'
 import StarIcon from '@material-ui/icons/Star';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import {db} from '../../firebase'
 import { useState } from 'react';
 
-const Reviews = (props) => {
-    const [reviews,setReviews]=useState([])
-    
+const Reviews = (props) => {    
 
     const getStart=(number)=>{
         if(number===5){
@@ -67,24 +66,15 @@ const Reviews = (props) => {
       return;
   }
     }
- console.log(props?.productId)
+ 
     const getReviews=()=>{
         if(props?.userId && props?.productId){
-            db.reviews
-    .where('productId','==',props?.productId)
-    .get()
-    .then((sanpShot)=>{
-        console.log(sanpShot.docs.map(db.formatedDoc))
-        setReviews(sanpShot.docs.map(db.formatedDoc))
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
-        }
+           props.getReviews(props?.productId)
+    }
     }
  useEffect(()=>{
     getReviews()
- },[props?.userId,props.currentReview,props?.productId])
+ },[props?.userId,props?.productId])
     
     return (
         <div className="all-reviews">
@@ -106,7 +96,7 @@ const Reviews = (props) => {
                 <button>SCARFS</button>
             </div>
           
-              { reviews.map((review,i)=>(
+              { props.reviews.map((review,i)=>(
                 <div className="review-section">
                     <div className="single-review" key={i}>
                     <div className="top-sec">
@@ -140,7 +130,7 @@ const Reviews = (props) => {
     )
 }
 const mapStateToProps=(state)=>{
-    return{userId:state.user?.user?.userId,currentReview:state.currentReview}
+    return{userId:state.user?.user?.userId,reviews:state.reviews}
 }
-export default connect(mapStateToProps)(Reviews)
+export default connect(mapStateToProps,{getReviews})(Reviews)
 //Love the colors , love the fabric definitely will purchase more 😍😍😍😍💛💛💛 Essential Chiffon Hijab - Sahara

@@ -4,6 +4,7 @@ import Header from '../Header'
 import {connect} from 'react-redux'
 import {db,firestore} from '../../firebase'
 import {addToWhislist} from '../../actions/wishlist'
+import {addToCart,getCartItems} from '../../actions/cart'
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -14,9 +15,10 @@ import Description from '../product/Description'
 import Reviews from '../product/Reviews'
 import SizeChart from '../product/SizeChart'
 import RelatedProducts from '../product/RelatedProducts'
+import SideCart from '../sideCart/SideCart'
 const ProductDescription = (props) => {
-  console.log(props.id)
-const [count,setCount]=useState(1)
+const [quanity,setCount]=useState(1)
+const [coustomText,setCustomText]=useState('')
 const [showSizeChart,setShowSizeChart]=useState(false)
 const [product,setProduct]=useState({})
 const [selectedSize,setSelectedSize]=useState('')
@@ -40,12 +42,25 @@ useEffect(()=>{
  })
 },[])
 
-    if(count<=0){
+
+
+    if(quanity<=0){
       setCount(1)
     }
 
 
-
+const handleAddToCart=()=>{
+props.addToCart({
+  title:product?.title,
+  price:product?.price,
+  imageUrl:product?.imageUrl,
+  productId:product?.productId,
+  quanity,
+  coustomText,
+  color:selectedColor,
+  size:selectedSize,
+})
+}
 
 const handleWishList=()=>{
   props.addToWhislist(
@@ -127,7 +142,7 @@ const handleWishList=()=>{
                          ))} 
                       </div>
                       <div className="custom-text">
-                      <TextField id="standard-basic" label="TEXT HERE" />
+                      <TextField value={coustomText} onChange={(e)=>setCustomText(e.target.value)} id="standard-basic" label="TEXT HERE" />
                       </div>
                     </div>
                   </div>
@@ -135,18 +150,18 @@ const handleWishList=()=>{
                  
            <div className="handle-cart">
              <div className="quanity">
-               <div className="decrease" onClick={()=>setCount(count-1)}>
+               <div className="decrease" onClick={()=>setCount(quanity-1)}>
                  <RemoveIcon/>
                </div>
                <div className="count">
-                   {count}
+                   {quanity}
                </div>
-               <div className="increase" onClick={()=>setCount(count+1)}>
+               <div className="increase" onClick={()=>setCount(quanity+1)}>
                 <AddIcon/>
                </div>
              </div>
 
-             <button className="add-to-cart-btn">
+             <button onClick={handleAddToCart} className="add-to-cart-btn">
              ADD TO CART
              </button>
              <button onClick={handleWishList} className="add-to-wishlist">
@@ -163,12 +178,16 @@ const handleWishList=()=>{
             <Description text={product?.description}/>
             <Reviews productId={product?.productId}/>
             <RelatedProducts/>
+            <SideCart/>
         </div>
         </>
     )
 }
 
 const mapStateToProsp=(state,ownProps)=>{
-return{id:ownProps.match.params.id}
+return{
+  id:ownProps.match.params.id,
+  userId:state.user?.user?.userId,
 }
-export default connect(mapStateToProsp,{addToWhislist})(ProductDescription)
+}
+export default connect(mapStateToProsp,{addToWhislist,addToCart,getCartItems})(ProductDescription)
