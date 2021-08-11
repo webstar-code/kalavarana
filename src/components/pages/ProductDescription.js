@@ -34,6 +34,9 @@ const getColor=(color)=>{
 setSelectedColor(color)
 }
 
+
+
+
 useEffect(()=>{
  firestore.collection('spring-oasis-product').doc(props.id).get()
  .then((doc)=>{

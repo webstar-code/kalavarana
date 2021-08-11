@@ -1,6 +1,7 @@
 import React ,{useState}from 'react'
 import '../../styles/cart.css'
 import {connect} from 'react-redux'
+import {checkout} from '../../actions/checkout'
 import SideCartItem from '../sideCart/SideCartItem'
 import Header from '../Header'
 import AddressCard from '../profile/AddressCard'
@@ -11,6 +12,43 @@ import Coupon from '../cart/Coupon'
 const Cart = (props) => {
     const [showForm,setShowForm]=useState(false)
     const [showPromo,setShowPromo]=useState(false)
+    const [cashOnDelivery,setCashOnDelivery]=useState(true)
+    const [payOnline,setPayOnline]=useState(false)
+    const [activeIndex,setActiveIndex]=useState(null)
+    const [Discount,setDiscount]=useState(0)
+    const [Code,setCode]=useState('')
+    const [selectedAddress,setSelectedAddress]=useState({})
+ const handleCOD=()=>{
+     setCashOnDelivery(true)
+     setPayOnline(false)
+ }
+ const handlePayOnline=()=>{
+     setCashOnDelivery(false)
+     setPayOnline(true)
+ }
+ const getCodeNDiscount=(discount,code)=>{
+setDiscount(discount)
+setCode(code)
+console.log(discount,code)
+console.log(Discount,Code)
+ }
+
+ const getActiveAdd=(addIndex,selecAdd)=>{
+setActiveIndex(addIndex)
+setSelectedAddress(selecAdd)
+ }
+
+
+ const handleCheckout=()=>{
+     props.checkout({
+         addressId:selectedAddress,
+         orderType:cashOnDelivery?'Cash on Delivery':'Paid Online',
+         Discount,
+         Code
+     })
+     console.log(selectedAddress,cashOnDelivery?'Cash on Delivery':'Paid Online',Discount)
+ }
+
     return (
         <>
         <Msg/>
@@ -44,7 +82,13 @@ const Cart = (props) => {
                   <div className="address">
                   {
                     props.addresses.map((add,i)=>(
-                        <AddressCard key={i} add={add}/>
+                        <AddressCard 
+                        
+                        key={i} getActiveAdd={getActiveAdd} 
+                        i={i} 
+                        add={add}
+                        style={i===activeIndex?{border:'2px solid #000'}:null}
+                        />
                     ))
                 }
                   </div>
@@ -52,8 +96,8 @@ const Cart = (props) => {
                   <div className="payment-method">
                       <h1 className="text-xl font-bold">Payment Mode</h1>
                       <div className="payment-btns">
-                          <button>Cash On Delivery</button>
-                          <button>Pay Online</button>
+                          <button onClick={handleCOD} className={`${cashOnDelivery&& 'active'}`}>Cash On Delivery</button>
+                          <button onClick={handlePayOnline} className={`${payOnline&& 'active'}`}>Pay Online</button>
                       </div>
                   </div>
 
@@ -64,20 +108,20 @@ const Cart = (props) => {
                       <p onClick={()=>setShowPromo(true)}>SELECT COUPON</p>
                       </div>
                       <div className="cupon-fields">
-                        <input type="text" placeholder="coupon" />
+                        <input value={Code} type="text" placeholder="coupon" />
                         <button>Apply</button>
                       </div>
                   </div>
 
 
                   <div className="process-area">
-                      <button>Process</button>
+                      <button onClick={handleCheckout}>Process</button>
                   </div>
                 </div>
             </div>
         </div>
         {showForm&&<AddressForm setShowForm={setShowForm}/>}
-        {showPromo&&<Coupon setShowPromo={setShowPromo}/>}
+        {showPromo&&<Coupon getCodeNDiscount={getCodeNDiscount} setShowPromo={setShowPromo}/>}
         </>
     )
 }
@@ -90,4 +134,4 @@ const mapStateToProps=(state)=>{
     }
 }
     
-export default connect(mapStateToProps)(Cart)
+export default connect(mapStateToProps,{checkout})(Cart)

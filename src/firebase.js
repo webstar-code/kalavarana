@@ -19,8 +19,10 @@ const firebaseConfig = {
     wishlist:firestore.collection('wishlist'),
     reviews:firestore.collection('reviews'),
     cart:firestore.collection('cart'),
+    orders:firestore.collection('orders'),
     formatedDoc:doc=>{
       return{id:doc.id,...doc.data()}
     },
+    getCurrentTimeStamp:firebase.firestore.FieldValue.serverTimestamp,
   }
   export default firebase;

@@ -9,23 +9,37 @@ const AddressCard = (props) => {
 
   const [showModal,setShowModal]=useState(false)
  const [showForm,setShowForm]=useState(false)
+ 
     const handleDelete=()=>{
       props.deleteAdress(props?.add?.id)
       setShowModal(false)
     }
 
+
+    const handleActiveIndex=()=>{
+      props?.getActiveAdd(props.i,props?.add)
+    }
+
+
+//style={props.i===activeIndex?{border:'2px solid #000'}:null}
     return (
       <>
-        <div className="address-card">
+        <div style={props?.style} onClick={handleActiveIndex} className={`cursor-pointer address-card `}>
             <div className="title">
             <h1 className="font-bold">{props?.add?.name}</h1>
             <div className="icons">
-                <div className="icon" onClick={()=>setShowModal(true)}>
+                {!props.disable&&(<div className="icon" onClick={(e)=>{
+                  e.stopPropagation()
+                  setShowModal(true)
+                  }}>
                  <DeleteIcon/>
-                </div>
-                <div className="icon" onClick={()=>setShowForm(true)}>
+                </div>)}
+                {!props.disable&&(<div className="icon" onClick={(e)=>{
+                  e.stopPropagation()
+                  setShowForm(true)
+                  }}>
                   <EditIcon/>
-                </div>
+                </div>)}
             </div>
             </div>
             <p className="add-text">{props?.add?.adress1},{props?.add?.adress2},{props?.add?.landmark},<br/>{props?.add?.city},{props?.add?.pinCode},{props?.add?.state},{props?.add?.country}</p>

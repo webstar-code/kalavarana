@@ -34,13 +34,13 @@ props.updateCartQauntity(props.id,updatedQuantity,props.totalPrice)
                 </div>
                  <div className="item-handler">
                      <div className="item-quanity">
-                         <button onClick={()=>setQuantity(updatedQuantity-1)}>-</button>
+                         {!props.disable&&<button onClick={()=>setQuantity(updatedQuantity-1)}>-</button>}
                            <p>{props.quanity}</p>
-                         <button  onClick={()=>setQuantity(updatedQuantity+1)}>+</button>
+                           {!props.disable&&<button  onClick={()=>setQuantity(updatedQuantity+1)}>+</button>}
                      </div>
-                     <div className="trash-btn">
+                     {!props.disable&&(<div className="trash-btn">
                          <button onClick={handleDelete} className="p-2 hover:bg-gray-100 rounded-full"><DeleteOutlineIcon/></button>
-                     </div>
+                     </div>)}
                  </div>
             </div>
         </div>

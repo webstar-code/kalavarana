@@ -57,3 +57,16 @@ font-weight: 600;
 .order-btns button:last-child{
     margin-top: 10px;
 }
+.confirmed-order{
+    width: 100%;
+    height:100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.confirmed-order img{
+    margin-top: 9rem;
+    width: 334px;
+    height: 171px;
+}

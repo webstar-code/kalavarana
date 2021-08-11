@@ -35,9 +35,6 @@ const cart = getState().cart
      console.log('cart data',{...data})
     db.cart.add({...data,userId})
     .then((doc)=>{
-        db.cart.doc(doc.id).set({
-            totalPrice:quanity*price
-        },{merge:true})
         dispatch({type:ADD_TO_CART,payload:{...data,userId}})
         dispatch(showCart(true))
     })
@@ -67,7 +64,6 @@ export const deleteCartItem=(id)=>(dispatch)=>{
 export const updateCartQauntity=(id,quanity,totalPrice)=>async(dispatch)=>{
     db.cart.doc(id).update({
         quanity:quanity,
-        totalPrice:totalPrice*quanity
     })
     .then(()=>{
         dispatch({type:UPDATE_CART_QUANITY,payload:id})
@@ -79,6 +75,6 @@ export const updateCartQauntity=(id,quanity,totalPrice)=>async(dispatch)=>{
 
 export const getCartTotal=()=>(dispatch,getState)=>{
     const cartItems=getState().cart;
-    const total=cartItems.reduce((total,itm)=>total+itm?.totalPrice,0)
+    const total=cartItems.reduce((total,itm)=>total+itm?.price*itm?.quanity,0)
     dispatch({type:CART_TOTAL,payload:total})
 }

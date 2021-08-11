@@ -17,8 +17,10 @@ import Adress from './components/profile/Adress'
 import Orders from './components/pages/Orders'
 import WhisList from './components/pages/WhisList'
 import ProductDescription from './components/pages/ProductDescription'
+import Checkout from './components/pages/Checkout'
 import Cart from './components/pages/Cart'
 import dummy from './dummy'
+import Confirm from './components/pages/Confirm'
 const App = (props) => {
    
     useEffect(()=>{
@@ -58,7 +60,8 @@ const App = (props) => {
           <Route path="/profile/orders" exact component={Orders}/>
           <Route path="/profile/whislist" exact component={WhisList}/>
           <Route path="/profile/orders" exact component={Orders}/>
-          {/* <Route path="/checkout" exact component={dummy}/> */}
+          <Route path="/checkout" exact component={Checkout}/>
+          <Route path="/order-confirmed" exact component={Confirm}/>
           <Route path="/cart" exact component={Cart}/>
           <Route path="/products/:id" exact component={ProductDescription}/>
           </Switch>
