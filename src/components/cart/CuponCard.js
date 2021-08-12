@@ -11,6 +11,7 @@ const CuponCard = (props) => {
         setCouponCode(props.coupon.couponCode)
         props.getCodeAndName(props.coupon.discount,props.coupon.couponCode)
         console.log(couponDiscount,couponCode)
+        props.handleOnSubmit()
     }
     return (
         <div onClick={props.total>=props.coupon.minPrice?handleCodeAndName:''} className={`promo-code-card ${props.total>=props.coupon.minPrice?'cursor-pointer':'cursor-not-allowed'}`} >

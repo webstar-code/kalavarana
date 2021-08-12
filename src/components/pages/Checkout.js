@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import SideCartItem from '../sideCart/SideCartItem'
 import AddressCard from '../profile/AddressCard'
 import {connect} from 'react-redux'
+import logo from '../../assets/img/login-logo.png'
 import {placeOrder} from '../../actions/orders'
 import Header from '../Header'
 const Checkout = (props) => {
@@ -9,8 +10,55 @@ const Checkout = (props) => {
     const [grandTotal,setGrandTotal]=useState(props.checkout.subTotal+props.checkout.deliveryCharges)
 
     const handlePlaceOrder=()=>{
-    props.placeOrder(props.checkout)
+    props.placeOrder({...props.checkout,grandTotal})
     }
+    const loadScripts=(src)=>{
+        return new Promise((resolve)=>{
+        const script = document.createElement('script');
+        script.src=src;
+        
+        script.onload= ()=>{
+            resolve(true)
+        }
+        script.onerror=()=>{
+            resolve(false)
+        }
+        document.body.appendChild(script);
+    })
+}   
+
+    const options = {
+        "key":"rzp_test_NYUPSveWybUfyq", // Enter the Key ID generated from the Dashboard
+         "currency":'INR',
+         "amount":1*100,
+        "name": "ANA",
+        "image":logo,
+        "description":props.user.name,
+         //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+            props.placeOrder({...props.checkout,grandTotal,paymentId:response.razorpay_payment_id})
+
+        },
+        "prefill": {
+            "name":props.user.name,
+            "email":props.user.email,
+            "contact":props.user.mobNo
+        },
+        
+    };
+    
+
+
+    const displayRazorpay=async()=>{
+        const res= await loadScripts('https://checkout.razorpay.com/v1/checkout.js');
+        if(!res){
+            alert('faild to load script')
+        }
+           const paymentObject = new window.Razorpay(options);
+            paymentObject.open();
+    }
+
+
     return (
         <>
         <Header/>
@@ -65,7 +113,7 @@ const Checkout = (props) => {
                 </div>
 
                 <div className="process-area">
-                      <button onClick={handlePlaceOrder}>Process</button>
+                     {props.checkout.orderType==="Paid Online"?<button onClick={displayRazorpay}>Pay Online</button>:<button onClick={handlePlaceOrder}>Process</button>}
                   </div>
                 </div>
                 
@@ -79,7 +127,8 @@ const mapStateToProps=(state)=>{
     return{
         cartItems:state.cart,
         checkout:state.checkout?.checkout,
-        total:state.cartTotal.total
+        total:state.cartTotal.total,
+        user:state.user?.user
     }
 }
 

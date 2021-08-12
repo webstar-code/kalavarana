@@ -14,7 +14,7 @@ const Header = (props) => {
 
              </div>
              <div className="ml-36">
-                 <img src={logo} alt="ANA" />
+                 <Link to="/"><img src={logo} alt="ANA" /></Link>
              </div>
              <div className="flex justify-evenly text-black">
               <BiSearch className="text-xl mx-3"/>

@@ -44,7 +44,7 @@ const Coupon = (props) => {
                     <h3 className="text-sm font-bold">WEEKEND OFFERS</h3>
                     {
                         coupons.map((coupon,i)=>(
-                            <CuponCard key={i} getCodeAndName={getCodeAndName} coupon={coupon}/>
+                            <CuponCard key={i} handleOnSubmit={handleOnSubmit} getCodeAndName={getCodeAndName} coupon={coupon}/>
                         ))
                     }
                 </div>

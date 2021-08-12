@@ -11,6 +11,7 @@ import {auth,db} from './firebase'
 import {connect} from 'react-redux'
 import {getCartItems,getCartTotal} from './actions/cart'
 import {getAddresses} from './actions/address'
+import {getOrders} from './actions/orders'
 import {userStateChanged} from './actions'
 import Loading from './components/Loading'
 import Adress from './components/profile/Adress'
@@ -30,7 +31,8 @@ const App = (props) => {
     useEffect(()=>{
         if(props.user?.userId){
          props.getCartItems()
-         props.getAddresses()   
+         props.getAddresses()
+         props.getOrders()   
         }
         
       },[props.user?.userId])
@@ -73,4 +75,4 @@ const App = (props) => {
 const mapStateToProps=(state)=>{
     return{user:state.user?.user,cart:state.cart}
 }
-export default connect(mapStateToProps,{userStateChanged,getCartItems,getCartTotal,getAddresses})(App)
+export default connect(mapStateToProps,{userStateChanged,getCartItems,getCartTotal,getAddresses,getOrders})(App)

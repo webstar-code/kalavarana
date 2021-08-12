@@ -13,10 +13,10 @@ margin-bottom: 20px;
 font-weight: 600;
 }
 .order-card{
-    width: 446px;
+    width: 90%;
     height: 189px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 30px;
 }
@@ -69,4 +69,29 @@ font-weight: 600;
     margin-top: 9rem;
     width: 334px;
     height: 171px;
+}
+.order-img img{
+    width: 100%;
+    height: 100%;
+}
+.order-card a{
+    width: 137px;
+    height: 100%;
+    background: #F3F3F3;
+}
+.order-title{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.cancle-btn{
+    font-size: 14px;
+    width: 157px;
+   height: 36px;
+   border: 1px solid #CECECE;
+   margin-left: 20px;
+}
+.cancle-btn.cancel{
+    border: 1px solid #D10404;
 }
