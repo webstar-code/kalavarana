@@ -24,9 +24,9 @@ const ProfileNavigation = (props) => {
             </div>
               <  p className="font-bold text-gray-600 text-sm pt-6">POLICY AND COOKIES</p>
                <div className="nav bottom">
-                   <p>Privacy Policy</p>
-               <p>Terms of Service</p>
-               <p>Return Policy</p>
+                   <Link to="/privacy-policy"><p>Privacy Policy</p></Link>
+                   <Link to="/terms"><p>Terms of Service</p></Link>
+                   <Link to="/return-policy"><p>Return Policy</p></Link>
                  <p className="cursor-pointer" onClick={handleLogout}>Logout</p>
                </div>
         </div>

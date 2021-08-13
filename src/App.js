@@ -22,6 +22,14 @@ import Checkout from './components/pages/Checkout'
 import Cart from './components/pages/Cart'
 import dummy from './dummy'
 import Confirm from './components/pages/Confirm'
+import PrivacyPolicy from './components/policies/PrivacyPolicy'
+import Terms from './components/policies/Terms'
+import Return from './components/policies/Return'
+import Connect from './components/pages/Connect'
+import Collab from './components/pages/Collab'
+import Collections from './components/pages/Collections'
+import Blog from './components/pages/Blog'
+import SingleBlog from './components/pages/SingleBlog'
 const App = (props) => {
    
     useEffect(()=>{
@@ -65,7 +73,15 @@ const App = (props) => {
           <Route path="/checkout" exact component={Checkout}/>
           <Route path="/order-confirmed" exact component={Confirm}/>
           <Route path="/cart" exact component={Cart}/>
+          <Route path="/privacy-policy" exact component={PrivacyPolicy}/>
+          <Route path="/terms" exact component={Terms}/>
+          <Route path="/return-policy" exact component={Return}/>
+          <Route path="/connect" exact component={Connect}/>
+          <Route path="/collab" exact component={Collab}/>
+          <Route path="/collections" exact component={Collections}/>
+          <Route path="/blog" exact component={Blog}/>
           <Route path="/products/:id" exact component={ProductDescription}/>
+          <Route path="/blog/:id" exact component={SingleBlog}/>
           </Switch>
         </Router>
     )
