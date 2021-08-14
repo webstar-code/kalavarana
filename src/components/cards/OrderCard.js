@@ -9,15 +9,16 @@ const OrderCard = (props) => {
     const date=`${props?.order?.placedAt.toDate().getDate()} ${months[props?.order?.placedAt?.toDate().getMonth()]} ${props?.order?.placedAt?.toDate().getFullYear()}`
     // console.log(date)
     const palcedDate = new Date(`${months[props?.order?.placedAt?.toDate().getMonth()]} ${props?.order?.placedAt.toDate().getDate()}, ${props?.order?.placedAt?.toDate().getFullYear()}`);
-    const OneDay = new Date().getTime() + (1 * 24 * 60 * 60 * 1000)
-
+    const OneDay = new Date(`${months[props?.order?.placedAt?.toDate().getMonth()]} ${props?.order?.placedAt.toDate().getDate()}, ${props?.order?.placedAt?.toDate().getFullYear()}`).getTime() + (1 * 24 * 60 * 60 * 1000)
+    console.log(OneDay,palcedDate)
+     console.log(OneDay > palcedDate)
     useEffect(()=>{
         if (OneDay > palcedDate) {
             // The yourDate time is less than 1 days from now
             console.log('you can cancel')
             setCancel(true)
         }
-        else if (OneDay < palcedDate) {
+        else if (OneDay <palcedDate) {
             console.log('you canot cancel order')
             setCancel(false)
             // The yourDate time is more than 1 days from now

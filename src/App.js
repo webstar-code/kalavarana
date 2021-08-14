@@ -30,6 +30,9 @@ import Collab from './components/pages/Collab'
 import Collections from './components/pages/Collections'
 import Blog from './components/pages/Blog'
 import SingleBlog from './components/pages/SingleBlog'
+import Career from './components/pages/Career'
+import About from './components/pages/About'
+import NotFound from './components/pages/NotFound'
 const App = (props) => {
    
     useEffect(()=>{
@@ -80,8 +83,11 @@ const App = (props) => {
           <Route path="/collab" exact component={Collab}/>
           <Route path="/collections" exact component={Collections}/>
           <Route path="/blog" exact component={Blog}/>
+          <Route path="/careers" exact component={Career}/>
+          <Route path="/about" exact component={About}/>
           <Route path="/products/:id" exact component={ProductDescription}/>
           <Route path="/blog/:id" exact component={SingleBlog}/>
+          <Route component={NotFound}/>
           </Switch>
         </Router>
     )
