@@ -2,13 +2,13 @@ import React from 'react'
 import logoBlack from '../assets/img/ana-logo-black.png'
 import {AiFillInstagram,AiFillYoutube,AiOutlineTwitter} from 'react-icons/ai'
 import {FaFacebookF} from 'react-icons/fa'
-
+import '../styles/footer.css'
 const Footer = () => {
     return (
         <footer className="bg-black w-full px-32 py-16 flex justify-between">
             <div className="flex flex-col h-full justify-between">
                  <img src={logoBlack} alt="ANA" className="mb-24" />
-                 <div className=" h-1/2 flex items-center justify-evenly text-white text-xl">
+                 <div className="footer-icons h-1/2 flex items-center justify-evenly text-white text-xl">
                  <FaFacebookF/>
                   <AiFillInstagram/>
                   <AiFillYoutube/>
@@ -33,6 +33,12 @@ const Footer = () => {
                    <p>Size Guide</p>
                 </div> 
             </div>
+            <div className="footer-icons-2 h-1/2 flex items-center justify-evenly text-white text-xl">
+                 <FaFacebookF className="foote-icon"/>
+                  <AiFillInstagram className="foote-icon"/>
+                  <AiFillYoutube className="foote-icon"/>
+                  <AiOutlineTwitter className="foote-icon"/>
+                 </div>
         </footer>
     )
 }

@@ -149,3 +149,17 @@
     height: 637px;
     transition: all 0.3s ease-in-out;
 }
+@media(max-width:985px){
+    .dress-card{
+        height: 337px;
+    width: 210px;
+    }
+}
+@media(max-width:895px){
+    .dress-cards{
+        justify-content:flex-start;
+    }
+    .dress-card{
+        margin: 0 10px;
+    }
+}

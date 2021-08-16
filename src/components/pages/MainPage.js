@@ -10,6 +10,7 @@ import banner3 from '../../assets/img/banner-3.png'
 import banner4 from '../../assets/img/banner-4.png'
 import Feautred from '../Feautred'
 import Footer from '../Footer'
+import '../../styles/home.css'
 const MainPage = () => {
     return (
         <>

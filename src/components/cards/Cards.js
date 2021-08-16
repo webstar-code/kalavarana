@@ -35,13 +35,14 @@ const Cards = ({bannerTitle,collection,featuredCollection,colors}) => {
         },
     ]
     return (
-        <div className="w-full p-10 flex flex-col justify-start">
+        <div className="cards-1-area w-full p-10 flex flex-col justify-start">
             {featuredCollection&&(<p className="text-xs">FEATURED COLLECTION</p>)}
             <div className="flex items-center justify-between">
-                <h1 className="text-xl">{bannerTitle}</h1>
-                <div className="p-3 border-2 border-black text-md">SHOP THE COLLECTION</div>
+                <h1 className="text-xl font-bold">{bannerTitle}</h1>
+                <div className="shop-btn-1 p-3 border-2 border-black text-md">SHOP THE COLLECTION</div>
+                <div className="shop-btn-2  p-3 border-2 border-black text-md">SHOP</div>
             </div>
-            <div className=" grid grid-flow-row-dense grid-cols-4 items-center justify-evenly pt-3 mt-4">
+            <div className="rowPosters grid grid-flow-row-dense grid-cols-4 items-center justify-evenly pt-3 mt-4">
                 {
                     products.map((product)=>(
                         <Card

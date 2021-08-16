@@ -2,7 +2,7 @@ import React from 'react'
 import modelRow from '../assets/img/model-row.png'
 const Feautred = () => {
     return (
-        <div className="bg-gray-100 flex flex-col w-full p-32">
+        <div className="feautred-area bg-gray-100 flex flex-col w-full p-32">
             <div className="flex items-center justify-between">
                 <div>
                 <h1 className="text-xl">@ANAFashion</h1>

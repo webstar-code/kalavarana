@@ -151,3 +151,36 @@ opacity: 1;
 .price-item p{
     font-size: 14px;
 }
+@media(max-width:785px){
+    .main-cart-container{
+        margin-top: 46px;
+        padding-top: 0px;
+    }
+    .main-right-cart{
+        display: none;
+    }
+    .main-cart-selection{
+        width: 100%;
+        padding-left: 0;
+    }
+}
+@media(max-width:400px){
+    .payment-btns{
+        width: 100%;
+    }
+}
+@media(max-width:355px){
+    .table{
+        width: 100%;
+    }
+    .payment-btns button{
+        font-size: 14px;
+        padding:0px 3px;
+    }
+    .cupon-fields input{
+        padding: 10px 8px;
+    }
+    .cupon-fields button{
+        margin-left: 10px;
+    }
+}

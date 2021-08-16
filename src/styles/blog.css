@@ -70,3 +70,61 @@ margin-right: 30px;
     line-height: 1.8;
     padding: 20px 0px;
 }
+@media(max-width:800px){
+    .blog{
+        width: 100%;
+        padding: 0 20px;
+    }
+    .blog-card{
+        width: 100%;
+    }
+}
+@media(max-width:647px){
+    .blog-des p{
+        display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 6;
+   overflow: hidden;
+    }
+    .blog-img{
+        height:260px;
+    }
+}
+
+@media(max-width:506px){
+    .blog-area{
+        margin-top:70px;
+    }
+    .blog-des h1{
+   font-size: 1.3rem;
+    }
+    .single-blog-des{
+        width: 90%;
+    }
+    .single-blog-des p{
+          width:100%;
+    }
+    .single-blog{
+        margin-top: 60px;
+    }
+    .single-blog img{
+        height:264px;
+    }
+}
+@media(max-width:445px){
+    .blog-des p{
+        display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 4;
+   overflow: hidden;
+    }
+    .blog-img{
+        height: 223px;
+        margin-right: 10px;
+    }
+}
+@media(max-width:380px){
+    .single-blog img{
+        object-fit: cover;
+    }
+}

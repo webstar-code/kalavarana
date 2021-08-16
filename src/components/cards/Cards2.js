@@ -41,8 +41,8 @@ const Cards2 = () => {
         },
     ]
     return (
-        <div className="w-full p-10 flex flex-col justify-start">
-            <div className=" grid grid-flow-row-dense grid-cols-4 items-center justify-evenly pt-3 mt-4">
+        <div className="cards-2 w-full p-10 flex flex-col justify-start">
+            <div className="cards-2-area grid grid-flow-row-dense grid-cols-4 items-center justify-evenly pt-3 mt-4">
                 { 
                 data.map((product,i)=>(
                     <Card2

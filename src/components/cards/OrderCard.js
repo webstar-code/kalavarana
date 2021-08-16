@@ -8,9 +8,9 @@ const OrderCard = (props) => {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const date=`${props?.order?.placedAt.toDate().getDate()} ${months[props?.order?.placedAt?.toDate().getMonth()]} ${props?.order?.placedAt?.toDate().getFullYear()}`
     // console.log(date)
-    const palcedDate = new Date(`${months[props?.order?.placedAt?.toDate().getMonth()]} ${props?.order?.placedAt.toDate().getDate()}, ${props?.order?.placedAt?.toDate().getFullYear()}`);
+    const palcedDate = new Date().getTime();
     const OneDay = new Date(`${months[props?.order?.placedAt?.toDate().getMonth()]} ${props?.order?.placedAt.toDate().getDate()}, ${props?.order?.placedAt?.toDate().getFullYear()}`).getTime() + (1 * 24 * 60 * 60 * 1000)
-    console.log(OneDay,palcedDate)
+    console.log('24 hour',OneDay,'placed date',palcedDate)
      console.log(OneDay > palcedDate)
     useEffect(()=>{
         if (OneDay > palcedDate) {
@@ -53,9 +53,14 @@ const OrderCard = (props) => {
                 <div className="order-btns">
                     <button>WRITE REVIEW</button>
                     <button>TRACK PACKAGE</button>
+                    <div className="res-cancel flex flex-col items-end justify-end cancel-area">
+            {(cancel&&!props.order.cancled)?<button onClick={()=>setShowCancleForm(true)} className={`cancle-btn cancel`}>CANCEL PACKAGE</button>:<button className={`cancle-btn`}>CANCEL PACKAGE</button>}
+             {cancel&&<p className="text-xs pt-2 text-right" style={{color:'#D10404CF'}}>WITHIN 24 HOURS OF PLACING ORDER</p>}
+             {!cancel&&<p className="text-xs pt-2 underline text-right" >IF YOU STILL WISH TO CANCEL, CONTACT SUPPORT</p>}
+            </div>
                 </div>
             </div>
-            <div className="flex flex-col items-end justify-end cancel-area">
+            <div className="full-cancel flex flex-col items-end justify-end cancel-area">
             {(cancel&&!props.order.cancled)?<button onClick={()=>setShowCancleForm(true)} className={`cancle-btn cancel`}>CANCEL PACKAGE</button>:<button className={`cancle-btn`}>CANCEL PACKAGE</button>}
              {cancel&&<p className="text-xs pt-2 text-right" style={{color:'#D10404CF'}}>WITHIN 24 HOURS OF PLACING ORDER</p>}
              {!cancel&&<p className="text-xs pt-2 underline text-right" >IF YOU STILL WISH TO CANCEL, CONTACT SUPPORT</p>}

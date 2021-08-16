@@ -227,3 +227,50 @@ font-size: 12px;
 .arrow{
     font-size: 14px;
 }
+@media(max-width:765px){
+    .review-section{
+        width: 80% ;
+    }
+    .review-search-btns{
+        width: 80% ;
+    }
+    .review-form-area{
+        width: 80%;
+    }
+}
+@media(max-width:457px){
+    .product-review-area{
+        flex-direction: column-reverse;
+    }
+    .review-perecent-area{
+        width: 100%;
+        padding-top: 30px;
+    }
+    .product-des-text{
+        width: 100%;
+    }
+    .review-form-area{
+        width: 100%;
+    }
+    .search-bar{
+        width: 100%;
+    }
+    .review-section{
+        width: 100%;
+    }
+    .review-search-btns button{
+        margin-right:10px;
+        font-size: 14px;
+    }
+    .form-input{
+        width: 100%;
+    }
+    .review-search-btns{
+        width: 100%;
+    }
+}
+@media(max-width:355px){
+    .all-reviews{
+        width: 94%;
+    }
+}

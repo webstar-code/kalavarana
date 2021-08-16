@@ -33,6 +33,7 @@ import SingleBlog from './components/pages/SingleBlog'
 import Career from './components/pages/Career'
 import About from './components/pages/About'
 import NotFound from './components/pages/NotFound'
+import ProfileNavigation from './components/profile/ProfileNavigation'
 const App = (props) => {
    
     useEffect(()=>{
@@ -85,9 +86,10 @@ const App = (props) => {
           <Route path="/blog" exact component={Blog}/>
           <Route path="/careers" exact component={Career}/>
           <Route path="/about" exact component={About}/>
+          <Route path="/profile-and-details" component={ProfileNavigation}/>
           <Route path="/products/:id" exact component={ProductDescription}/>
           <Route path="/blog/:id" exact component={SingleBlog}/>
-          <Route component={NotFound}/>
+                    <Route component={NotFound}/>
           </Switch>
         </Router>
     )

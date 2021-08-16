@@ -1,10 +1,10 @@
 import React from 'react'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import { Link } from 'react-router-dom';
-const DressCard = ({name,price,originalPrice,widthFull,id,imageUrl}) => {
+const DressCard = ({name,price,originalPrice,widthFull,id,imageUrl,overflow}) => {
     return (
         <Link to={`/products/${id}`}>
-        <div className={`dress-card ${widthFull&& 'width-full'} `}>
+        <div className={`dress-card ${widthFull&& 'width-full'} ${overflow&& 'custom-width'}`}>
             <div className="dress-img">
                {imageUrl&&<img src={imageUrl} alt="" />}
             <div className="on-sale">ON SALE</div>

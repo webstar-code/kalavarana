@@ -55,13 +55,13 @@ const LoginComp = (props) => {
     
     
     return (
-        <div className=" mt-8 flex items-center justify-center w-11/12 h-11/12 my-auto mx-auto  px-20">
+        <div className="auth-screen mt-8 flex items-center justify-center w-11/12 h-11/12 my-auto mx-auto  px-20">
           {/*notifation*/}
             <Msg/>
-            <div className="flex w-1/2 h-full">
+            <div className="login-img flex w-1/2 h-full">
                 <img src={sideImg} alt="loginImg" className="w-full h-full"/>
             </div>
-        <div className=" px-32 flex flex-col items-center justify-evenly text-sm rounded w-1/2 h-full">
+        <div className="welcome-screen px-32 flex flex-col items-center justify-evenly text-sm rounded w-1/2 h-full">
         <form onSubmit={onSignInSubmit} className="flex flex-col  text-sm w-full">
             <img src={loginLogo} alt="ANA" style={{width:'112px',height:'39px',marginLeft:'-22px'}}/>
             <h1 className="text-2xl font-bold py-12">Welcome, to ANA</h1>
@@ -87,7 +87,7 @@ const LoginComp = (props) => {
            placeholder="PHONE"  
            className={`p-2 my-2 outline-none border border-gray w-full ${!hasNum&& 'border border-red-500'}`}/> */}
            {!hasNum &&<p className="text-red-500">Number is required</p>}
-           {!props.showOtp&&<button type="submit" className="flex items-center justify-center w-1/2 bg-black mt-8 py-2 px-3 my-2 text-white">{isLoading?<LoadingSpinner/>:'Proceed'}</button>}
+           {!props.showOtp&&<button type="submit" className="auth-btn flex items-center justify-center w-1/2 bg-black mt-8 py-2 px-3 my-2 text-white">{isLoading?<LoadingSpinner/>:'Proceed'}</button>}
            <div id="recaptcha-container"></div>
          </form>
         {props.showOtp&&(<form onSubmit={onSubmitOtp} className="flex flex-col items-start justify-evenly text-sm rounded w-full">
@@ -107,7 +107,7 @@ const LoginComp = (props) => {
            className="h-full outline-none w-5/6" /> */}
            <span className="h-full text-black">RESEND</span>
            </div>
-           <button type="submit" className="bg-black py-2 px-6 my-2 text-white"> { sigin?<LoadingSpinner/> :'Login'}</button>
+           <button type="submit" className="auth-btn bg-black py-2 px-6 my-2 text-white"> { sigin?<LoadingSpinner/> :'Login'}</button>
            <div id="recaptcha-container"></div>
          </form>)}
          </div>
