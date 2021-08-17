@@ -96,3 +96,20 @@
         display: block;
     }
 }
+@media(max-width:670px){
+    .card-2{
+        width: 173px;
+        height: 260px;
+    }
+    .follow-btn{
+        font-size: 12px;
+        width: 100px;
+        text-align: center;
+    }
+    .tag-text{
+        font-size: 12px;
+    }
+    .feautred-text{
+        margin-right: 10px;
+    }
+}

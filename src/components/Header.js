@@ -48,7 +48,7 @@ const Header = (props) => {
                     <div className="profile">
                        <Link to="/profile-and-details"> <AiOutlineUser className="user-icon"/></Link>
                         <p>{props.user?.name}</p>
-                        <AiOutlineBell className="bell-icon"/>
+                        <Link to="/notification">  <AiOutlineBell className="bell-icon"/></Link>
                     </div>
                     <Link to="/sales">
                         <li className="relative first-list">Sales

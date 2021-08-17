@@ -163,3 +163,31 @@
         margin: 0 10px;
     }
 }
+@media(max-width:500px){
+    .dress-cards{
+        width: 95%;
+        justify-content:space-evenly;
+    }
+    .dresses-sec{
+        margin-top: 60px;
+    }
+    .dress-card{
+        height: 355px !important;
+    }
+    .dress-icons{
+        display: none;
+    }
+}
+@media(max-width:410px){
+    .dress-card{
+        width:173px;
+        height:306px !important;
+        margin-bottom:40px;
+    }
+}
+@media(max-width:365px){
+    .dress-card{
+        width: 148px !important;
+        height: 272px !important;
+    }
+}

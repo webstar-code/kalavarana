@@ -26,6 +26,7 @@ const WhisList = (props) => {
         <div className="profile-page">
             <ProfileNavigation/>
             <div className="wish-list">
+            <h1 className="profile-title orders-title">Wish List</h1>
                 {
                     product.map((pro,i)=>(
                         <DressCard 

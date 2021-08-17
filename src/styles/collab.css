@@ -97,3 +97,42 @@
 .collab.two{
     margin-top: 0px;
 }
+@media(max-width:767px){
+    .collab{
+        margin-top: 70px;
+    }
+    .collab-area{
+        width:100%;
+    }
+    .collab-cards-area{
+        justify-content: space-evenly;
+    }
+    
+}
+@media(max-width:515px){
+    .collab-logo{
+        width: 97px !important;
+        height: 97px !important;
+        top:-50px;
+    }
+    .img-banner{
+        height: 219px;
+    }
+    .img-banner h1{
+        font-size: 2rem;
+    }
+    .button-area-collab button{
+        display: none;
+    }
+    .collab-card{
+        width: 237px;
+    }
+}
+@media(max-width:370px){
+    .img-banner img{
+        object-fit: cover;
+    }
+    .collab-area{
+        padding-top: 4rem;
+    }
+}

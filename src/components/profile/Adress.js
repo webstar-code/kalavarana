@@ -18,6 +18,7 @@ const Adress = (props) => {
         <div className="profile-page">
             <ProfileNavigation/>
             <div className="address">
+            <h1 className="profile-title">My Address</h1>
                 {
                     props.addresses.map((add,i)=>(
                         <AddressCard key={i} add={add}/>

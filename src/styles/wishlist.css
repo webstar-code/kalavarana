@@ -3,11 +3,18 @@
     padding-right: 10rem;
     display: flex;
     align-items: flex-start;
+    flex-direction: column;
     justify-content:space-evenly;
     flex-wrap: wrap;
     margin-top: 60px;
 }
+.wish-list h1{
+    display: none;
+}
 @media(max-width:715px){
+    .wish-list h1{
+        display: block;
+    }
     .wish-list{
         width: 100%;
         padding: 0 30px;

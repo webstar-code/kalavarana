@@ -143,3 +143,41 @@ padding: 10px 20px;
     text-decoration: underline;
     cursor: pointer;
 }
+@media(max-width:550px){
+    .cancel-product-card{
+        width: 406px;
+    }
+}
+@media(max-width:420px){
+    .cancel-product-card{
+        width: 96%;
+        padding: 20px;
+    }
+    .cancel-des{
+        margin-left: 10px;
+    }
+    .que{
+        width:86%;
+    }
+    .cancel-product-inner{
+        align-items: center;
+        width: 100%;
+    }
+    .can-btns-area{
+        width: 88%;
+    }
+    .agree-cancel{
+        width: 89%;
+    }
+    .all-que{
+        width: auto;
+    }
+    .cancel-que-area .MuiOutlinedInput-root{
+        width: 100%;
+    }
+    .add-des{
+        display: flex;
+    align-items: center;
+    width: 86%;
+    }
+}

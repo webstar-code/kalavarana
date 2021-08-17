@@ -34,6 +34,7 @@ import Career from './components/pages/Career'
 import About from './components/pages/About'
 import NotFound from './components/pages/NotFound'
 import ProfileNavigation from './components/profile/ProfileNavigation'
+import Notification from './components/pages/Notification'
 const App = (props) => {
    
     useEffect(()=>{
@@ -87,6 +88,7 @@ const App = (props) => {
           <Route path="/careers" exact component={Career}/>
           <Route path="/about" exact component={About}/>
           <Route path="/profile-and-details" component={ProfileNavigation}/>
+          <Route path="/notification" component={Notification}/>
           <Route path="/products/:id" exact component={ProductDescription}/>
           <Route path="/blog/:id" exact component={SingleBlog}/>
                     <Route component={NotFound}/>

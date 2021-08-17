@@ -1,3 +1,6 @@
+.profile-title{
+    display: none;
+}
 .profile-page{
     width: 100%;
     height: 100%;
@@ -169,6 +172,17 @@ border-bottom: 1px solid rgb(241, 239, 239);
     }
 }
 @media(max-width:749px){
+    .profile-title{
+        display: block;
+        width: 100%;
+        text-align: start;
+        font-size: 1.8rem;
+        font-weight: 700;
+        padding-left: 20px;
+    }
+    .profile-title.orders-title{
+        margin-bottom: 20px;
+    }
     .profile-page{
         margin-top: 70px;
     }
@@ -196,6 +210,9 @@ border-bottom: 1px solid rgb(241, 239, 239);
     }
 }
 @media(max-width:490px){
+    .address{
+        margin-top: 20px;
+    }
     .email-country{
         flex-direction: column;
     }

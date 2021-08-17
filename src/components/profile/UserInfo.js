@@ -11,6 +11,7 @@ const [country,setCountry]=useState('United Arab Emirates')
 
     return (
         <div className="user-info">
+          <h1 className="profile-title">Profile Details</h1>
             <div className="info">
                 <TextField
                 style={{marginTop:'40px'}}

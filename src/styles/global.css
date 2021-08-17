@@ -96,3 +96,21 @@ height: 60px;
     background:#E6E6E6;
     border-radius: 50%;
 }
+.images-row{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+.images-row img{
+    margin: 0 10px;
+}
+@media(max-width:1070px){
+    .images-row{
+        overflow-x: scroll;
+        overflow-y: hidden;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+}

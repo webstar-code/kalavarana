@@ -15,6 +15,7 @@ const Orders = (props) => {
         <div className="profile-page">
             <ProfileNavigation/>
             <div className="orders">
+            <h1 className="profile-title orders-title">My Orders</h1>
                 <h2>{date}</h2>
                {
                 props.orders.map((order,i)=>(
