@@ -1,35 +1,15 @@
 import React ,{useState}from 'react'
 
-const Color = ({color,hex,getColor}) => {
+const Color = (props) => {
   const [currentColor,setColor]=useState('')
-    var element = document.querySelectorAll('.element');
-
-    if (element) {
-    
-      element.forEach(function(el, key){
-        
-         el.addEventListener('click', function () {
-            
-         
-            el.classList.toggle("act");
-            
-             element.forEach(function(ell, els){
-                 if(key !== els) {
-                     ell.classList.remove('act');
-                 }
-                
-             });
-         });
-      });
-    }
     
       const handleColor=()=>{
-        getColor(color)
-        setColor(color)
+        props.getColor(props.color,props.i)
+        setColor(props.color)
       }
 
     return (
-        <div className={`element`} onClick={handleColor}  style={{background:hex==="#fff"?'rgb(236 234 234)':hex}}>
+        <div className={`element`} onClick={handleColor}  style={{background:props.hex==="#fff"?'rgb(236 234 234)':props.hex,...props.style}}>
            
         </div>
     )

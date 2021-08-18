@@ -1,54 +1,58 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../styles/acc.css';
 import {RiArrowDropDownLine} from 'react-icons/ri';
 import {VscDebugBreakpointData} from 'react-icons/vsc'
 import BusinessCenterOutlinedIcon from '@material-ui/icons/BusinessCenterOutlined';
 import CareerForm from './careers/CareerForm';
 import { db, firestore } from '../firebase';
-class Accordain extends Component {
-       state={active:'',roatate:'0deg',careers:[],showForm:false}
-
-  componentDidMount(){
+const Accordain=(props)=> {
+    //    state={active:'',roatate:'0deg',careers:[],showForm:false}
+  const [active,setActive]=useState('')
+  const [roatate,setRoatate]=useState('0deg')
+  const [careers,setCareers]=useState([])
+  const [showForm,setShowForm]=useState(false)
+  useEffect(()=>{
       firestore.collection('careers').onSnapshot((snapshot)=>{
-          this.setState({careers:snapshot.docs.map(db.formatedDoc)})
+          setCareers(snapshot.docs.map(db.formatedDoc))
       })
-  }
+  },[])
+  
 
-     handleAccordian=()=>{
+     const handleAccordian=()=>{
         //  this.props.hadleAcc(!this.props.isOpen)
-        this.setState({active:this.state.active===""?"active":"",roatate:this.state.active==="active"?"0deg":"180deg"})
+        // this.setState({active:this.state.active===""?"active":"",roatate:this.state.active==="active"?"0deg":"180deg"})
+        setActive(active===""?"active":"")
+        setRoatate(active==="active"?"0deg":"180deg")
      }
-    render(){
-        console.log(this.props.accItems.length)
      
     return (
         <>
-           {this.state.careers.map((carrer)=>(
+           {careers.map((carrer)=>(
                <React.Fragment key={carrer.id}>
-               <div className="career accTitle" onClick={this.handleAccordian}>
+               <div className="career accTitle" onClick={handleAccordian}>
                  <div>
                    <h4 className="text-lg font-bold">{carrer.name}</h4>
                    <p>{carrer.location}</p>
                 </div>
                 <div className="flex items-center">
                     <p>{carrer.date}</p>
-                    <RiArrowDropDownLine className="drop" style={{transform:`rotate(${this.state.roatate})`}}/>
+                    <RiArrowDropDownLine className="drop" style={{transform:`rotate(${roatate})`}}/>
                   
                 </div>
         
              </div>
-            <div className={`career accItem ${this.state.active} ${(this.props.accItems.length<=4&&this.state.active==="active"? 'active2':null)}`}>
+            <div className={`career accItem ${active} ${(props.accItems.length<=4&&active==="active"? 'active2':null)}`}>
                 <p>{carrer.description}</p>
                 <div className="apply-area">
-                    <button onClick={()=>this.setState({showForm:true})}>Apply</button>
+                    <button onClick={()=>setShowForm({showForm:true})}>Apply</button>
                     <p><BusinessCenterOutlinedIcon/> Experience :{carrer.expirince}</p>
                 </div>
             </div>
-            {this.state.showForm&&<CareerForm showForm={this.setState} career={carrer}/>}
+            {showForm&&<CareerForm setShowForm={setShowForm} career={carrer}/>}
                </React.Fragment>
            ))}  
         </>
     )
             }
-}
+
 export default Accordain

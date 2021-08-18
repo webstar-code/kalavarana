@@ -75,6 +75,8 @@ const Reviews = (props) => {
  useEffect(()=>{
     getReviews()
  },[props?.userId,props?.productId])
+
+ 
     
     return (
         <div className="all-reviews">

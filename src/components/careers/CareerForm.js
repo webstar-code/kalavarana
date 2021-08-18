@@ -35,6 +35,7 @@ const CareerForm=(props)=> {
                     .then(()=>{
                         setFile(null);
                         console.log('saved')
+                        props.setShowForm(false)
                     })
             })
         })
@@ -43,7 +44,7 @@ const CareerForm=(props)=> {
     
 
     return (
-        <div className="cut-screen" onClick={()=>props.showForm({showForm:false})}>
+        <div className="cut-screen" onClick={()=>props.setShowForm(false)}>
         <div className="connect-from bg-white" onClick={(e)=>e.stopPropagation()}>
             <h1 className="text-xl font-bold align-left"> Appy for {props.career.name}</h1>
                        <form onSubmit={handleUpload}>

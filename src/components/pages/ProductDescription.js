@@ -23,15 +23,19 @@ const [showSizeChart,setShowSizeChart]=useState(false)
 const [product,setProduct]=useState({})
 const [selectedSize,setSelectedSize]=useState('')
 const [selectedColor,setSelectedColor]=useState('')
+const [colorActiveIndex,setColorActiveIndex]=useState()
+const [sizeActiveIndex,setSizeActiveIndex]=useState()
 console.log(product)
-const getSize=(size)=>{
+const getSize=(size,activeIndex)=>{
   setSelectedSize(size)
+  setSizeActiveIndex(activeIndex)
   console.log(size)
 }
 
-const getColor=(color)=>{
+const getColor=(color,activeIndex)=>{
   console.log(color)
 setSelectedColor(color)
+setColorActiveIndex(activeIndex)
 }
 
 
@@ -116,7 +120,10 @@ const handleWishList=()=>{
                            {
                              product?.sizes?.map((size,i)=>(
                               <Size size={size.size}
+                              key={i}
                               getSize={getSize}
+                              i={i}
+                              style={sizeActiveIndex===i?{background:'#000',color:'#fff'}:{background:'#fff',color:'#000'}}
                               />
                              ))
                            }
@@ -139,8 +146,10 @@ const handleWishList=()=>{
                            <Color
                            key={i}
                            color={col.color}
+                           i={i}
                            hex={col.hex}
                            getColor={getColor}
+                           style={colorActiveIndex===i?{border:'2px solid #000'}:{border:'none'}}
                            />
                          ))} 
                       </div>

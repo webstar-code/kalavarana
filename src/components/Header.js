@@ -4,6 +4,7 @@ import {BiSearch} from 'react-icons/bi'
 import {AiOutlineUser} from 'react-icons/ai'
 import {FiShoppingCart,FiMenu} from 'react-icons/fi'
 import {AiOutlineBell} from 'react-icons/ai'
+import {IoMdArrowDropdown} from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import logo from '../assets/img/ana-logo.png'
@@ -11,6 +12,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 // import {AiOutlineUser} from 'react-icons/ai'
 const Header = (props) => {
     const [showSideBar,setShowSideBar]=useState(false)
+    const [showSales,setShowSales]=useState(false)
+    const [showColthing,setShowClothing]=useState(false)
+    const [showHijabs,setShowHijabs]=useState(false)
+    const [showAccs,setShowAccs]=useState(false)
     return (
         <div  className="main-header fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full pt-6 px-3 flex z-10">
             <div className="flex items-center justify-around">
@@ -50,8 +55,7 @@ const Header = (props) => {
                         <p>{props.user?.name}</p>
                         <Link to="/notification">  <AiOutlineBell className="bell-icon"/></Link>
                     </div>
-                    <Link to="/sales">
-                        <li className="relative first-list">Sales
+                        <Link><li className="hover relative first-list">Sales
 
                             <div className=" dorp-down ">
                                  <p>Text</p>
@@ -60,10 +64,28 @@ const Header = (props) => {
                                  <p>Text</p>
                                  <p>Text</p>
                             </div>
-                        </li>
-                        </Link>
+                        </li></Link>
+                        <Link>
+                        <li className="onclick relative first-list">
+                              <span className="flex items-center justify-between" onClick={()=>setShowSales(!showSales)}>SALES  <IoMdArrowDropdown
+                              style={{transform:showSales?"rotate(180deg)":"rotate(0deg)"}}/></span>
+                            <div className={`onclick-dorp-down ${showSales&&'showOnClick'}`}>
+                                 <p>Text</p>
+                                 <p>Text</p>
+                            </div>
+                        </li></Link>
                     <Link to="/collections"><li>Collections</li></Link>
-                    <Link to="/clothing"><li className="relative first-list">
+                    <Link>
+                    <li className="onclick relative first-list">
+                    <span className="flex items-center justify-between" onClick={()=>setShowClothing(!showColthing)}>COTHING  <IoMdArrowDropdown
+                              style={{transform:showColthing?"rotate(180deg)":"rotate(0deg)"}}/></span>
+                        
+                        <div className={`onclick-dorp-down ${showColthing&&'showOnClick'}`}>
+                                 <p>Text</p>
+                                 <p>Text</p>
+                            </div>
+                        </li></Link>
+                    <Link><li className="hover relative first-list">
                         Clothing
                         
                         <div className=" dorp-down ">
@@ -75,8 +97,8 @@ const Header = (props) => {
                             </div>
                         </li></Link>
                     <Link to="/dresses"><li>Dresses</li></Link>
-                    <Link to="/hijabs">
-                        <li className="relative first-list">
+                    <Link>
+                        <li className="hover relative first-list">
                             Hijabs
                             <div className=" dorp-down ">
                                  <p>Text</p>
@@ -88,13 +110,36 @@ const Header = (props) => {
 
                         </li>
                         </Link>
-                    <Link to="/accessories"><li className="relative first-list">
+                    <Link>
+                        <li className="onclick relative first-list">
+                        <span className="flex items-center justify-between" onClick={()=>setShowHijabs(!showHijabs)}>HIJABS  <IoMdArrowDropdown
+                              style={{transform:showHijabs?"rotate(180deg)":"rotate(0deg)"}}/></span>
+
+                            <div className={`onclick-dorp-down ${showHijabs&&'showOnClick'}`}>
+                                 <p>Text</p>
+                                 <p>Text</p>
+                            </div>
+
+                        </li>
+                        </Link>
+                    <Link><li className="hover relative first-list">
                         
                         Accessories
                         <div className=" dorp-down ">
                                  <p>Text</p>
                                  <p>Text</p>
                                  <p>Text</p>
+                                 <p>Text</p>
+                                 <p>Text</p>
+                            </div>
+                        
+                        </li></Link>
+                    <Link><li className="onclick relative first-list">
+                        
+                    <span className="flex items-center justify-between" onClick={()=>setShowAccs(!showAccs)}>ACCESSORIES<IoMdArrowDropdown
+                              style={{transform:showAccs?"rotate(180deg)":"rotate(0deg)"}}/></span>
+
+                        <div className={`onclick-dorp-down ${showAccs&&'showOnClick'}`} >
                                  <p>Text</p>
                                  <p>Text</p>
                             </div>

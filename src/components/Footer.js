@@ -1,5 +1,6 @@
 import React from 'react'
 import logoBlack from '../assets/img/ana-logo-black.png'
+import {Link} from 'react-router-dom'
 import {AiFillInstagram,AiFillYoutube,AiOutlineTwitter} from 'react-icons/ai'
 import {FaFacebookF} from 'react-icons/fa'
 import '../styles/footer.css'
@@ -18,17 +19,17 @@ const Footer = () => {
             <div className="footer-items flex h-full text-white">
                 <div className="flex flex-col h-full justify-evenly">
                    <h3 className="text-xl font-bold">INFORMATION</h3>
-                   <p>Account</p>
+                   <Link to="/profile"><p>Account</p></Link>
                    <p>Our Brand</p>
-                   <p>Careers</p>
+                   <Link to="/careers"><p>Careers</p></Link>
                    <p>Become An Ambassador</p>
-                   <p>Blog</p>
-                   <p>Terms and Service</p>
-                   <p>Privacy Policy</p>
+                   <Link to="/blog"><p>Blog</p></Link>
+                   <Link to="/terms"><p>Terms and Service</p></Link>
+                   <Link to="privacy-policy"><p>Privacy Policy</p></Link>
                 </div>
                 <div className="ml-10 flex flex-col h-full justify-evenly">
                 <h3 className="text-xl font-bold">CUSTOMER CARE</h3>
-                   <p>Support & FAQ</p>
+                   <Link to="/connect"><p>Support & FAQ</p></Link>
                    <p>Shipping & Returns</p>
                    <p>Size Guide</p>
                 </div> 
