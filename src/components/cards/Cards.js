@@ -2,7 +2,7 @@ import React ,{useEffect,useState}from 'react'
 import {firestore,db} from '../../firebase'
 import Card from './CardDesign1'
 import model from '../../assets/img/sample-model-1.png'
-const Cards = ({bannerTitle,collection,featuredCollection,colors}) => {
+const Cards = ({bannerTitle,collection,featuredCollection,colors,banneTitle2}) => {
    const [products,setProducts]=useState([])
    console.log(collection)
     useEffect(()=>{
@@ -36,9 +36,12 @@ const Cards = ({bannerTitle,collection,featuredCollection,colors}) => {
     ]
     return (
         <div className="cards-1-area w-full p-10 flex flex-col justify-start">
-            {featuredCollection&&(<p className="text-xs">FEATURED COLLECTION</p>)}
-            <div className="flex items-center justify-between">
+            {featuredCollection&&(<p className="text-xs pl-8">FEATURED COLLECTION</p>)}
+            <div className="collection-header flex items-center justify-between">
+                <div className="flex">
                 <h1 className="text-xl font-bold">{bannerTitle}</h1>
+                <h1 className="text-xl font-bold pl-3 text-gray-400">{banneTitle2}</h1>
+                </div>
                 <div className="shop-btn-1 p-3 border-2 border-black text-md">SHOP THE COLLECTION</div>
                 <div className="shop-btn-2  p-3 border-2 border-black text-md">SHOP</div>
             </div>

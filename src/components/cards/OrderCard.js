@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
+import {IoMdArrowDropdown} from 'react-icons/io'
 import CancleForm from '../orders/CancleForm'
 const OrderCard = (props) => {
  
@@ -51,20 +52,23 @@ const OrderCard = (props) => {
                     {(props.order.deliverd&&props.order.status==='Deliverd')&&<p className="text-sm text-green-600 mb-2">DELIVERED</p>}
                     {(props.order.cancled&&props.order.status==='Canceled')&&<p className="text-sm text-red-600 mb-2">CANCELED</p>}
                 <div className="order-btns">
-                    <button>WRITE REVIEW</button>
-                    <button>TRACK PACKAGE</button>
+                    <div className="full-cancel flex flex-col items-start justify-start cancel-area">
+            {(cancel&&!props.order.cancled)?<button onClick={()=>setShowCancleForm(true)} className={`cancle-btn cancel`}>CANCEL PACKAGE</button>:<button className={`cancle-btn`}>CANCEL PACKAGE</button>}
+             {cancel&&<p className="text-xs pt-2 text-right" style={{color:'#D10404CF'}}>WITHIN 24 HOURS OF PLACING ORDER</p>}
+             {!cancel&&<p className="text-xs pt-2 underline text-right" > CONTACT SUPPORT</p>}
+            </div>
                     <div className="res-cancel flex flex-col items-end justify-end cancel-area">
             {(cancel&&!props.order.cancled)?<button onClick={()=>setShowCancleForm(true)} className={`cancle-btn cancel`}>CANCEL PACKAGE</button>:<button className={`cancle-btn`}>CANCEL PACKAGE</button>}
              {cancel&&<p className="text-xs pt-2 text-right" style={{color:'#D10404CF'}}>WITHIN 24 HOURS OF PLACING ORDER</p>}
-             {!cancel&&<p className="text-xs pt-2 underline text-right" >IF YOU STILL WISH TO CANCEL, CONTACT SUPPORT</p>}
+             {!cancel&&<p className="text-xs pt-2 underline text-right" >CONTACT SUPPORT</p>}
             </div>
                 </div>
+                
             </div>
-            <div className="full-cancel flex flex-col items-end justify-end cancel-area">
-            {(cancel&&!props.order.cancled)?<button onClick={()=>setShowCancleForm(true)} className={`cancle-btn cancel`}>CANCEL PACKAGE</button>:<button className={`cancle-btn`}>CANCEL PACKAGE</button>}
-             {cancel&&<p className="text-xs pt-2 text-right" style={{color:'#D10404CF'}}>WITHIN 24 HOURS OF PLACING ORDER</p>}
-             {!cancel&&<p className="text-xs pt-2 underline text-right" >IF YOU STILL WISH TO CANCEL, CONTACT SUPPORT</p>}
-            </div>
+            <div className="more-btns">
+                <button className="more-btn">MORE <IoMdArrowDropdown/></button>
+                    <button className="track-btn">TRACK PACKAGE</button>
+                </div>
         </div>
         {showCancleForm&&<CancleForm order={props.order} setShowCancleForm={setShowCancleForm}/>}
         </>

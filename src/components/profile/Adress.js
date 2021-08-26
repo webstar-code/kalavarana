@@ -28,7 +28,7 @@ const Adress = (props) => {
                 onClick={()=>setShowForm(true)}
                 >
                     <div className="add-icon">
-                    <AddIcon />
+                    <AddIcon className="icon-add" />
                     </div>
                     <h3>Add New Address</h3>
                    

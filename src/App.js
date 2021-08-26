@@ -35,6 +35,7 @@ import About from './components/pages/About'
 import NotFound from './components/pages/NotFound'
 import ProfileNavigation from './components/profile/ProfileNavigation'
 import Notification from './components/pages/Notification'
+import Error from './components/pages/Error'
 const App = (props) => {
    
     useEffect(()=>{
@@ -90,8 +91,9 @@ const App = (props) => {
           <Route path="/profile-and-details" component={ProfileNavigation}/>
           <Route path="/notification" component={Notification}/>
           <Route path="/products/:id" exact component={ProductDescription}/>
+          <Route path="/error" exact component={Error}/>
           <Route path="/blog/:id" exact component={SingleBlog}/>
-                    <Route component={NotFound}/>
+          <Route component={NotFound}/>
           </Switch>
         </Router>
     )

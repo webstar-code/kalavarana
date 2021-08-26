@@ -1,6 +1,17 @@
 .shop-btn-2 {
     display: none;
 }
+.rowPosters{
+        display: flex;
+        align-items: center;
+        justify-content:space-evenly;
+        grid-template-columns:none;
+        grid-auto-flow:none !important;
+        width: 100%;
+}
+.collection-header{
+    padding: 0 30px;
+}
 @media(max-width:773px){
     .banner-1{
         width: 100%;

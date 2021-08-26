@@ -116,12 +116,17 @@ border-bottom: 1px solid rgb(241, 239, 239);
     align-items: center;
     justify-content: center;
     color: rgb(221, 219, 219);
+    border: 1px dashed #000;
+    color: #000;
 }
 .add-icon{
     padding: 10px;
     border-radius: 50%;
     border: 1px solid rgb(221, 219, 219);
     color: rgb(221, 219, 219);
+}
+.icon-add{
+    color: #000;
 }
 .add-address h3{
     padding-top: 10px;

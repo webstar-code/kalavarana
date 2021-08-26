@@ -268,17 +268,20 @@ cursor: pointer;
     justify-content:start;
     background: #E6E6E6;
     height: 10px;
+    transition: width 0.3s ease;
 }
 .perLoader span{
     height: 100%;
     background: #000;
     width: 3%;
+    transition: width 0.3s ease;
 }
 .perLoader .three{
     width: 10% !important;
 }
 .perLoader .four{
     width: 100%;
+    transition: width 0.3s ease;
 }
 .product-des-text p{
     color: #5B5B5B;
@@ -309,6 +312,10 @@ height: 378px;
 .related-title button{
     border: 1px solid #000;
     padding: 10px;
+}
+.select-fabric{
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 @media(max-width:1025px){
     .product-info-area{

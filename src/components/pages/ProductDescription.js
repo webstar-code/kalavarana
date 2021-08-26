@@ -16,6 +16,7 @@ import Reviews from '../product/Reviews'
 import SizeChart from '../product/SizeChart'
 import RelatedProducts from '../product/RelatedProducts'
 import SideCart from '../sideCart/SideCart'
+import Fabric from '../product/Fabric'
 const ProductDescription = (props) => {
 const [quanity,setCount]=useState(1)
 const [coustomText,setCustomText]=useState('')
@@ -23,8 +24,10 @@ const [showSizeChart,setShowSizeChart]=useState(false)
 const [product,setProduct]=useState({})
 const [selectedSize,setSelectedSize]=useState('')
 const [selectedColor,setSelectedColor]=useState('')
+const [selectedFabric,setSelectedFabric]=useState('')
 const [colorActiveIndex,setColorActiveIndex]=useState()
 const [sizeActiveIndex,setSizeActiveIndex]=useState()
+const [fabricActiveIndex,setFabricActiveIndex]=useState()
 console.log(product)
 const getSize=(size,activeIndex)=>{
   setSelectedSize(size)
@@ -36,6 +39,13 @@ const getColor=(color,activeIndex)=>{
   console.log(color)
 setSelectedColor(color)
 setColorActiveIndex(activeIndex)
+}
+
+const  getFabric=(fabric,activeIndex)=>{
+setSelectedFabric(fabric)
+console.log(fabric)
+setFabricActiveIndex(activeIndex)
+
 }
 
 
@@ -66,6 +76,7 @@ props.addToCart({
   coustomText,
   color:selectedColor,
   size:selectedSize,
+  fabric:selectedFabric,
 })
 }
 
@@ -108,8 +119,10 @@ const handleWishList=()=>{
                 <div className="product-selection">
                    <div className="title-price">
                        <h1>{product?.title}</h1>
+                       <div>
                        <h1> <span>Rs{product?.originalPrice}</span>Rs{product?.price}</h1>
-                       
+                       <p className="inline-block text-sm text-gray-400">Discount Applied : 20% off</p>
+                       </div>
                    </div>
                    <div className="sizes">
                          <div className="size-chart">
@@ -157,6 +170,20 @@ const handleWishList=()=>{
                       <TextField value={coustomText} onChange={(e)=>setCustomText(e.target.value)} id="standard-basic" label="TEXT HERE" />
                       </div>
                     </div>
+                    <p className="select-fabric">SELECT FABRIC</p>
+                    <div className="color fabric">
+                    
+                         {product?.fabrics?.map((col,i)=>(
+                           <Fabric
+                           key={i}
+                           fabric={col.fabric}
+                           i={i}
+                           hex={col.hex}
+                           getFabric={getFabric}
+                           style={fabricActiveIndex===i?{border:'2px solid #000'}:{border:'none'}}
+                           />
+                         ))} 
+                      </div>
                   </div>
 
                  

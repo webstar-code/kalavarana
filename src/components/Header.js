@@ -16,6 +16,7 @@ const Header = (props) => {
     const [showColthing,setShowClothing]=useState(false)
     const [showHijabs,setShowHijabs]=useState(false)
     const [showAccs,setShowAccs]=useState(false)
+    const [showMore,setShowMore]=useState(false)
     return (
         <div  className="main-header fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full pt-6 px-3 flex z-10">
             <div className="flex items-center justify-around">
@@ -74,6 +75,7 @@ const Header = (props) => {
                                  <p>Text</p>
                             </div>
                         </li></Link>
+                        <Link><li>ABAYAS</li></Link>
                     <Link to="/collections"><li>Collections</li></Link>
                     <Link>
                     <li className="onclick relative first-list">
@@ -146,6 +148,32 @@ const Header = (props) => {
                         
                         </li></Link>
                     <Link to="/collab"><li>Collab</li></Link>
+                    <Link to="/custom"><li>CUSTOM</li></Link>
+
+
+                    <Link><li className="hover relative first-list">
+                        
+                    MORE
+                        <div className=" dorp-down ">
+                                 <p>Text</p>
+                                 <p>Text</p>
+                                 <p>Text</p>
+                                 <p>Text</p>
+                                 <p>Text</p>
+                            </div>
+                        
+                        </li></Link>
+                    <Link><li className="onclick relative first-list">
+                        
+                    <span className="flex items-center justify-between" onClick={()=>setShowMore(!showMore)}>MORE<IoMdArrowDropdown
+                              style={{transform:showMore?"rotate(180deg)":"rotate(0deg)"}}/></span>
+
+                        <div className={`onclick-dorp-down ${showMore&&'showOnClick'}`} >
+                                 <p>Text</p>
+                                 <p>Text</p>
+                            </div>
+                        
+                        </li></Link>
                 </ul>
                 <div onClick={()=>setShowSideBar(false)} className={`blank-screen ${showSideBar&& 'show-side-bar'}`}>
 
