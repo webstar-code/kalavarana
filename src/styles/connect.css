@@ -128,10 +128,10 @@ margin-top: 30px;
 .img-container{
     height: 397px;
     position: relative;
+    margin-top: -60px;
 }
 .img-container .img-text{
     position: absolute;
-    bottom: 70px;
     left: 20px;
     width: 95%;
     background: #fff;
@@ -142,7 +142,7 @@ margin-top: 30px;
 }
 @media(max-width:1210px){
     .img-container .img-text{
-        bottom: 15%;
+        bottom: 0;
     }
 }
 @media(max-width:997px){
@@ -185,7 +185,7 @@ margin-top: 30px;
         padding: 20px;
     }
     .img-container .img-text{
-        bottom: 10%;
+        bottom: 0;
         font-size: 1.4rem;
     } 
 }
