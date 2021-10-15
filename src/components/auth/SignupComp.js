@@ -1,83 +1,66 @@
-import React from 'react'
-import { useState } from 'react'
+import React, {useState} from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import './inputstyle.css'
 import '../../styles/auth.css'
-import firebase from '../../firebase'
 import { connect } from 'react-redux'
-import { sigin, submitOtp } from '../../actions'
+import { sigin } from '../../actions'
 import Msg from '../notification/Msg'
 import TextField from '@material-ui/core/TextField';
 import { COLLAGE, KALAVARANA_LOGO } from '../../assetsKalavarna'
+
 const SignupComp = (props) => {
-  const [number, setNumber] = useState(props.mobNo ? props.mobNo : '')
-  const [email, setEmail] = useState('')
   const [name, setName] = useState('')
-  const [isNumber, setIsNumber] = useState(false)
-  const [hasName, setHasName] = useState(true);
+  const [email, setEmail] = useState('')
+  const [number, setNumber] = useState(props.mobNo ? props.mobNo : '')
+  const [isName, setIsName] = useState(true);
   const [isEmail, setIsEmail] = useState(true)
-  const [hasNum, setHasNum] = useState(true)
+  const [isNumber, setIsNumber] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
-  // const [validate,setValidate]=useState({hasName:true,hasNum:true,isEmail:true,hasOtp:true})
+  // const [validate,setValidate]=useState({isName:true,isNumber:true,isEmail:true,hasOtp:true})
+
   console.log(props.mobNo)
-  const [otp, setOtp] = useState('')
-  const setUpRecaptcha = () => {
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      "recaptcha-container",
-      {
-        size: "invisible",
-        callback: function (response) {
-          console.log("Captcha Resolved");
-          onSignInSubmit();
-        },
-        defaultCountry: "IN",
-      }
-    );
-  };
-  const onSignInSubmit = (e) => {
-    e.preventDefault();
-    if (email === '' && name === '' && number === '') {
-      setIsEmail(false)
-      setHasName(false)
-      setHasNum(false)
-    }
-    if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/) || email === '') {
-      setIsEmail(false)
-    }
-    else {
-      setIsEmail(true)
-    }
-    if (!number.match(/^\d{10}$/) || number === '') {
-      console.log(number)
-      setHasNum(false)
-    }
-    else {
-      setHasNum(true)
+  const validate = (type, value) => {
+    if (type == 'number' && !value.match(/^\d{10}$/)) {
+      setIsNumber(false);
+    } else {
+      setIsNumber(true);
     }
 
-    if (name === '') {
-      setHasName(false)
+    if (type == 'email' && !value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+      setIsEmail(false);
+    } else {
+      setIsEmail(true);
     }
-    else {
-      setHasName(true)
+
+    if (type == 'name' && !value.match(/^[a-zA-Z]+$/)) {
+      setIsName(false);
+    } else {
+      setIsName(true);
     }
-    if (name && email && number) {
-      setHasName(true)
-      setHasNum(true)
-      setIsEmail(true)
+
+  }
+
+  const onSignInSubmit = (e) => {
+    e.preventDefault();
+    // check validation of email, name, number
+    if (email === '' && name === '' && number === '') {
+      setIsEmail(false)
+      setIsName(false)
+      setIsNumber(false)
+    }
+
+    validate('email', email);
+    validate('name', name);
+    validate('number', number);
+
+    if (name && email && number && isName && isNumber && isEmail) {
+      console.log("all good");
+      setIsName(true)
       setIsNumber(true)
-      setUpRecaptcha();
+      setIsEmail(true)
       setIsLoading(true)
       props.sigin(number, email, name)
     }
-
-
-  };
-
-  const onSubmitOtp = (e) => {
-    e.preventDefault();
-    props.submitOtp(otp, email, name, number, setName, setEmail, setNumber, setIsNumber)
-    setIsLoading(false)
   };
 
 
@@ -90,13 +73,12 @@ const SignupComp = (props) => {
       </div>
       <div className="flex flex-col items-center justify-evenly text-sm rounded w-full md:w-1/2 h-full px-4 sm:px-8 lg:px-32">
         <form onSubmit={onSignInSubmit} className="flex flex-col text-sm w-full">
-          <img src={KALAVARANA_LOGO} alt="ANA" style={{ width: '125px'}} className="mx-auto sm:-ml-2" />
+          <img src={KALAVARANA_LOGO} alt="ANA" style={{ width: '125px' }} className="mx-auto sm:-ml-2" />
 
           <h1 className="text-2xl font-bold flex items-center py-10 text-primary"><AiOutlineArrowLeft className="text-xl mr-4" />Just a small step,</h1>
           <TextField
             onChange={(e) => {
               setEmail(e.target.value)
-              setIsEmail(true)
             }}
             type="email"
             placeholder="EMAIL"
@@ -110,47 +92,28 @@ const SignupComp = (props) => {
             style={{ marginTop: '10px' }}
             onChange={(e) => {
               setName(e.target.value)
-              setHasName(true)
             }}
             label="NAME"
             variant="outlined"
             placeholder="NAME"
-            className={`p-2 my-2 outline-none border border-gray w-full ${!hasName && 'border border-red-500'}`} />
-          {!hasName && <p className="text-red-500">Name is required</p>}
+            className={`p-2 my-2 outline-none border border-gray w-full ${!isName && 'border border-red-500'}`} />
+          {!isName && <p className="text-red-500">Name is required</p>}
 
           <TextField
             style={{ marginTop: '10px' }}
-            onChange={(e) => {
-              !props.mobNo && setNumber(e.target.value)
-              setHasNum(true)
-            }}
-
+            // onChange={(e) => {
+            //   !props.mobNo && setNumber(e.target.value)
+            // }}
             value={props.mobNo ? props.mobNo : number}
             variant="outlined"
             label="PHONE"
             type="text"
             placeholder="PHONE"
-            className={`p-2 my-2 outline-none border border-gray w-full ${!hasNum && 'border border-red-500'}`} />
-          {!hasNum && <p className="text-red-500">Number is required</p>}
+            className={`p-2 my-2 outline-none border border-gray w-full ${!isNumber && 'border border-red-500'}`} />
+          {!isNumber && <p className="text-red-500">Number is required</p>}
 
-          {!isNumber && <button type="submit" className="w-full sm:w-1/2  bg-black py-2 px-3 my-2 text-white mt-8 bg-primary">Proceed</button>}
-          <div id="recaptcha-container"></div>
+          <button type="submit" className="w-full sm:w-1/2  bg-black py-2 px-3 my-2 text-white mt-8 bg-primary">Proceed</button>
         </form>
-
-        {isNumber && (<form onSubmit={onSubmitOtp} className="flex flex-col w-full items-start justify-evenly text-sm rounded ">
-          <TextField
-            style={{ marginTop: '10px' }}
-            onChange={(e) => setOtp(e.target.value)}
-            type="number"
-            placeholder="OTP"
-            label="OTP"
-            variant="outlined"
-            className="p-2 my-2 outline-none border border-gray w-full"
-          />
-
-          <button type="submit" className="w-full sm:w-1/2 py-2 px-6 my-2 text-white bg-primary">Login</button>
-          <div id="recaptcha-container"></div>
-        </form>)}
       </div>
     </div>
   )
@@ -159,4 +122,4 @@ const mapStateToProps = (state) => {
   console.log(state)
   return { user: state?.user?.user, mobNo: state.mobNo.mobNo }
 }
-export default connect(mapStateToProps, { sigin, submitOtp })(SignupComp)
+export default connect(mapStateToProps, { sigin })(SignupComp)
