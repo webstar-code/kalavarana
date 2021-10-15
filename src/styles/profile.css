@@ -71,7 +71,7 @@ border-bottom: 1px solid rgb(241, 239, 239);
 }
 
 .nav p.active{
-    background: #000;
+    background: #08263F;
     color: #fff;
     cursor: pointer;
 }

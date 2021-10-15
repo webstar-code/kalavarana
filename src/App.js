@@ -36,6 +36,8 @@ import NotFound from './components/pages/NotFound'
 import ProfileNavigation from './components/profile/ProfileNavigation'
 import Notification from './components/pages/Notification'
 import Error from './components/pages/Error'
+import SplashScreen from './components/splash-screen/SplashScreen'
+
 const App = (props) => {
    
     useEffect(()=>{
@@ -64,6 +66,8 @@ const App = (props) => {
         },[])
         console.log(props.user)
     return (
+    <>
+    {/* <SplashScreen /> */}
         <Router history={history}>
             <Switch>
           <Route path="/" exact component={MainPage}/>
@@ -96,6 +100,7 @@ const App = (props) => {
           <Route component={NotFound}/>
           </Switch>
         </Router>
+        </>
     )
 }
 

@@ -26,6 +26,7 @@ export const addAdress=(data)=>async(dispatch,getState)=>{
 
 
 export const getAddresses =()=>async(dispatch,getState)=>{
+    console.log("getState",getState());
     const userId=getState().user?.user?.userId
    db.address.where('userId','==',userId)
    .onSnapshot((sanpShot)=>{

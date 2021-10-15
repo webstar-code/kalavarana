@@ -13,7 +13,7 @@ const Cart = (props) => {
     const [showForm,setShowForm]=useState(false)
     const [showPromo,setShowPromo]=useState(false)
     const [cashOnDelivery,setCashOnDelivery]=useState(true)
-    const [payOnline,setPayOnline]=useState(false)
+    const [payOnline,setPayOnline]=useState(true)
     const [activeIndex,setActiveIndex]=useState(null)
     const [Discount,setDiscount]=useState(0)
     const [Code,setCode]=useState('')
@@ -96,8 +96,8 @@ setSelectedAddress(selecAdd)
                   <div className="payment-method">
                       <h1 className="text-xl font-bold">Payment Mode</h1>
                       <div className="payment-btns">
-                          <button onClick={handleCOD} className={`${cashOnDelivery&& 'active'}`}>Cash On Delivery</button>
-                          <button onClick={handlePayOnline} className={`${payOnline&& 'active'}`}>Pay Online</button>
+                          {/* <button onClick={handleCOD} className={`${cashOnDelivery&& 'active'}`}>Cash On Delivery</button> */}
+                          <button onClick={handlePayOnline} className={`${payOnline && 'active'}`}>Pay Online</button>
                       </div>
                   </div>
 

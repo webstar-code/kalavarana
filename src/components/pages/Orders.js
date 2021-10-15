@@ -4,6 +4,9 @@ import ProfileNavigation from '../profile/ProfileNavigation'
 import {connect} from 'react-redux'
 import Header from '../Header'
 import OrderCard from '../cards/OrderCard'
+import { PAINTING2 } from '../../assetsKalavarna'
+
+
 const Orders = (props) => {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const date=`${props?.orders[0]?.placedAt.toDate().getDate()} ${months[props?.orders[0]?.placedAt?.toDate().getMonth()]} ${props?.orders[0]?.placedAt?.toDate().getFullYear()}`
@@ -23,7 +26,7 @@ const Orders = (props) => {
                 ))
                }
                {/* <h2>03 FEBRUARY 2021</h2> */}
-               {/* <OrderCard/> */}
+               {/* <OrderCard/>*/}
             </div>
         </div>
         </>

@@ -1,0 +1,32 @@
+.fade-out {
+    opacity: 1;
+    animation: fadeOut 4s forwards ease-in-out;
+}
+
+.fade-out-slow {
+  animation: fadeOutSlow 6s forwards ease-in-out;
+  background: '#08263F';
+}
+
+@keyframes fadeOutSlow {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+} 
+
+
+@keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+      display: none;
+    }
+  } 

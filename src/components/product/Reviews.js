@@ -79,7 +79,7 @@ const Reviews = (props) => {
  
     
     return (
-        <div className="all-reviews">
+        <div className="all-reviews text-center">
             <div className="reviews-que">
                 <h1>Reviews</h1>
                 <h1>Questions</h1>
@@ -91,12 +91,12 @@ const Reviews = (props) => {
                 <input type="text" placeholder="SEARCH REVIEWS"/>
                 <SearchIcon/>
             </div>
-            <div className="review-search-btns">
+            {/* <div className="review-search-btns">
                 <button>QUALITY</button>
                 <button>HIJABS</button>
                 <button>MATERIALS</button>
                 <button>SCARFS</button>
-            </div>
+            </div> */}
           
               { props.reviews.map((review,i)=>(
                 <div className="review-section">

@@ -25,4 +25,7 @@ const firebaseConfig = {
     },
     getCurrentTimeStamp:firebase.firestore.FieldValue.serverTimestamp,
   }
+  // db.users.get().then((arr) => arr.forEach((doc) => console.log(doc.data())));
+  // db.address.get().then((arr) => arr.forEach((doc) => console.log(doc.data())));
+
   export default firebase;
