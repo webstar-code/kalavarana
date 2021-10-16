@@ -23,31 +23,16 @@ const MainPage = () => {
             height="512px"
             /> */}
             <iframe className="w-full h-full" src="https://www.youtube.com/embed/ByH9LuSILxU?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-         {/* <video className="w-full h-full">
-            <source src="https://www.youtube.com/embed/ByH9LuSILxU?controls=0" />
-         </video>            */}
-           <Cards bannerTitle=""
-           collection="spring-oasis-product"
-            featuredCollection colors/>
-           <Banner
-           img={banner2}
-           height="512px"
-         //   text="ALL THE VERITIES OF HIJABS YOU NEED"
-           />
-           {/* <Cards bannerTitle="HIJAB SALE" /> */}
-           {/* <Banner
-           img={banner3}
-        //    height="512px"
-           text="ALL THE VERITIES OF HIJABS YOU NEED"
-           />
-           <Cards bannerTitle="BRAND1" banneTitle2="BRAND2" />
-           <Banner
-           img={banner4}
-        //    height="512px"
-           text="ALL THE VERITIES OF HIJABS YOU NEED"
-           /> */}
-        <Cards2/>
-        <Feautred/>
+            <Cards
+               collection="Featured Paintings"
+               colors />
+            <Banner
+               img={banner2}
+               height="512px"
+            />
+
+            {/* <Cards2 /> */}
+            {/* <Feautred /> */}
             <Footer />
          </div>
       </>
