@@ -6,29 +6,32 @@ import { deleteAdress } from '../../actions/address'
 import EditIcon from '@material-ui/icons/Edit';
 import WarningIcon from '@material-ui/icons/Warning';
 const AddressCard = (props) => {
-
   const [showModal, setShowModal] = useState(false)
   const [showForm, setShowForm] = useState(false)
   const [selected, setSelected] = useState(false);
+
+
   const handleDelete = () => {
-    props.deleteAdress(props?.add?.id)
+    props.deleteAdress(props?.address?.id)
     setShowModal(false)
   }
 
 
   const handleActiveIndex = () => {
-    console.log(props);
-    setSelected(true);
-    // props?.getActiveAdd(props.i, props?.add)
+    if (!props.disable) {
+      console.log(props);
+      setSelected(true);
+      props?.getActiveAdd(props.i, props?.address)
+    }
   }
 
 
   //style={props.i===activeIndex?{border:'2px solid #000'}:null};
   return (
     <>
-      <div style={props?.style} onClick={handleActiveIndex} className={`cursor-pointer address-card ${selected &&  'border-4'}`}>
+      <div style={props?.style} onClick={handleActiveIndex} className={`cursor-pointer address-card ${selected ? 'border-2' : 'border-1'}`}>
         <div className="title">
-          <h1 className="font-bold">{props?.add?.name}</h1>
+          <h1 className="font-bold">{props?.address?.name}</h1>
           <div className="icons">
             {!props.disable && (<div className="icon" onClick={(e) => {
               e.stopPropagation()
@@ -44,7 +47,7 @@ const AddressCard = (props) => {
             </div>)}
           </div>
         </div>
-        <p className="add-text">{props?.add?.adress1},{props?.add?.adress2},{props?.add?.landmark},<br />{props?.add?.city},{props?.add?.pinCode},{props?.add?.state},{props?.add?.country}</p>
+        <p className="address-text">{props?.address?.addressLine1},{props?.address?.addressLine2},{props?.address?.landmark},<br />{props?.address?.city},{props?.address?.pinCode},{props?.address?.state},{props?.address?.country}</p>
       </div>
       {showModal && (<div className="delete-modal" onClick={() => setShowModal(false)}>
         <div className="innerModal" onClick={(e) => e.stopPropagation()}>
@@ -54,17 +57,17 @@ const AddressCard = (props) => {
         </div>
       </div>)}
       {showForm && (<EditAddressForm
-        id={props?.add?.id} setShowForm={setShowForm}
-        name={props?.add?.name}
-        number={props?.add?.number}
-        country={props?.add?.country}
-        state={props?.add?.state}
-        timing={props?.add?.timing}
-        pinCode={props?.add?.pinCode}
-        adress1={props?.add?.adress1}
-        adress2={props?.add?.adress2}
-        landmark={props?.add?.landmark}
-        city={props?.add?.city}
+        id={props?.address?.id} setShowForm={setShowForm}
+        name={props?.address?.name}
+        number={props?.address?.number}
+        country={props?.address?.country}
+        addressType={props?.address?.addressType}
+        state={props?.address?.state}
+        pinCode={props?.address?.pinCode}
+        addressLine1={props?.address?.addressLine1}
+        addressLine2={props?.address?.addressLine2}
+        landmark={props?.address?.landmark}
+        city={props?.address?.city}
       />)}
     </>
   )

@@ -8,7 +8,12 @@ import AddIcon from '@material-ui/icons/Add';
 import AddressForm from './AddressForm';
 import Msg from '../notification/Msg'
 const Adress = (props) => {
-	const [showForm, setShowForm] = useState(false)
+	const [showForm, setShowForm] = useState(false);
+	const [activeIndex, setActiveIndex] = useState(0);
+	
+	const getActiveAdd = (addIndex) => {
+		setActiveIndex(addIndex)
+	}
 
 	return (
 		<>
@@ -19,13 +24,17 @@ const Adress = (props) => {
 				<div className="address">
 					<h1 className="profile-title">My Address</h1>
 					{
-						props.addresses.map((add, i) => (
-							<AddressCard key={i} add={add} />
+						props.addresses.map((address, i) => (
+							<AddressCard
+								key={i} getActiveAdd={getActiveAdd}
+								i={i}
+								address={address}
+								style={i === activeIndex ? { border: '2px solid #000' } : null} />
 						))
 					}
-					<div className="address-card add-address"
-						onClick={() => setShowForm(true)}
-					>
+					<div className="w-80 h-40 mt-4 flex flex-col px-2 items-center justify-center cursor-pointer 
+					rounded-md border-dashed border hover:border-primary hover:scale-110"
+						onClick={() => setShowForm(true)}>
 						<div className="add-icon">
 							<AddIcon className="icon-add" />
 						</div>
