@@ -6,8 +6,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import SideCartItem from './SideCartItem';
 const SideCart = (props) => {
-
-  
+  console.log(props.cartItems);
     return (
         <div onClick={()=>props.showCart(false)} className={`cart-full ${props.showcart&&'show-side-cart'}`}>
             <div className="side-cart" onClick={(e)=>e.stopPropagation()}>
@@ -21,15 +20,12 @@ const SideCart = (props) => {
                 {props.cartItems?.map((cart,i)=>(
                   <SideCartItem
                   key={cart.id}
-                  id={cart.id}
-                  productId={cart.productId}
-                  title={cart.title}
-                  quanity={cart.quanity}
-                  imageUrl={cart.imageUrl}
-                  price={cart.price}
-                  totalPrice={cart.totalPrice}
-                  color={cart.color}
-                  size={cart.size}
+                  id={cart.product.id}
+                  name={cart.product.name}
+                  picUrl={cart.product.picUrl}
+                  mrp={cart.product.mrp}
+                  totalPrice={12}
+                  quantity={cart.quantity}
                   />
                 ))}
               </div>
