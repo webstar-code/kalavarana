@@ -138,10 +138,10 @@
     .main-header{
         padding: 15px 0;
     }
-    .header-img img{
-        /* height: 32px;
-        width: 84px; */
-    }
+    /* .header-img img{
+        height: 32px;
+        width: 84px;
+    } */
 }
 @media(max-width:375px){
     .nav-links{

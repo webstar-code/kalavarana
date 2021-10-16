@@ -52,20 +52,21 @@ export const sendOtp = (number, dispatch) => {
 
 }
 
-export const sigin = (phoneNumber, email, name) => async dispatch => {
+export const sigin = (phoneNumber, email, name, uid) => async dispatch => {
+  console.log(uid);
   const newUser = {
     name,
     email,
     phoneNumber: '+91' + phoneNumber,
     role: 'user',
     picUrl: '',
-    lastSignInDateTime: ''
+    lastSignInDateTime: '',
+    id: uid
   }
 
-  const docref = db.users.doc();
+  const docref = db.users.doc(uid);
   docref.set({
     ...newUser,
-    id: docref.id
   }).then(() => {
     console.log("new user added");
     dispatch({ type: OTP, payload: newUser });
@@ -84,6 +85,7 @@ export const submitOtp = (otp) => async dispatch => {
   let optConfirm = window.confirmationResult;
   optConfirm.confirm(otpInput).then((result) => {
     let user = result.user;
+    console.log(result);
     // check if the user already exists
     db.users.get().then(querySnapshot => {
       querySnapshot.forEach((doc) => {
@@ -101,7 +103,10 @@ export const submitOtp = (otp) => async dispatch => {
         history.push('/');
       } else {
         console.log("user does not exists");
-        history.push('/signup');
+        history.push({
+          pathname: '/signup',
+          state: {uid: result.user.uid}
+        });
       }
     })
   }).catch(function (error) {

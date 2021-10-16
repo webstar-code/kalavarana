@@ -25,39 +25,25 @@ const Header = (props) => {
 	const [showAccs, setShowAccs] = useState(false)
 	const [showMore, setShowMore] = useState(false)
 	return (
-		<div className="main-header fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full pt-6 px-3 flex z-10">
+		<div className="fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full h-20 md:h-36 pt-4 px-3 z-10">
 			<div className="flex items-center justify-around">
 				<div className="div">
 
 				</div>
-				<div className="burger" onClick={() => setShowSideBar(true)}>
-					<FiMenu className="menu" />
+				<div className="md:hidden" onClick={() => setShowSideBar(true)}>
+					<FiMenu className="text-xl" />
 				</div>
-				<div className="ml-36 header-img">
-					<Link to="/"><img src={KALAVARANA_LOGO} alt="KALAVARNA" className="w-1/2 h-1/2 mx-auto" /></Link>
+				<div className="ml-36">
+					<Link to="/"><img src={KALAVARANA_LOGO} alt="KALAVARNA" className="w-2/5 h-2/5 md:w-1/2 md:h-1/2 md:mx-auto" /></Link>
 				</div>
 				<div className="flex justify-evenly text-black">
 					<BiSearch className="text-xl mx-3" />
-					<Link to="/profile"><AiOutlineUser className="top-user-icon text-xl mx-3" /></Link>
+					<Link to="/profile"><AiOutlineUser className="hidden md:block text-xl mx-3" /></Link>
 					<Link to="/cart"><div className="cart-icon"><span>{props.cart?.length}</span><FiShoppingCart className="text-xl mx-3" /></div></Link>
-					<div className="relative first-list notification">
-						<AiOutlineBell className="top-bell-icon text-xl mx-3" />
-						{/* <div className=" drop-down ">
-							<div className="noti">
-								<div className="noti-icon mr-4">
-									<NotificationsIcon />
-								</div>
-								<div className="noti-text">
-                           <p className="text-sm">Your Order Has been Shipped!</p>
-                           <span className="text-xs text-gray-300">21 Feb 2021</span>
-                       </div>
-							</div>
-						</div> */}
-					</div>
 				</div>
 			</div>
-			<div className="bottom-header flex w-full px-10 items-center justify-center pt-8 pb-5 ">
-				<ul className={`nav-links ${showSideBar && 'show-side-bar'} cursor-pointer upper-case flex w-3/4 items-center justify-center`}>
+			<div className="bottom-header flex w-full px-10 py-5 items-center justify-center ">
+				<ul className={`nav-links ${showSideBar && 'show-side-bar'} cursor-pointer upper-case flex items-center`}>
 					<div className="profile">
 						<Link to="/profile-and-details"> <AiOutlineUser className="user-icon" /></Link>
 						<p>{props.user?.name}</p>
@@ -85,7 +71,7 @@ const Header = (props) => {
 							</div>
 						</li></Link>
 
-					<Link>
+					<Link to={`/category/Category1`}>
 						<li className="hover relative first-list whitespace-nowrap">Tanjore Painting
 							<div className="drop-down whitespace-nowrap">
 								<p className="flex py-2">Sub-category1</p>
@@ -106,7 +92,7 @@ const Header = (props) => {
 						</li>
 					</Link>
 
-					<Link>
+					<Link to={`/category/Category2`}>
 						<li className="hover relative first-list whitespace-nowrap">Tanjore2D Painting
 							<div className="drop-down whitespace-nowrap">
 								<p className="flex py-2">Sub-category1</p>
@@ -127,7 +113,7 @@ const Header = (props) => {
 						</li>
 					</Link>
 
-					<Link>
+					<Link to={`/category/tanjore3d_paintnig`}>
 						<li className="hover relative first-list whitespace-nowrap ">Tanjore3D Painting
 							<div className="drop-down whitespace-nowrap">
 								<p className="flex py-2">Sub-category1</p>

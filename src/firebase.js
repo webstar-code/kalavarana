@@ -25,6 +25,7 @@ export const storage = firebase.storage()
 export const firestore = firebase.firestore()
 export const db = {
   users: firestore.collection('USERS'),
+  products: firestore.collection('PRODUCTS'),
   // address: firestore.collection('addresses'),
   // wishlist: firestore.collection('wishlist'),
   // reviews: firestore.collection('reviews'),
@@ -35,7 +36,7 @@ export const db = {
   },
   getCurrentTimeStamp: firebase.firestore.FieldValue.serverTimestamp,
 }
-db.users.get().then((arr) => arr.forEach((doc) => console.log(doc.data())));
+// db.users.get().then((arr) => arr.forEach((doc) => console.log(doc.data())));
 // db.address.get().then((arr) => arr.forEach((doc) => console.log(doc.data())));
 
 export default firebase;

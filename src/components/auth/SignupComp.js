@@ -7,6 +7,7 @@ import { sigin } from '../../actions'
 import Msg from '../notification/Msg'
 import TextField from '@material-ui/core/TextField';
 import { COLLAGE, KALAVARANA_LOGO } from '../../assetsKalavarna'
+import { useLocation  } from 'react-router-dom';
 
 const SignupComp = (props) => {
   const [name, setName] = useState('')
@@ -17,6 +18,8 @@ const SignupComp = (props) => {
   const [isNumber, setIsNumber] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   // const [validate,setValidate]=useState({isName:true,isNumber:true,isEmail:true,hasOtp:true})
+  const location = useLocation();
+  console.log(location.state);
 
   console.log(props.mobNo)
   const validate = (type, value) => {
@@ -59,7 +62,7 @@ const SignupComp = (props) => {
       setIsNumber(true)
       setIsEmail(true)
       setIsLoading(true)
-      props.sigin(number, email, name)
+      props.sigin(number, email, name, location.state.uid)
     }
   };
 
@@ -119,7 +122,6 @@ const SignupComp = (props) => {
   )
 }
 const mapStateToProps = (state) => {
-  console.log(state)
   return { user: state?.user?.user, mobNo: state.mobNo.mobNo }
 }
 export default connect(mapStateToProps, { sigin })(SignupComp)

@@ -56,7 +56,7 @@ const UserInfo = ({ user }) => {
           id="outlined-basic"
           label="PHONE NUMBER"
           variant="outlined"
-          value={user?.mobNo}
+          value={user?.phoneNumber}
         />
         <button className="update-profile-btn" style={{background: '#08263F'}}>Update Info</button>
       </div>
@@ -64,4 +64,8 @@ const UserInfo = ({ user }) => {
   )
 }
 
-export default connect()(UserInfo)
+
+const mapStateToProps=(state)=>{
+  return{user:state.user?.user}
+ }
+export default connect(mapStateToProps, {})(UserInfo)
