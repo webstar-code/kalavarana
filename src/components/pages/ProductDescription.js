@@ -18,6 +18,7 @@ import RelatedProducts from '../product/RelatedProducts'
 import SideCart from '../sideCart/SideCart'
 import Fabric from '../product/Fabric'
 import { PAINTING1 } from '../../assetsKalavarna'
+import { useParams } from 'react-router-dom'
 
 const dummyData = {
   imageUrl: PAINTING1,
@@ -31,120 +32,122 @@ const dummyData = {
 
 
 const ProductDescription = (props) => {
-  const [product, setProductt] = useState({})
-  const [quanity, setCount] = useState(1)
-  const [coustomText, setCustomText] = useState('')
-  const [showSizeChart, setShowSizeChart] = useState(false)
-  const [selectedSize, setSelectedSize] = useState('')
-  const [selectedColor, setSelectedColor] = useState('')
-  const [selectedFabric, setSelectedFabric] = useState('')
-  const [colorActiveIndex, setColorActiveIndex] = useState()
-  const [sizeActiveIndex, setSizeActiveIndex] = useState()
-  const [fabricActiveIndex, setFabricActiveIndex] = useState()
-  console.log(product)
-  const getSize = (size, activeIndex) => {
-    setSelectedSize(size)
-    setSizeActiveIndex(activeIndex)
-    console.log(size)
-  }
-
-  const getColor = (color, activeIndex) => {
-    console.log(color)
-    setSelectedColor(color)
-    setColorActiveIndex(activeIndex)
-  }
-
-  const getFabric = (fabric, activeIndex) => {
-    setSelectedFabric(fabric)
-    console.log(fabric)
-    setFabricActiveIndex(activeIndex)
-
-  }
-
-
+  let productID = useParams().id;
+  const [product, setProduct] = useState({})
+  const [quantity, setCount] = useState(1)
 
 
   useEffect(() => {
-    firestore.collection('spring-oasis-product').doc(props.id).get()
+    // firestore.collection('spring-oasis-product').doc(props.id).get()
+    //   .then((doc) => {
+    //     setProductt(db.formatedDoc(doc))
+    //     console.log(product)
+    //   })
+
+    firestore.collection('PRODUCTS').doc(productID).get()
       .then((doc) => {
-        setProductt(db.formatedDoc(doc))
-        console.log(product)
+        setProduct(doc.data());
       })
   }, [])
 
 
 
-  if (quanity <= 0) {
+  if (quantity <= 0) {
     setCount(1)
   }
 
 
   const handleAddToCart = () => {
     props.addToCart({
-      title: product?.title,
-      price: product?.price,
-      imageUrl: product?.imageUrl,
-      productId: product?.productId,
-      quanity,
-      coustomText,
-      color: selectedColor,
-      size: selectedSize,
-      fabric: selectedFabric,
+      product: { ...product },
+      quantity
     })
+    props.getCartItems();
   }
 
   const handleWishList = () => {
-    props.addToWhislist(
-      props.id,
-      product?.title,
-      product?.originalPrice,
-      product?.price,
-      product?.imageUrl
-    )
+    props.addToWhislist({
+      ...product
+    })
   }
 
   return (
     <>
       <Msg />
-      {showSizeChart && <SizeChart setShowSizeChart={setShowSizeChart} />}
       <Header />
       <div className="product-des-container">
         <div className="product-info-area">
           <div className="product-images">
             <div className="main-img">
-              {/* {product?.imageUrl && <img src={product?.imageUrl} alt="" />} */}
               <img src={PAINTING1} className="w-96 h-96" />
             </div>
-            {/* <div className="all-imgs">
-              <div className="single-img">
-                <img src={product?.imageUrl} alt="" />
-              </div>
-              <div className="single-img">
-                <img src={product?.imageUrl} alt="" />
-              </div>
-              <div className="single-img">
-                <img src={product?.imageUrl} alt="" />
-              </div>
-              <div className="single-img">
-                <img src={product?.imageUrl} alt="" />
-              </div>
-            </div> */}
           </div>
           <div className="product-selection">
             <div className="title-price">
-              <h1>{dummyData?.title}</h1>
+              <h1>{product?.name}</h1>
               <div>
-                <h1> <span>Rs{dummyData?.originalPrice}</span>Rs{dummyData?.price}</h1>
-                <p className="inline-block text-sm text-gray-400">Discount Applied : 20% off</p>
+                <h1>{product?.mrp}</h1>
+                <p className="inline-block text-sm text-gray-400">Discount Applied : {product?.discountPercentage}% off</p>
+              </div>
+            </div>
+            <div className="flex flex-col w-1/2">
+              <div className="flex justify-between">
+                <p className="border-b border-opacity-50 w-full py-3">Width</p>
+                <p className="font-semibold h-full border-b py-3 w-1/5 text-right">{product?.width}cm</p>
+              </div>
+              <div className="flex justify-between">
+                <p className="border-b border-opacity-50 w-full py-3">Height</p>
+                <p className="font-semibold h-full border-b py-3 w-1/5 text-right">{product?.height}cm</p>
               </div>
             </div>
             <div className="flex flex-col">
-              <h3 className="">Measurements: 180 cm x 70 cm</h3>
               <p className="text-sm py-4 text-gray-400">{dummyData.description}</p>
+            </div>
+            <div className="handle-cart">
+              <div className="quanity">
+                <div className="decrease" onClick={() => setCount(quantity - 1)}>
+                  <RemoveIcon />
+                </div>
+                <div className="count">
+                  {quantity}
+                </div>
+                <div className="increase" onClick={() => setCount(quantity + 1)}>
+                  <AddIcon />
+                </div>
+              </div>
+
+              <button onClick={handleAddToCart} className="add-to-cart-btn">
+                ADD TO CART
+              </button>
+              <button onClick={handleWishList} className="add-to-wishlist">
+                ADD TO WISHLIST
+              </button>
 
             </div>
 
-            {/* <div className="sizes">
+          </div>
+
+
+        </div>
+        <Description text={dummyData?.description} />
+        <Reviews productID={dummyData?.productID} />
+        <RelatedProducts />
+        <SideCart />
+      </div>
+    </>
+  )
+}
+
+const mapStateToProsp = (state, ownProps) => {
+  return {
+    id: ownProps.match.params.id,
+    userId: state.user?.user?.userId,
+  }
+}
+export default connect(mapStateToProsp, { addToWhislist, addToCart, getCartItems })(ProductDescription)
+
+
+{/* <div className="sizes">
               <div className="size-chart">
                 <p>Select Size</p>
                 <p onClick={() => setShowSizeChart(true)}>SIZE CHART</p>
@@ -165,7 +168,7 @@ const ProductDescription = (props) => {
               </div>
             </div> */}
 
-            {/* <div className="custom-size">
+{/* <div className="custom-size">
 
             </div>
             <div className="colors">
@@ -205,47 +208,3 @@ const ProductDescription = (props) => {
                 ))}
               </div>
             </div> */}
-
-
-            <div className="handle-cart">
-              <div className="quanity">
-                <div className="decrease" onClick={() => setCount(quanity - 1)}>
-                  <RemoveIcon />
-                </div>
-                <div className="count">
-                  {quanity}
-                </div>
-                <div className="increase" onClick={() => setCount(quanity + 1)}>
-                  <AddIcon />
-                </div>
-              </div>
-
-              <button onClick={handleAddToCart} className="add-to-cart-btn">
-                ADD TO CART
-              </button>
-              <button onClick={handleWishList} className="add-to-wishlist">
-                ADD TO WISHLIST
-              </button>
-
-            </div>
-
-          </div>
-
-
-        </div>
-        <Description text={dummyData?.description} />
-        <Reviews productId={dummyData?.productId} />
-        <RelatedProducts />
-        <SideCart />
-      </div>
-    </>
-  )
-}
-
-const mapStateToProsp = (state, ownProps) => {
-  return {
-    id: ownProps.match.params.id,
-    userId: state.user?.user?.userId,
-  }
-}
-export default connect(mapStateToProsp, { addToWhislist, addToCart, getCartItems })(ProductDescription)

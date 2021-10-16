@@ -24,55 +24,25 @@ const dummyData = {
 const WhisList = (props) => {
     const [product, setProduct] = useState([])
     useEffect(() => {
-        db.wishlist.where('userId', '==', props?.userId)
-            .get()
-            .then((sanpShot) => {
-                console.log(sanpShot.docs.map(db.formatedDoc))
-                setProduct(sanpShot.docs.map(db.formatedDoc))
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+        db.users.doc(props.user.id).collection('WISHLIST').get().then((snapshot) => {
+            setProduct(snapshot.docs.map(e => db.formatedDoc(e)))
+        })
     }, [props.userId])
     return (
         <>
             <Header />
             <div className="profile-page">
                 <ProfileNavigation />
-                <div className="wish-list">
+                <div className="wish-list px-10">
                     <h1 className="profile-title orders-title">Wish List</h1>
-                    {/* {
-                        product.map((pro, i) => (
-                            <DressCard
-                                name={pro?.title}
-                                price={pro?.price}
-                                originalPrice={pro?.originalPrice}
-                                id={pro?.productId}
-                                imageUrl={pro?.imageUrl}
-                                key={pro?.productId}
-                            />
-                        ))
-                    } */}
-                    <PaintingCard
-                        name={dummyData.title}
-                        price={dummyData.price}
-                        originalPrice={dummyData.originalPrice}
-                        id={dummyData.productId}
-                        imageUrl={dummyData.imageUrl}
-                        key={dummyData.productId}
-                    />
+                    <div className="grid grid-cols-2 md:grid-cols-3  gap-3">
+                        {
+                            product.map((pro) => (
+                                <PaintingCard product={pro} key={pro.id} />
+                            ))
+                        }
 
-                    <PaintingCard
-                        name={dummyData.title}
-                        price={dummyData.price}
-                        originalPrice={dummyData.originalPrice}
-                        id={dummyData.productId}
-                        imageUrl={dummyData.imageUrl}
-                        key={dummyData.productId}
-                    />
-
-
-
+                    </div>
                 </div>
             </div>
         </>
@@ -80,7 +50,7 @@ const WhisList = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    return { userId: state.user?.user?.userId }
+    return { user: state.user?.user }
 }
 
 export default connect(mapStateToProps)(WhisList)
