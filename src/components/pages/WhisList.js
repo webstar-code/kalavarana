@@ -9,16 +9,36 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { PAINTING2 } from '../../assetsKalavarna';
 import PaintingCard from '../cards/PaintingCard';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import { Link } from 'react-router-dom';
 
 
-const dummyData = {
-    title: 'Ganesh Painting',
-    price: 5.99,
-    originalPrice: 7.99,
-    id: 123,
-    imageUrl: PAINTING2,
-    key: 123
-}
+const dummyData = [
+    {
+        title: 'Ganesh Painting',
+        mrp: 5.99,
+        id: 123,
+        picUrl: PAINTING2,
+    },
+    {
+        title: 'Ganesh Painting',
+        mrp: 5.99,
+        id: 123,
+        picUrl: PAINTING2,
+    },
+    {
+        title: 'Ganesh Painting',
+        mrp: 5.99,
+        id: 123,
+        picUrl: PAINTING2,
+    },
+    {
+        title: 'Ganesh Painting',
+        mrp: 5.99,
+        id: 123,
+        picUrl: PAINTING2,
+    },
+]
 
 
 const WhisList = (props) => {
@@ -33,13 +53,19 @@ const WhisList = (props) => {
             <Header />
             <div className="profile-page">
                 <ProfileNavigation />
-                <div className="wish-list px-10">
-                    <h1 className="profile-title orders-title">Wish List</h1>
+                <div className="wish-list">
+                    <h1 className="profile-title text-primary flex items-center">
+                        <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
+                        Wishlist</h1>
                     <div className="grid grid-cols-2 md:grid-cols-3  gap-3">
                         {
-                            product.map((pro) => (
+                            // product.map((pro) => (
+                            //     <PaintingCard product={pro} key={pro.id} />
+                            // ))
+                            dummyData.map((pro) => (
                                 <PaintingCard product={pro} key={pro.id} />
                             ))
+
                         }
 
                     </div>
