@@ -114,7 +114,7 @@ export const deleteAdress = (id) => async (dispatch, getState) => {
 //update specific address
 
 export const updateAddress = (id, data) => async (dispatch, getState) => {
-  console.log(id, data);
+  // console.log(id, data);
   const userID = getState().user?.user?.id;
   const userDbRef = db.users.doc(userID);
 

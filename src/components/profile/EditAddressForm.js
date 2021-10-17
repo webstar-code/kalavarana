@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import { connect } from 'react-redux'
-import { updateAddress } from '../../actions/address'
+import { updateAddress, getAddresses } from '../../actions/address'
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import '../../styles/addressform.css'
 const EditAddressForm = (props) => {
-  console.log(props);
   const [country, setCountry] = useState(props.country)
   const [addressType, setAddressType] = useState(props.addressType)
   const [pinCode, setPinCode] = useState(props.pinCode)
@@ -22,8 +21,9 @@ const EditAddressForm = (props) => {
 
   const submitAddress = (e) => {
     e.preventDefault()
-    console.log("update clicked");
     props.updateAddress(props.id, { name, number, country, state, addressType, pinCode, addressLine1, addressLine2, landmark, city })
+		props.getAddresses();
+
     setShowFirstForm(true)
     props.setShowForm(false)
   }
@@ -165,4 +165,4 @@ const EditAddressForm = (props) => {
   )
 }
 
-export default connect(null, { updateAddress })(EditAddressForm)
+export default connect(null, { updateAddress, getAddresses })(EditAddressForm)

@@ -5,13 +5,18 @@ import { useState } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import { Link } from 'react-router-dom';
+
 const UserInfo = ({ user }) => {
 
   const [country, setCountry] = useState('United Arab Emirates')
 
   return (
     <div className="user-info">
-      <h1 className="profile-title">Profile Details</h1>
+      <h1 className="profile-title text-primary flex items-center">
+        <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span> 
+        Profile Details</h1>
       <div className="info">
         <TextField
           style={{ marginTop: '40px' }}
@@ -58,7 +63,7 @@ const UserInfo = ({ user }) => {
           variant="outlined"
           value={user?.phoneNumber}
         />
-        <button className="update-profile-btn" style={{background: '#08263F'}}>Update Info</button>
+        <button className="update-profile-btn bg-primary">Update Info</button>
       </div>
     </div>
   )

@@ -7,10 +7,19 @@ import AddressCard from './AddressCard'
 import AddIcon from '@material-ui/icons/Add';
 import AddressForm from './AddressForm';
 import Msg from '../notification/Msg'
+import { Link } from 'react-router-dom'
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+
 const Adress = (props) => {
 	const [showForm, setShowForm] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(0);
-	
+
+
+	useEffect(() => {
+		console.log("get adderss");
+		props.getAddresses();
+	}, []);
+
 	const getActiveAdd = (addIndex) => {
 		setActiveIndex(addIndex)
 	}
@@ -22,7 +31,9 @@ const Adress = (props) => {
 			<div className="profile-page">
 				<ProfileNavigation />
 				<div className="address">
-					<h1 className="profile-title">My Address</h1>
+					<h1 className="profile-title text-primary flex items-center">
+						<span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
+						My Address</h1>
 					{
 						props.addresses.map((address, i) => (
 							<AddressCard

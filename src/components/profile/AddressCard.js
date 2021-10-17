@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux'
 import EditAddressForm from './EditAddressForm';
-import { deleteAdress } from '../../actions/address'
+import { deleteAdress, getAddresses } from '../../actions/address'
 import EditIcon from '@material-ui/icons/Edit';
 import WarningIcon from '@material-ui/icons/Warning';
 const AddressCard = (props) => {
@@ -10,10 +10,15 @@ const AddressCard = (props) => {
   const [showForm, setShowForm] = useState(false)
   const [selected, setSelected] = useState(false);
 
+  useEffect(() => {
+    console.log("get adderss");
+    props.getAddresses();
+  }, []);
 
   const handleDelete = () => {
     props.deleteAdress(props?.address?.id)
     setShowModal(false)
+    props.getAddresses();
   }
 
 
@@ -73,4 +78,4 @@ const AddressCard = (props) => {
   )
 }
 
-export default connect(null, { deleteAdress })(AddressCard)
+export default connect(null, { deleteAdress, getAddresses })(AddressCard)

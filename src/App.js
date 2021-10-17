@@ -50,10 +50,10 @@ const App = (props) => {
         if (props.user?.id) {
             props.getCartItems()
             props.getAddresses()
-            // props.getOrders()
+            props.getOrders()
         }
 
-    }, [props.user?.id])
+    }, [props.user])
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
