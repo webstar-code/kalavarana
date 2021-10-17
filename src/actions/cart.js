@@ -23,13 +23,16 @@ export const addToCart = (data) => async (dispatch, getState) => {
         })
     }).then(() => {
         if (exists == false) {
+            console.log(data);
             userDbRef.collection('CARTITEMS').doc(data.product.id).set({
                 ...data
             }).then(() => {
-                dispatch({ type: ADD_TO_CART, payload: { ...data, userID } })
-                dispatch(showCart(true))
+                dispatch({ type: ADD_TO_CART, payload: { ...data }})
                 console.log("item added in cart")
+            }).then(() => {
+                dispatch(showCart(true))
             })
+
                 .catch((err) => {
                     console.log(err);
                 })
@@ -108,12 +111,12 @@ export const updateCartQauntity = (id, quantity) => async (dispatch, getState) =
     db.users.doc(userID).collection('CARTITEMS').doc(id).update({
         quantity
     })
-    .then(() => {
-        console.log("upadted");
-        dispatch({ type: UPDATE_CART_QUANITY, payload: id })
-    }).catch((err) => {
-        console.log(err)
-    })
+        .then(() => {
+            console.log("upadted");
+            dispatch({ type: UPDATE_CART_QUANITY, payload: id })
+        }).catch((err) => {
+            console.log(err)
+        })
 
     // db.cart.doc(id).update({
     //     quanity: quanity,

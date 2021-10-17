@@ -14,6 +14,8 @@ const SideCartItem = (props) => {
     useEffect(() => {
         if (!props.disable) {
             props.updateCartQauntity(props.id, updatedQuantity)
+            props.getCartItems()
+
         }
     }, [updatedQuantity])
 

@@ -32,7 +32,7 @@ export const db = {
   // cart: firestore.collection('cart'),
   // orders: firestore.collection('orders'),
   formatedDoc: doc => {
-    return { id: doc.id, ...doc.data() }
+    return {...doc.data() }
   },
   getCurrentTimeStamp: firebase.firestore.FieldValue.serverTimestamp,
 }

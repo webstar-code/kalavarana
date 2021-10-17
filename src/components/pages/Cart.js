@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../styles/cart.css'
 import { connect } from 'react-redux'
 import { checkout } from '../../actions/checkout'
@@ -13,10 +13,10 @@ const Cart = (props) => {
 	const [showForm, setShowForm] = useState(false)
 	const [showPromo, setShowPromo] = useState(false)
 	const [payOnline, setPayOnline] = useState(true)
-	const [activeIndex, setActiveIndex] = useState(null)
+	const [activeIndex, setActiveIndex] = useState(0)
 	const [Discount, setDiscount] = useState(0)
 	const [Code, setCode] = useState('')
-	const [selectedAddress, setSelectedAddress] = useState({})
+	const [selectedAddress, setSelectedAddress] = useState(props.addresses[0])
 
 	const getCodeNDiscount = (discount, code) => {
 		setDiscount(discount)
@@ -33,8 +33,9 @@ const Cart = (props) => {
 
 
 	const handleCheckout = () => {
+		console.log(selectedAddress);
 		props.checkout({
-			addressId: selectedAddress,
+			address: selectedAddress,
 			orderType: 'Paid Online',
 			Discount,
 			Code

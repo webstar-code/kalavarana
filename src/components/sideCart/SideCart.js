@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../../styles/sidecart.css'
 import CloseIcon from '@material-ui/icons/Close';
 import {showCart}from '../../actions/cart'
