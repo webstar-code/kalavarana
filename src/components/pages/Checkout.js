@@ -7,10 +7,10 @@ import { placeOrder } from '../../actions/orders'
 import Header from '../Header'
 const Checkout = (props) => {
 	console.log(props);
-	const [grandTotal, setGrandTotal] = useState(props.checkout.subTotal + props.checkout.deliveryCharges)
+	const [grandTotal, setGrandTotal] = useState(props.checkout.subTotal + props.checkout.deliveryCharge)
 
 	const handlePlaceOrder = () => {
-		props.placeOrder({ ...props.checkout, grandTotal })
+		props.placeOrder({ ...props.checkout, grandTotal, isPaymentDone: true })
 	}
 	const loadScripts = (src) => {
 		return new Promise((resolve) => {
@@ -37,7 +37,6 @@ const Checkout = (props) => {
 		//This is a sample Order ID. Pass the `id` obtained in the response of Step 1
 		"handler": function (response) {
 			props.placeOrder({ ...props.checkout, grandTotal, paymentId: response.razorpay_payment_id })
-
 		},
 		"prefill": {
 			"name": props.user.name,
@@ -86,7 +85,7 @@ const Checkout = (props) => {
 						<h1 className="text-xl font-bold">Delivering to,</h1>
 						<div className="address">
 							<AddressCard
-								address={props.checkout.addressId}
+								address={props.checkout.address}
 								disable
 							/>
 						</div>
@@ -97,20 +96,24 @@ const Checkout = (props) => {
 									<p>Item Total</p><p>{props.total}</p>
 								</div>
 								<div className="price-item">
-									<p>Delivery Charges</p><p>{props.checkout.deliveryCharges >= 0 ? 'FREE' : props.checkout.deliveryCharges}</p>
+									<p>Delivery Charges</p><p>{props.checkout.deliveryCharge}</p>
 								</div>
 								<div className="price-item">
-									<p>Discount</p><p>-{props.checkout.Discount} rs</p>
+									<p>Discount</p><p>-{props.checkout.Discount}</p>
 								</div>
 								<div className="price-item">
-									<p className="font-bold">Grand Total</p><p className="font-bold">{grandTotal}</p>
+									<p className="font-bold">Grand Total</p><p className="font-bold">{grandTotal} Rs</p>
 								</div>
 								<p className="text-xs text-left mt-2" style={{ width: '100%' }}>*All prices are inclusive of taxes</p>
 							</div>
 						</div>
 
 						<div className="process-area">
-							{props.checkout.orderType === "Paid Online" ? <button onClick={displayRazorpay}>Pay Online</button> : <button onClick={handlePlaceOrder}>Process</button>}
+							<button onClick={handlePlaceOrder}>Pay Online</button>
+
+							{/* {props.checkout.orderType === "Paid Online" ? 
+							<button onClick={displayRazorpay}>Pay Online</button> 
+							: <button onClick={handlePlaceOrder}>Process</button>} */}
 						</div>
 					</div>
 
