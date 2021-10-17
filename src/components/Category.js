@@ -5,39 +5,29 @@ import { Link } from 'react-router-dom';
 import { db, firestore } from '../firebase';
 import { useParams } from 'react-router-dom'
 import PaintingCard from './cards/PaintingCard'
- 
+import Footer from './Footer';
+
 const producst = [
     {
-        imgurl: PAINTING1,
-        title: "Ganesh Painting",
-        price: '$5.99',
-        orignalPrice: '$5.99'
+        picUrl: PAINTING1,
+        name: "Ganesh Painting",
+        mrp: '$5.99',
     },
     {
-        imgurl: PAINTING1,
-        title: "Ganesh Painting",
-        price: '$5.99',
-        orignalPrice: '$5.99'
+        picUrl: PAINTING1,
+        name: "Ganesh Painting",
+        mrp: '$5.99',
     },
     {
-        imgurl: PAINTING1,
-        title: "Ganesh Painting",
-        price: '$5.99',
-        orignalPrice: '$5.99'
+        picUrl: PAINTING1,
+        name: "Ganesh Painting",
+        mrp: '$5.99',
     },
     {
-        imgurl: PAINTING1,
-        title: "Ganesh Painting",
-        price: '$5.99',
-        orignalPrice: '$5.99'
+        picUrl: PAINTING1,
+        name: "Ganesh Painting",
+        mrp: '$5.99',
     },
-    {
-        imgurl: PAINTING1,
-        title: "Ganesh Painting",
-        price: '$5.99',
-        orignalPrice: '$5.99'
-    },
-
 ]
 
 
@@ -70,13 +60,17 @@ const SubCat = ({ subcat }) => {
             <div className="bg-primary flex" style={{ height: '256px' }}>
                 <h1 className="text-white text-2xl md:text-5xl mt-auto px-8 py-10">{subcat.name}</h1>
             </div>
-            <Link to={`${window.location.pathname}/${subcat.name}`} className="ml-auto">
-                <button className="ml-auto uppercase border my-8 px-6 py-2 cursor-pointer">view all</button>
-            </Link>
-            <div className="w-full md:w-4/5 px-6 md:px-0 mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-                {products.map((product, i) => (
-                    <PaintingCard product={product} key={i} />
-                ))}
+            <div className="flex flex-col-reverse md:flex-col items-center justify-center">
+                <Link to={`${window.location.pathname}/${subcat.name}`} className="ml-auto">
+                    <button className="ml-auto mr-4 md:mr-0 uppercase border my-8 px-6 py-2 cursor-pointer">view all</button>
+                </Link>
+                <div className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 mt-4 place-items-center">
+                    {products.map((product) => (
+                        <div className="w-32 xl:w-64 md:w-48 max-w-xs">
+                            <PaintingCard product={product} key={product.id} />
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )
@@ -122,16 +116,19 @@ const Category = () => {
     }, [categoryInfo]);
 
     return (
-        <div className="w-full flex flex-col mt-20 md:mt-36">
+        <>
             <Header />
-            <div className="w-full bg-primary flex items-center justify-center" style={{ height: '512px' }}>
-                <h1 className="text-white text-2xl md:text-5xl uppercase">{categoryInfo.name}</h1>
-                <img src={categoryInfo.picUrl}/>
+            <div className="w-full flex flex-col mt-20 md:mt-36">
+                <div className="w-full bg-primary flex items-center justify-center" style={{ height: '512px' }}>
+                    <h1 className="text-white text-2xl md:text-5xl uppercase">{categoryInfo.name}</h1>
+                    {/* <img src={categoryInfo.picUrl} /> */}
+                </div>
+                {subCats.map((item) => (
+                    <SubCat subcat={item} />
+                ))}
             </div>
-            {subCats.map((item) => (
-                <SubCat subcat={item} />
-            ))}
-        </div>
+            <Footer />
+        </>
     )
 }
 

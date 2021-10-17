@@ -47,26 +47,26 @@ const Cards = ({ collection, colors }) => {
 		},
 	]
 	return (
-		<div className="cards-1-area w-full p-10 flex flex-col justify-start">
-			<div className="collection-header flex items-end justify-between">
+		<div className="w-full md:w-4/5 mx-auto p-6 md:p-10 flex flex-col justify-start">
+			<div className="flex items-end justify-between">
 				<div className="flex">
-					<h1 className="text-2xl font-bold">{collection}</h1>
+					<h1 className="text-2xl md:text-3xl font-bold pb-2">{collection}</h1>
 				</div>
 				<div className="shop-btn-1 p-3 border-2 border-black text-md uppercase">VIEW ALL</div>
 				{/* <div className="shop-btn-2  p-3 border-2 border-black text-md">SHOP</div> */}
 			</div>
-			<div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
+			<div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 mt-4 place-items-center">
 				{
-					// data.map((product) => (
-					// 	<div className="md:w-64 w-48 max-w-xs">
-					// 		<PaintingCard product={product} key={product.id} />
-					// 	</div>
-					// ))
-					products.map((product) => (
-						<div className="md:w-64 w-48 max-w-xs">
+					data.map((product) => (
+						<div className="w-32 xl:w-64 md:w-48 max-w-xs">
 							<PaintingCard product={product} key={product.id} />
 						</div>
 					))
+					// products.map((product) => (
+					// 	<div className=""w-32 md:w-64 w-48 max-w-xs">
+					// 		<PaintingCard product={product} key={product.id} />
+					// 	</div>
+					// ))
 				}
 			</div>
 		</div>

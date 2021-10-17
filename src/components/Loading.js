@@ -1,9 +1,11 @@
 import React from 'react'
+import BlueBgLogo from '../assetsKalavarna/logos/blue_bg_logo.png';
 
 const Loading = () => {
     return (
-        <div style={{marginTop:'200px'}} className="w-full h-full p-32 flex items-center justify-center">
-            <div className="loding-bar"></div>
+        <div className="w-full h-screen bg-primary p-32 pt-0 flex flex-col  items-center justify-center">
+            <img src={BlueBgLogo} className="w-40" />
+            <div className="loding-bar my-2"></div>
         </div>
     )
 }

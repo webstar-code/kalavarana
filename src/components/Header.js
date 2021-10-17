@@ -42,7 +42,7 @@ const Header = (props) => {
 					<Link to="/cart"><div className="cart-icon"><span>{props.cart?.length}</span><FiShoppingCart className="text-xl mx-3" /></div></Link>
 				</div>
 			</div>
-			<div className="bottom-header flex w-full px-10 py-5 items-center justify-center ">
+			<div className="bottom-header hidden md:flex  w-full px-10 py-5 items-center justify-center ">
 				<ul className={`nav-links ${showSideBar && 'show-side-bar'} cursor-pointer upper-case flex items-center`}>
 					<div className="profile">
 						<Link to="/profile-and-details"> <AiOutlineUser className="user-icon" /></Link>
@@ -80,7 +80,7 @@ const Header = (props) => {
 							</div>
 						</li>
 					</Link>
-					<Link>
+					<Link to={`/category/Category1`}>
 						<li className="onclick relative first-list whitespace-nowrap">
 							<span className="flex items-center justify-between" onClick={() => setTanjore(!showTanjore)}>Tanjore Painting
 								<IoMdArrowDropdown style={{ transform: showTanjore ? "rotate(180deg)" : "rotate(0deg)" }} /></span>
@@ -101,7 +101,7 @@ const Header = (props) => {
 							</div>
 						</li>
 					</Link>
-					<Link>
+					<Link to={`/category/Category2`}>
 						<li className="onclick relative first-list whitespace-nowrap">
 							<span className="flex items-center justify-between" onClick={() => setTanjore2D(!showTanjore2D)}>Tanjore2D Painting
 								<IoMdArrowDropdown style={{ transform: showTanjore2D ? "rotate(180deg)" : "rotate(0deg)" }} /></span>
@@ -113,7 +113,7 @@ const Header = (props) => {
 						</li>
 					</Link>
 
-					<Link to={`/category/tanjore3d_paintnig`}>
+					<Link to={`/category/Category3`}>
 						<li className="hover relative first-list whitespace-nowrap ">Tanjore3D Painting
 							<div className="drop-down whitespace-nowrap">
 								<p className="flex py-2">Sub-category1</p>
@@ -122,7 +122,7 @@ const Header = (props) => {
 							</div>
 						</li>
 					</Link>
-					<Link>
+					<Link to={`/category/Category3`}>
 						<li className="onclick relative first-list whitespace-nowrap">
 							<span className="flex items-center justify-between" onClick={() => setTanjore3D(!showTanjore3D)}>Tanjore3D Painting
 								<IoMdArrowDropdown style={{ transform: showTanjore3D ? "rotate(180deg)" : "rotate(0deg)" }} /></span>
@@ -136,9 +136,9 @@ const Header = (props) => {
 
 
 
-					<Link><li className="whitespace-nowrap">About us</li></Link>
-					<Link><li className="whitespace-nowrap">Blog</li></Link>
-					<Link><li className="whitespace-nowrap">Contact us</li></Link>
+					<Link to="/about"><li className="whitespace-nowrap">About us</li></Link>
+					<Link to="/blog"><li className="whitespace-nowrap">Blog</li></Link>
+					<Link to="/connect"><li className="whitespace-nowrap">Contact us</li></Link>
 
 					{/* <Link><li>ABAYAS</li></Link> */}
 					{/* <Link to="/collections"><li>Collections</li></Link> */}

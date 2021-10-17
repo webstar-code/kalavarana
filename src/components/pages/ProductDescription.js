@@ -21,10 +21,9 @@ import { PAINTING1 } from '../../assetsKalavarna'
 import { useParams } from 'react-router-dom'
 
 const dummyData = {
-  imageUrl: PAINTING1,
-  title: 'Ganesh Painting',
-  price: 10,
-  originalPrice: 12,
+  picUrk: PAINTING1,
+  name: 'Ganesh Painting',
+  mrp: 560,
   description: `The Painting is 100% handmade made with original 22 carat gold leaves and authentic 
   Jaipur gems by skilled artisans in Tanjore (Thanjavur). Beautiful gift for any auspicious occasion.`
 
@@ -38,15 +37,12 @@ const ProductDescription = (props) => {
 
 
   useEffect(() => {
-    // firestore.collection('spring-oasis-product').doc(props.id).get()
-    //   .then((doc) => {
-    //     setProductt(db.formatedDoc(doc))
-    //     console.log(product)
-    //   })
-
     firestore.collection('PRODUCTS').doc(productID).get()
       .then((doc) => {
+        console.log(doc.data());
         setProduct(doc.data());
+      }).catch((err) => {
+        console.log(err);
       })
   }, [])
 
@@ -75,18 +71,16 @@ const ProductDescription = (props) => {
     <>
       <Msg />
       <Header />
-      <div className="product-des-container">
-        <div className="product-info-area">
-          <div className="product-images">
-            <div className="main-img">
-              <img src={PAINTING1} className="w-96 h-96" />
-            </div>
+      <div className="w-full h-full flex flex-col items-center justify-center mt-20 md:mt-36">
+        <div className="w-full h-full md:w-4/5 px-5 md:px-0  mt-10 grid grid-cols-1 md:grid-cols-2 place-items-start items-start justify-between">
+          <div className="w-full flex justify-center items-center">
+            <img src={PAINTING1} className=" md:max-w-xs h-full" />
           </div>
-          <div className="product-selection">
-            <div className="title-price">
-              <h1>{product?.name}</h1>
-              <div>
-                <h1>{product?.mrp}</h1>
+          <div className="h-full flex flex-col items-start justify-start pl-8">
+            <div className="w-full flex justify-between items-start">
+              <h1 className="text-2xl md:text-3xl font-medium">{product?.name}</h1>
+              <div className="text-right">
+                <h1 className="text-base md:text-3xl font-medium">{product?.mrp}</h1>
                 <p className="inline-block text-sm text-gray-400">Discount Applied : {product?.discountPercentage}% off</p>
               </div>
             </div>
@@ -101,25 +95,25 @@ const ProductDescription = (props) => {
               </div>
             </div>
             <div className="flex flex-col">
-              <p className="text-sm py-4 text-gray-400">{dummyData.description}</p>
+              <p className="text-sm py-4 text-gray-400">{product?.description}</p>
             </div>
-            <div className="handle-cart">
-              <div className="quanity">
-                <div className="decrease" onClick={() => setCount(quantity - 1)}>
+            <div className="handle-cart w-full flex flex-col md:flex-row items-start md:items-center justify-between mt-auto">
+              <div className="flex ">
+                <div className="w-9 h-9 flex items-center justify-center text-white border border-primary cursor-pointer bg-primary" onClick={() => setCount(quantity - 1)}>
                   <RemoveIcon />
                 </div>
-                <div className="count">
+                <div className="w-9 h-9 flex items-center justify-center text-primary border border-primary cursor-pointer bg-white">
                   {quantity}
                 </div>
-                <div className="increase" onClick={() => setCount(quantity + 1)}>
+                <div className="w-9 h-9 flex items-center justify-center text-white border border-primary cursor-pointer bg-primary " onClick={() => setCount(quantity + 1)}>
                   <AddIcon />
                 </div>
               </div>
 
-              <button onClick={handleAddToCart} className="add-to-cart-btn">
+              <button onClick={handleAddToCart} className="bg-primary text-white h-9 px-8 py-2 border border-black flex justify-center items-center my-2 md:my-0 md:ml-5 mx-0 w-full whitespace-nowrap">
                 ADD TO CART
               </button>
-              <button onClick={handleWishList} className="add-to-wishlist">
+              <button onClick={handleWishList} className="text-primary h-9 px-8 py-2 border border-black flex justify-center items-center my-2 md:my-0 md:ml-5 mx-0 w-full whitespace-nowrap">
                 ADD TO WISHLIST
               </button>
 

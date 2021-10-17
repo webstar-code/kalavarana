@@ -9,81 +9,48 @@ import PaintingCard from './cards/PaintingCard'
 import { db, firestore } from '../firebase';
 import { useParams } from 'react-router-dom'
 import '../styles/dresess.css';
-const Card = ({ product }) => {
-
-	return (
-		// <Link to={`/products/${id}`}>
-		<div className="w-full">
-			<div className="relative w-full">
-				{/* <img src={product.imgurl} alt="" className="w-full" /> */}
-				<img src={PAINTING1} alt="" className="w-full" />
-
-				<div className="absolute top-0 right-0 m-4 bg-gray-200 p-1">ON SALE</div>
-			</div>
-			<div className="flex justify-between items-start p-1">
-				<div className="flex flex-col items-start">
-					<h3 className="text-md font-medium pb-3">{product.title}</h3>
-					<div className="price">
-						<p className="text-sm font-medium">{product.price}</p>
-						<p>{product.orignalPrice}</p>
-					</div>
-				</div>
-				<div className="">
-					<BookmarkBorderIcon />
-				</div>
-			</div>
-		</div>
-		// </Link>
-
-	)
-}
+import Footer from './Footer';
 
 const dummyData = [
 	{
-		imgurl: PAINTING1,
-		title: "Ganesh Painting",
-		price: '$5.99',
-		orignalPrice: '$5.99'
+		picUrl: PAINTING1,
+		name: "Tanjore Painting",
+		mrp: '$5.99',
 	},
 	{
-		imgurl: PAINTING1,
-		title: "Ganesh Painting",
-		price: '$5.99',
-		orignalPrice: '$5.99'
+		picUrl: PAINTING1,
+		name: "Tanjore Painting",
+		mrp: '$5.99',
 	},
 	{
-		imgurl: PAINTING1,
-		title: "Ganesh Painting",
-		price: '$5.99',
-		orignalPrice: '$5.99'
+		picUrl: PAINTING1,
+		name: "Tanjore Painting",
+		mrp: '$5.99',
 	},
 	{
-		imgurl: PAINTING1,
-		title: "Ganesh Painting",
-		price: '$5.99',
-		orignalPrice: '$5.99'
+		picUrl: PAINTING1,
+		name: "Tanjore Painting",
+		mrp: '$5.99',
 	},
 	{
-		imgurl: PAINTING1,
-		title: "Ganesh Painting",
-		price: '$5.99',
-		orignalPrice: '$5.99'
+		picUrl: PAINTING1,
+		name: "Tanjore Painting",
+		mrp: '$5.99',
 	},
 	{
-		imgurl: PAINTING1,
-		title: "Ganesh Painting",
-		price: '$5.99',
-		orignalPrice: '$5.99'
-	}, {
-		imgurl: PAINTING1,
-		title: "Ganesh Painting",
-		price: '$5.99',
-		orignalPrice: '$5.99'
-	}, {
-		imgurl: PAINTING1,
-		title: "Ganesh Painting",
-		price: '$5.99',
-		orignalPrice: '$5.99'
+		picUrl: PAINTING1,
+		name: "Tanjore Painting",
+		mrp: '$5.99',
+	},
+	{
+		picUrl: PAINTING1,
+		name: "Tanjore Painting",
+		mrp: '$5.99',
+	},
+	{
+		picUrl: PAINTING1,
+		name: "Tanjore Painting",
+		mrp: '$5.99',
 	},
 ]
 
@@ -148,18 +115,15 @@ const SubCategory = () => {
 		{ name: 'Product' },
 	]
 
-	let currURL = window.location.pathname;
-	const cat = currURL.substring(currURL.lastIndexOf('/') + 1).replace("_", " ");
 
 	return (
 
 		<div className="w-full flex flex-col mt-20 md:mt-36">
 			<Header />
 			<div className="w-full bg-primary flex items-center justify-center mb-10" style={{ height: '256px' }}>
-				<h1 className="text-white text-2xl md:text-5xl uppercase">{cat}</h1>
+				<h1 className="text-white text-2xl md:text-5xl uppercase">{subCategoryName}</h1>
 			</div>
 			<div className="w-full md:w-4/5 px-6 md:px-0 mx-auto ">
-
 				<div className="w-full flex justify-between py-5">
 					<div className="flex">
 						<div className="px-1" onClick={handleFullScreen}><ViewComfyIcon className={`view-icon ${fullScreen && 'active'}`} /></div>
@@ -182,15 +146,18 @@ const SubCategory = () => {
 						</p>
 					</div>
 				</div>
-				<div className={`w-full grid  ${halfScreen && 'grid-cols-1 xl:grid-cols-2'} ${fullScreen && 'grid-cols-2 xl:grid-cols-4'} gap-2 transition-all `}>
+				<div className={`w-full grid ${halfScreen && 'grid-cols-1 md:grid-cols-2'} ${fullScreen && 'grid-cols-2 xl:grid-cols-4'} gap-2 gap-y-6 mt-4 mb-12 place-items-center `}>
 					{/* {products.map((product, i) => (
 						<Card product={product} key={i} />
 					))} */}
 					{dummyData.map((product, i) => (
-						<Card product={product} key={i} />
+						<div className="max-w-sm">
+							<PaintingCard product={product} key={i} />
+						</div>
 					))}
 				</div>
 			</div>
+			<Footer />
 		</div>
 
 	)

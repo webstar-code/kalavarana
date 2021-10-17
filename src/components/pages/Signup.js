@@ -1,9 +1,22 @@
 import React from 'react'
 import SignupComp from '../auth/SignupComp'
-const Signup = () => {
+import { connect } from 'react-redux'
+import { history } from '../../history'
+
+const Signup = (props) => {
+    // if (props.user) {
+    //     if (props.user?.id) {
+    //         history.push('/');
+    //     }
+    // }
     return (
-        <SignupComp/>
+        <SignupComp />
     )
 }
 
-export default Signup
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return { user: state.user?.user }
+}
+export default connect(mapStateToProps)(Signup)

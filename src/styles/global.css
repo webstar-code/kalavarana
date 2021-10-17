@@ -8,20 +8,18 @@ body, html {
     padding: 0;
 }
 
-.footer-items p{
-margin: 6px 0;
-}
 .loding-bar{
-    width: 80px;
+    width: 125px;
     height: 2px;
     position: relative;
-    background:#cfcfcf;
+    background:#fff;
+    overflow: hidden;
 }
 .loding-bar::before{
     content:"";
-    width: 30px;
+    width: 50px;
     height: 2px;
-    background:black;
+    background: black;
     position: absolute;
     left:0px;
     animation: blackbar 1.5s infinite ease;
@@ -33,7 +31,7 @@ margin: 6px 0;
 
 @keyframes blackbar {
     50%{
-        left:52px;
+        left: 75px;
     }
 }
 .cart-icon{
