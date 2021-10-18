@@ -58,6 +58,11 @@ const SubCategory = () => {
 	const subCategoryName = useParams().sub_category;
 
 	const [products, setProducts] = useState([]);
+	const [sortedProducts, setSortedProducts] = useState([]);
+	const [filteredProducts, setFilteredProducts] = useState([]);
+	console.log(sortedProducts);
+	console.log(filteredProducts);
+
 	const [sort, setSort] = useState(false)
 	const [filter, setFilter] = useState(false);
 	const [fullScreen, setFullScreen] = useState(true)
@@ -116,6 +121,32 @@ const SubCategory = () => {
 	]
 
 
+	const SortUtil = (type) => {
+		switch (type) {
+			case 'Featured':
+				setProducts([]);
+				setSortedProducts(products.filter((e) => e.isFeatured == true));
+				setFilteredProducts([]);
+				return;
+			case 'Alphabetically, A-Z':
+				setSortedProducts(products.sort((a, b) => a.name < b.name ? -1 : 1))
+				setFilteredProducts([]);
+				return;
+			case 'Alphabetically, Z-A':
+				setSortedProducts(products.sort((a, b) => a.name < b.name ? 1 : -1))
+				setFilteredProducts([]);
+				return;
+			case 'Price , Low to High':
+				setSortedProducts(products.sort((a, b) => a.discountedMrp < b.discountedMrp ? -1 : 1))
+				setFilteredProducts([]);
+				return;
+			case 'Price, High to Low':
+				setSortedProducts(products.sort((a, b) => a.discountedMrp < b.discountedMrp ? 1 : -1))
+				setFilteredProducts([]);
+				return;
+		}
+	}
+
 	return (
 
 		<div className="w-full flex flex-col mt-20 md:mt-36">
@@ -133,14 +164,14 @@ const SubCategory = () => {
 						<p className="cursor-pointer px-1 relative" onClick={handleFilter}>Filter<ArrowDropDownIcon className={`filter-btn ${filter && 'rotate-180'}`} />
 							{filter && (<div className={`inline-table absolute top-6 right-0 z-10 bg-white text-right py-2 shadow-lg w-28 h-0 transition-all ${filter && 'h-auto'}`}>
 								{filters.map((item, i) => (
-									<p className="px-4 py-2 whitespace-nowrap" key={i}>{item.name}</p>
+									<p className="px-4 py-2 whitespace-nowrap" onClick={() => SortUtil(item.name)} key={i}>{item.name}</p>
 								))}
 							</div>)}
 						</p>
 						<p className="cursor-pointer px-1 relative" onClick={handleSort}>Sort <ArrowDropDownIcon className={`sort-btn ${sort && 'rotate-180'}`} />
 							{sort && (<div className={`inline-table absolute top-6 right-0 z-10 bg-white text-right py-2 shadow-lg w-28 h-0 transition-all ${sort && 'h-auto'}`}>
 								{sorts.map((item, i) => (
-									<p className="px-4 py-2 whitespace-nowrap" key={i}>{item.name}</p>
+									<p className="px-4 py-2 whitespace-nowrap" onClick={() => SortUtil(item.name)} key={i}>{item.name}</p>
 								))}
 							</div>)}
 						</p>
@@ -150,11 +181,28 @@ const SubCategory = () => {
 					{/* {products.map((product, i) => (
 						<Card product={product} key={i} />
 					))} */}
+					{sortedProducts  ?
+						sortedProducts.map((product) => (<div className="max-w-sm">
+							<PaintingCard product={product} key={product.id} />
+						</div>))
+						: filteredProducts  ?
+							filteredProducts.map((product) => (<div className="max-w-sm">
+								<PaintingCard product={product} key={product.id} />
+							</div>))
+							:
+							dummyData.map((product, i) => (
+								<div className="max-w-sm">
+									<PaintingCard product={product} key={i} />
+								</div>
+							))
+					}
+
+					{/* 
 					{dummyData.map((product, i) => (
 						<div className="max-w-sm">
 							<PaintingCard product={product} key={i} />
 						</div>
-					))}
+					))} */}
 				</div>
 			</div>
 			<Footer />

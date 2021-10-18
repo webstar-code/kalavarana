@@ -115,7 +115,7 @@ const SignupComp = (props) => {
             className={`p-2 my-2 outline-none border border-gray w-full ${!isNumber && 'border border-red-500'}`} />
           {!isNumber && <p className="text-red-500">Number is required</p>}
 
-          <button type="submit" className="w-full sm:w-1/2  bg-black py-2 px-3 my-2 text-white mt-8 bg-primary">Proceed</button>
+          <button type="submit" className="w-full sm:w-1/2 text-center py-2 px-3 my-2 text-white mt-8 bg-primary">Proceed</button>
         </form>
       </div>
     </div>

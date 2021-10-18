@@ -10,6 +10,7 @@ import {connect} from 'react-redux'
 import {cancleOrder} from '../../actions/orders'
 import { useState } from 'react';
 const CancleForm = (props) => {
+    console.log(props);
     const [next,setNext]=useState(false)
     const [checked, setChecked] = useState(false);
     const [value, setValue] =useState('');
@@ -36,17 +37,10 @@ const CancleForm = (props) => {
                        </div>
                        <div className={`cancel-product-des ${next&&'next'}`}>
                            <div className="cancel-img">
-                               <img src={props.order.imgUrl} alt="" />
+                               <img src={props.item.product.picUrl} alt="" />
                            </div>
                            <div className="cancel-des">
-                               <h3>{props.order.title}</h3>
-                               <div className="size">
-                                    <div  className="color-circle">
-
-                                    </div>
-                                    <p>{props.order.size}</p>
-                    
-                                </div>
+                               <h3>{props.item.product.name}</h3>
                            </div>
                        </div>
                        {!next?(<div className="cancel-btns-area">

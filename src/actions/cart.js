@@ -1,4 +1,3 @@
-
 import { ADD_TO_CART, SHOW_CART, GET_CART, CART_TOTAL, DELETE_CART_ITEM, UPDATE_CART_QUANITY } from './types'
 import { db } from '../firebase'
 
@@ -6,40 +5,87 @@ export const showCart = (boolean) => {
     return { type: SHOW_CART, payload: boolean }
 }
 
-export const addToCart = (data) => async (dispatch, getState) => {
+export const addToCart = (data, callback) => async (dispatch, getState) => {
     const userID = getState().user?.user?.id;
     const userDbRef = db.users.doc(userID);
     let exists = false;
-    console.log(data);
 
     // check if product already exists in CARTITEMS
     userDbRef.collection('CARTITEMS').get().then((items) => {
         items.forEach((item) => {
-            if (item.id === data.product.id) {
-                console.log("already exists");
+            if (item.id === data.product.id && item.data().quantity < data.quantity) {
+                console.log("updating quantity");
+                userDbRef.collection('CARTITEMS').doc(item.id).update({
+                    quantity: data.quantity
+                }).then(() => {
+                    callback()
+                }).catch((err) => console.log(err))
                 dispatch(showCart(true))
                 exists = true;
             }
         })
     }).then(() => {
         if (exists == false) {
-            console.log(data);
             userDbRef.collection('CARTITEMS').doc(data.product.id).set({
                 ...data
             }).then(() => {
-                dispatch({ type: ADD_TO_CART, payload: { ...data }})
-                console.log("item added in cart")
-            }).then(() => {
+                dispatch({ type: ADD_TO_CART, payload: { ...data } })
                 dispatch(showCart(true))
+                console.log("item added in cart")
+                callback();
+            }).catch((err) => {
+                console.log(err);
             })
-
-                .catch((err) => {
-                    console.log(err);
-                })
         }
     })
 
-    // a
+
+}
+
+export const getCartItems = () => (dispatch, getState) => {
+    const userID = getState().user?.user?.id;
+    db.users.doc(userID).collection('CARTITEMS').get().then((snapshot) => {
+        console.log(snapshot.docs.map(db.formatedDoc))
+        dispatch({ type: GET_CART, payload: snapshot.docs.map(db.formatedDoc) })
+    })
+
+
+}
+
+export const deleteCartItem = (id, getCartItems) => (dispatch, getState) => {
+    console.log(id);
+    const userID = getState().user?.user?.id;
+    db.users.doc(userID).collection('CARTITEMS').doc(id).delete()
+        .then(() => {
+            dispatch({ type: DELETE_CART_ITEM, payload: id })
+            getCartItems()
+        }).catch((err) => {
+            console.log(err)
+        })
+
+}
+
+export const updateCartQauntity = (id, quantity, getCartItems) => async (dispatch, getState) => {
+    const userID = getState().user?.user?.id;
+    db.users.doc(userID).collection('CARTITEMS').doc(id).update({
+        quantity
+    })
+        .then(() => {
+            console.log("upadted");
+            dispatch({ type: UPDATE_CART_QUANITY, payload: id })
+            getCartItems()
+        }).catch((err) => {
+            console.log(err)
+        })
+}
+
+export const getCartTotal = () => (dispatch, getState) => {
+    const cartItems = getState().cart;
+    const total = cartItems.reduce((total, itm) => total + itm.product.discountedMrp * itm.quantity, 0);
+    dispatch({ type: CART_TOTAL, payload: total })
+}
+
+ // ADD TO CART
 
     // const { productId, color, size, quanity, price } = data;
     // const userId = getState().user?.user?.userId;
@@ -73,52 +119,9 @@ export const addToCart = (data) => async (dispatch, getState) => {
     //             dispatch(showCart(true))
     //         })
     // }
-}
 
-export const getCartItems = () => (dispatch, getState) => {
-    const userID = getState().user?.user?.id;
-    db.users.doc(userID).collection('CARTITEMS').get().then((snapshot) => {
-        dispatch({ type: GET_CART, payload: snapshot.docs.map(db.formatedDoc) })
-    })
 
-    // db.cart.where('userId', '==', userId)
-    //     .onSnapshot(snapshot => {
-    //         console.log(snapshot.docs.map(db.formatedDoc))
-    //         dispatch({ type: GET_CART, payload: snapshot.docs.map(db.formatedDoc) })
-    //     })
-}
-
-export const deleteCartItem = (id) => (dispatch, getState) => {
-    console.log(id);
-    const userID = getState().user?.user?.id;
-    db.users.doc(userID).collection('CARTITEMS').doc(id).delete()
-        .then(() => {
-            console.log("cart item deleted");
-            dispatch({ type: DELETE_CART_ITEM, payload: id })
-        }).catch((err) => {
-            console.log(err)
-        })
-    // db.cart.doc(id).delete()
-    //     .then(() => {
-    //         dispatch({ type: DELETE_CART_ITEM, payload: id })
-    //     }).catch((err) => {
-    //         console.log(err)
-    //     })
-}
-
-export const updateCartQauntity = (id, quantity) => async (dispatch, getState) => {
-    const userID = getState().user?.user?.id;
-    db.users.doc(userID).collection('CARTITEMS').doc(id).update({
-        quantity
-    })
-        .then(() => {
-            console.log("upadted");
-            dispatch({ type: UPDATE_CART_QUANITY, payload: id })
-        }).catch((err) => {
-            console.log(err)
-        })
-
-    // db.cart.doc(id).update({
+        // db.cart.doc(id).update({
     //     quanity: quanity,
     // })
     //     .then(() => {
@@ -127,10 +130,18 @@ export const updateCartQauntity = (id, quantity) => async (dispatch, getState) =
     //     .catch((err) => {
     //         console.log(err)
     //     })
-}
 
-export const getCartTotal = () => (dispatch, getState) => {
-    const cartItems = getState().cart;
-    const total = cartItems.reduce((total, itm) => total + itm.product.mrp * itm.quantity, 0);
-    dispatch({ type: CART_TOTAL, payload: total })
-}
+
+        // db.cart.doc(id).delete()
+    //     .then(() => {
+    //         dispatch({ type: DELETE_CART_ITEM, payload: id })
+    //     }).catch((err) => {
+    //         console.log(err)
+    //     })
+
+
+       // db.cart.where('userId', '==', userId)
+    //     .onSnapshot(snapshot => {
+    //         console.log(snapshot.docs.map(db.formatedDoc))
+    //         dispatch({ type: GET_CART, payload: snapshot.docs.map(db.formatedDoc) })
+    //     })

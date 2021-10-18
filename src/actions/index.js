@@ -60,7 +60,6 @@ export const sigin = (phoneNumber, email, name, uid) => async dispatch => {
     phoneNumber: '+91' + phoneNumber,
     role: 'user',
     picUrl: '',
-    lastSignInDateTime: '',
     id: uid
   }
 

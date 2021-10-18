@@ -14,15 +14,15 @@ const Cart = (props) => {
 	const [showPromo, setShowPromo] = useState(false)
 	const [payOnline, setPayOnline] = useState(true)
 	const [activeIndex, setActiveIndex] = useState(0)
-	const [Discount, setDiscount] = useState(0)
+	const [couponDiscount, setCouponDiscount] = useState(0)
 	const [Code, setCode] = useState('')
 	const [selectedAddress, setSelectedAddress] = useState(props.addresses[0])
 
-	const getCodeNDiscount = (discount, code) => {
-		setDiscount(discount)
+	const getCodeNDiscount = (couponDiscount, code) => {
+		setCouponDiscount(couponDiscount)
 		setCode(code)
-		console.log(discount, code)
-		console.log(Discount, Code)
+		console.log(couponDiscount, code)
+		console.log(couponDiscount, Code)
 	}
 
 	const getActiveAdd = (addIndex, selecAdd) => {
@@ -37,7 +37,7 @@ const Cart = (props) => {
 		props.checkout({
 			address: selectedAddress,
 			orderType: 'Paid Online',
-			Discount,
+			couponDiscount,
 			Code
 		})
 	}
@@ -49,12 +49,12 @@ const Cart = (props) => {
 			<div className="main-cart-container">
 				<div className="main-cart-area">
 					<div className="main-right-cart">
-						<h1 className="text-2xl font-bold m-0 p-0">{props.cartItems.length} items {`(Item Total ${props.total})`}</h1>
+						<h1 className="text-2xl font-bold m-0 p-0">{props.cartItems.length} items {`(Item Total ${props.cartTotal})`}</h1>
 						<div className="side-cart-items">
 							{props.cartItems?.map((cart, i) => (
 								<SideCartItem
-									key={cart.id}
-									id={cart.id}
+									key={cart.product.id}
+									id={cart.product.id}
 									name={cart.product.name}
 									quantity={cart.quantity}
 									picUrl={cart.product.picUrl}
@@ -76,7 +76,7 @@ const Cart = (props) => {
 										key={i} getActiveAdd={getActiveAdd}
 										i={i}
 										address={address}
-										style={i === activeIndex ? { border: '2px solid #000' } : null}
+										style={i === activeIndex ? { border: '2px solid #08263F' } : null}
 									/>
 								))
 							}
@@ -98,13 +98,13 @@ const Cart = (props) => {
 							</div>
 							<div className="cupon-fields">
 								<input value={Code} type="text" placeholder="coupon" />
-								<button>Apply</button>
+								<button className="bg-primary">Apply</button>
 							</div>
 						</div>
 
 
-						<div className="process-area">
-							<button onClick={handleCheckout}>Process</button>
+						<div className="process-area ">
+							<button className="bg-primary" onClick={handleCheckout}>Process</button>
 						</div>
 					</div>
 				</div>
@@ -118,7 +118,7 @@ const Cart = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		cartItems: state.cart,
-		total: state.cartTotal.total,
+		cartTotal: state.cartTotal.total,
 		addresses: state.addresses,
 	}
 }

@@ -19,6 +19,7 @@ import SideCart from '../sideCart/SideCart'
 import Fabric from '../product/Fabric'
 import { PAINTING1 } from '../../assetsKalavarna'
 import { useParams } from 'react-router-dom'
+import { RUPPEEICON } from '../../assetsKalavarna'
 
 const dummyData = {
   picUrk: PAINTING1,
@@ -34,7 +35,6 @@ const ProductDescription = (props) => {
   let productID = useParams().id;
   const [product, setProduct] = useState({})
   const [quantity, setCount] = useState(1)
-
 
   useEffect(() => {
     firestore.collection('PRODUCTS').doc(productID).get()
@@ -57,8 +57,7 @@ const ProductDescription = (props) => {
     props.addToCart({
       product: { ...product },
       quantity
-    })
-    props.getCartItems();
+    }, props.getCartItems)
   }
 
   const handleWishList = () => {
@@ -69,64 +68,77 @@ const ProductDescription = (props) => {
 
   return (
     <>
-      <Msg />
-      <Header />
-      <div className="w-full h-full flex flex-col items-center justify-center mt-20 md:mt-36">
-        <div className="w-full h-full md:w-4/5 px-5 md:px-0  mt-10 grid grid-cols-1 md:grid-cols-2 place-items-start items-start justify-between">
-          <div className="w-full flex justify-center items-center">
-            <img src={PAINTING1} className=" md:max-w-xs h-full" />
+      <div className="w-full">
+
+        <Msg />
+        <Header />
+        <div className="w-full h-full flex flex-col items-center justify-center mt-20 md:mt-36">
+          <div className="w-full h-full md:w-4/5 px-5 md:px-0  mt-10 grid grid-cols-1 md:grid-cols-2 place-items-start items-start justify-between">
+            <div className="w-full flex justify-center items-center">
+              <img src={PAINTING1} className=" md:max-w-xs h-full" />
+            </div>
+            <div className="h-full flex flex-col items-start justify-start px-4 md:px-0">
+              <div className="w-full flex justify-between items-start py-4 md:py-0">
+                <h1 className="text-2xl md:text-3xl font-medium">{product?.name}</h1>
+                <div className="text-right">
+                  <div className="flex justify-end items-center md:items-start">
+                    <img src={RUPPEEICON} className="w-6 h-6 md:w-8 md:h-8 -mr-1 -mt-1" />
+                    <h1 className="text-xl md:text-3xl font-medium">{product?.discountedMrp}</h1>
+                    <h1 className="text-lg md:text-2xl font-medium line-through text-gray-400">{product?.mrp}</h1>
+                  </div>
+
+                  {product?.discountPercentage ?
+                    <p className="inline-block text-xs md:text-sm text-gray-400">Discount Applied : {product?.discountPercentage}% off</p>
+                    : product?.flatDiscountAmount ?
+                      <p className="inline-block text-xs md:text-sm text-gray-400">flat discount amount : {product?.flatDiscountAmount} off</p>
+                      : null
+                  }
+                </div>
+              </div>
+              <div className="flex flex-col w-1/2 py-2 md:py-0">
+                <div className="flex justify-between">
+                  <p className="border-b border-opacity-50 w-full py-3">Width</p>
+                  <p className="font-semibold h-full border-b py-3 w-1/5 text-right">{product?.width}cm</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="border-b border-opacity-50 w-full py-3">Height</p>
+                  <p className="font-semibold h-full border-b py-3 w-1/5 text-right">{product?.height}cm</p>
+                </div>
+              </div>
+              <div className="flex flex-col py-4 md:py-0">
+                <p className="text-sm py-4 text-gray-400">{product?.description}</p>
+              </div>
+              <div className="handle-cart w-full flex flex-col md:flex-row items-start md:items-center justify-between mt-auto py-4 md:py-0">
+                <div className="flex ">
+                  <div className="w-9 h-9 flex items-center justify-center text-white border border-primary cursor-pointer bg-primary" onClick={() => setCount(quantity - 1)}>
+                    <RemoveIcon />
+                  </div>
+                  <div className="w-9 h-9 flex items-center justify-center text-primary border border-primary cursor-pointer bg-white">
+                    {quantity}
+                  </div>
+                  <div className="w-9 h-9 flex items-center justify-center text-white border border-primary cursor-pointer bg-primary " onClick={() => setCount(quantity + 1)}>
+                    <AddIcon />
+                  </div>
+                </div>
+
+                <button onClick={handleAddToCart} className="bg-primary text-white h-9 px-8 py-2 border border-black flex justify-center items-center my-2 md:my-0 md:ml-5 mx-0 w-full whitespace-nowrap">
+                  ADD TO CART
+                </button>
+                <button onClick={handleWishList} className="text-primary h-9 px-8 py-2 border border-black flex justify-center items-center my-2 md:my-0 md:ml-5 mx-0 w-full whitespace-nowrap">
+                  ADD TO WISHLIST
+                </button>
+
+              </div>
+
+            </div>
+
+
           </div>
-          <div className="h-full flex flex-col items-start justify-start pl-8">
-            <div className="w-full flex justify-between items-start">
-              <h1 className="text-2xl md:text-3xl font-medium">{product?.name}</h1>
-              <div className="text-right">
-                <h1 className="text-base md:text-3xl font-medium">{product?.mrp}</h1>
-                <p className="inline-block text-sm text-gray-400">Discount Applied : {product?.discountPercentage}% off</p>
-              </div>
-            </div>
-            <div className="flex flex-col w-1/2">
-              <div className="flex justify-between">
-                <p className="border-b border-opacity-50 w-full py-3">Width</p>
-                <p className="font-semibold h-full border-b py-3 w-1/5 text-right">{product?.width}cm</p>
-              </div>
-              <div className="flex justify-between">
-                <p className="border-b border-opacity-50 w-full py-3">Height</p>
-                <p className="font-semibold h-full border-b py-3 w-1/5 text-right">{product?.height}cm</p>
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <p className="text-sm py-4 text-gray-400">{product?.description}</p>
-            </div>
-            <div className="handle-cart w-full flex flex-col md:flex-row items-start md:items-center justify-between mt-auto">
-              <div className="flex ">
-                <div className="w-9 h-9 flex items-center justify-center text-white border border-primary cursor-pointer bg-primary" onClick={() => setCount(quantity - 1)}>
-                  <RemoveIcon />
-                </div>
-                <div className="w-9 h-9 flex items-center justify-center text-primary border border-primary cursor-pointer bg-white">
-                  {quantity}
-                </div>
-                <div className="w-9 h-9 flex items-center justify-center text-white border border-primary cursor-pointer bg-primary " onClick={() => setCount(quantity + 1)}>
-                  <AddIcon />
-                </div>
-              </div>
-
-              <button onClick={handleAddToCart} className="bg-primary text-white h-9 px-8 py-2 border border-black flex justify-center items-center my-2 md:my-0 md:ml-5 mx-0 w-full whitespace-nowrap">
-                ADD TO CART
-              </button>
-              <button onClick={handleWishList} className="text-primary h-9 px-8 py-2 border border-black flex justify-center items-center my-2 md:my-0 md:ml-5 mx-0 w-full whitespace-nowrap">
-                ADD TO WISHLIST
-              </button>
-
-            </div>
-
-          </div>
-
-
+          <Description text={dummyData?.description} />
+          <Reviews productID={dummyData?.productID} />
+          <RelatedProducts />
+          <SideCart />
         </div>
-        <Description text={dummyData?.description} />
-        <Reviews productID={dummyData?.productID} />
-        <RelatedProducts />
-        <SideCart />
       </div>
     </>
   )

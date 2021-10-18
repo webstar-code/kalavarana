@@ -39,8 +39,9 @@ export const placeOrder = (data) => async (dispatch, getState) => {
         dispatch({ type: PLACE_ORDER, payload: data })
     }).then(() => {
         cart.map((item, i) => {
-            db.users.collection('CARTITEMS').doc(item.id).delete()
+            db.users.doc(userID).collection('CARTITEMS').doc(item.product.id).delete()
                 .then(() => console.log("cart deleted "))
+                
         })
     }).catch((err) => {
         console.log(err);
@@ -84,12 +85,19 @@ export const getOrders = () => (dispatch, getState) => {
 
 export const cancleOrder = (id, product) => (dispatch, getState) => {
     const userId = getState().user?.user?.userId
-    db.orders.doc(id).update({
-        cancled: true,
-        status: 'Canceled'
+    console.log(id);
+    firestore.collection('ORDERS').doc(id).update({
+        state: 'canceled'
     })
         .then(() => {
             dispatch({ type: CANCEL_ORDER, payload: id })
-            firestore.collection('cancelOrders').add({ ...product, userId })
-        })
-}
+        }).catch((err) => console.log(err));
+            // db.orders.doc(id).update({
+            //     cancled: true,
+            //     status: 'Canceled'
+            // })
+            //     .then(() => {
+            //         dispatch({ type: CANCEL_ORDER, payload: id })
+            //         firestore.collection('cancelOrders').add({ ...product, userId })
+            //     })
+        }

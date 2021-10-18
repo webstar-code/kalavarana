@@ -14,12 +14,6 @@ const Adress = (props) => {
 	const [showForm, setShowForm] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(0);
 
-
-	useEffect(() => {
-		console.log("get adderss");
-		props.getAddresses();
-	}, []);
-
 	const getActiveAdd = (addIndex) => {
 		setActiveIndex(addIndex)
 	}
@@ -30,8 +24,8 @@ const Adress = (props) => {
 			<Msg />
 			<div className="profile-page">
 				<ProfileNavigation />
-				<div className="address">
-					<h1 className="profile-title text-primary flex items-center">
+				<div className="address justify-start items-start md:justify-center md:items-start ">
+					<h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
 						<span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
 						My Address</h1>
 					{
@@ -50,7 +44,6 @@ const Adress = (props) => {
 							<AddIcon className="icon-add" />
 						</div>
 						<h3>Add New Address</h3>
-
 					</div>
 				</div>
 			</div>

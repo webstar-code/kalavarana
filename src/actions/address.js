@@ -5,15 +5,18 @@ export const notification = (msg) => {
   return { type: MSG, payload: msg }
 }
 
-export const addAdress = (data) => async (dispatch, getState) => {
+export const addAdress = (data, getAddresses) => async (dispatch, getState) => {
   const userID = getState().user?.user?.id;
   const userDbRef = db.users.doc(userID);
 
-  userDbRef.collection('ADDRESS').doc().set({
+  const AddressRef = userDbRef.collection('ADDRESS').doc();
+  AddressRef.set({
     ...data,
-    userID
+    id: AddressRef.id
+
   }).then(() => {
     dispatch({ type: ADD_ADDRES, payload: data })
+    getAddresses();
     dispatch(notification({ msg: "Address added", err: false }))
     setTimeout(() => {
       dispatch(notification({ msg: "", err: false }))
@@ -50,20 +53,9 @@ export const addAdress = (data) => async (dispatch, getState) => {
 export const getAddresses = () => async (dispatch, getState) => {
   const userID = getState().user?.user?.id;
   const userDbRef = db.users.doc(userID);
-
   userDbRef.collection('ADDRESS').get().then((snapshot) => {
-    console.log(snapshot.docs.map(db.formatedDoc))
     dispatch({ type: GET_ADDRESS, payload: snapshot.docs.map(db.formatedDoc) })
   })
-
-
-  // console.log("getState", getState());
-  // const userId = getState().user?.user?.userId
-  // db.address.where('userId', '==', userId)
-  //   .onSnapshot((sanpShot) => {
-  //     console.log(sanpShot.docs.map(db.formatedDoc))
-  //     dispatch({ type: GET_ADDRESS, payload: sanpShot.docs.map(db.formatedDoc) })
-  //   })
 }
 
 // export const addSingleAdd=(address)=>{
@@ -72,12 +64,13 @@ export const getAddresses = () => async (dispatch, getState) => {
 
 //delete address
 
-export const deleteAdress = (id) => async (dispatch, getState) => {
+export const deleteAdress = (id, getAddresses) => async (dispatch, getState) => {
   const userID = getState().user?.user?.id;
   const userDbRef = db.users.doc(userID);
-
+  console.log(id);
   userDbRef.collection('ADDRESS').doc(id).delete()
     .then(() => {
+      getAddresses();
       dispatch({ type: DELETE_ADDRESS, payload: id })
       dispatch(notification({ msg: "Address deleted", err: false }))
       setTimeout(() => {
@@ -113,12 +106,12 @@ export const deleteAdress = (id) => async (dispatch, getState) => {
 
 //update specific address
 
-export const updateAddress = (id, data) => async (dispatch, getState) => {
-  // console.log(id, data);
+export const updateAddress = (id, data, getAddresses) => async (dispatch, getState) => {
   const userID = getState().user?.user?.id;
   const userDbRef = db.users.doc(userID);
 
   userDbRef.collection('ADDRESS').doc(id).update(data).then(() => {
+    getAddresses();
     dispatch({ type: UPDATE_ADDRESS, payload: data })
     dispatch(notification({ msg: "Address Updated", err: false }))
     setTimeout(() => {

@@ -62,11 +62,11 @@ const SubCat = ({ subcat }) => {
             </div>
             <div className="flex flex-col-reverse md:flex-col items-center justify-center">
                 <Link to={`${window.location.pathname}/${subcat.name}`} className="ml-auto">
-                    <button className="ml-auto mr-4 md:mr-0 uppercase border my-8 px-6 py-2 cursor-pointer">view all</button>
+                    <button className="ml-auto mr-4 md:mr-0 uppercase border border-black my-8 px-6 py-2 cursor-pointer">view all</button>
                 </Link>
                 <div className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 mt-4 place-items-center">
                     {products.map((product) => (
-                        <div className="w-32 xl:w-64 md:w-48 max-w-xs">
+                        <div className="w-32 xl:w-64 md:w-48 max-w-xs"> 
                             <PaintingCard product={product} key={product.id} />
                         </div>
                     ))}

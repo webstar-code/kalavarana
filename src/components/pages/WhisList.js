@@ -54,7 +54,7 @@ const WhisList = (props) => {
             <div className="profile-page">
                 <ProfileNavigation />
                 <div className="wish-list">
-                    <h1 className="profile-title text-primary flex items-center">
+                    <h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
                         <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
                         Wishlist</h1>
                     <div className="grid grid-cols-2 md:grid-cols-3  gap-3">

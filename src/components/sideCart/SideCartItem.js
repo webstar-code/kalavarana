@@ -5,23 +5,28 @@ import { deleteCartItem, updateCartQauntity, getCartItems } from '../../actions/
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react';
 const SideCartItem = (props) => {
-    console.log(props);
+    // TODO: getting props.quanity updated but still showing prev quantity
+    // console.log(props);
+    // useEffect(() => {
+
+    // }, [props.quantity]);
+    
+    console.log(props.quantity);
     const [updatedQuantity, setQuantity] = useState(props.quantity)
     if (updatedQuantity <= 0) {
         setQuantity(1)
     }
 
+    console.log(updatedQuantity);
+    console.log(props.quantity);
     useEffect(() => {
         if (!props.disable) {
-            props.updateCartQauntity(props.id, updatedQuantity)
-            props.getCartItems()
-
+            props.updateCartQauntity(props.id, updatedQuantity, props.getCartItems)
         }
     }, [updatedQuantity])
 
     const handleDelete = () => {
-        props.deleteCartItem(props.id)
-        props.getCartItems()
+        props.deleteCartItem(props.id, props.getCartItems)
     }
 
     return (
@@ -38,9 +43,9 @@ const SideCartItem = (props) => {
                 </div>
                 <div className="item-handler">
                     <div className="item-quanity">
-                        {!props.disable && <button onClick={() => setQuantity(updatedQuantity - 1)}>-</button>}
-                        <p>{updatedQuantity}</p>
-                        {!props.disable && <button onClick={() => setQuantity(updatedQuantity + 1)}>+</button>}
+                        {!props.disable && <button onClick={() => setQuantity(props.quantity - 1)}>-</button>}
+                        <p>{props.quantity}</p>
+                        {!props.disable && <button onClick={() => setQuantity(props.quantity + 1)}>+</button>}
                     </div>
                     {!props.disable && (<div className="trash-btn">
                         <button onClick={handleDelete} className="p-2 hover:bg-gray-100 rounded-full"><DeleteOutlineIcon /></button>

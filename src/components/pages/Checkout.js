@@ -7,7 +7,7 @@ import { placeOrder } from '../../actions/orders'
 import Header from '../Header'
 const Checkout = (props) => {
 	console.log(props);
-	const [grandTotal, setGrandTotal] = useState(props.checkout.subTotal + props.checkout.deliveryCharge)
+	const [grandTotal, setGrandTotal] = useState((props.checkout.total + props.checkout.deliveryCharge) - props.checkout.couponDiscount);
 
 	const handlePlaceOrder = () => {
 		props.placeOrder({ ...props.checkout, grandTotal, isPaymentDone: true })
@@ -99,7 +99,7 @@ const Checkout = (props) => {
 									<p>Delivery Charges</p><p>{props.checkout.deliveryCharge}</p>
 								</div>
 								<div className="price-item">
-									<p>Discount</p><p>-{props.checkout.Discount}</p>
+									<p>Discount</p><p>-{props.checkout.couponDiscount}</p>
 								</div>
 								<div className="price-item">
 									<p className="font-bold">Grand Total</p><p className="font-bold">{grandTotal} Rs</p>

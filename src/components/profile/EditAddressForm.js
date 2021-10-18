@@ -21,9 +21,7 @@ const EditAddressForm = (props) => {
 
   const submitAddress = (e) => {
     e.preventDefault()
-    props.updateAddress(props.id, { name, number, country, state, addressType, pinCode, addressLine1, addressLine2, landmark, city })
-		props.getAddresses();
-
+    props.updateAddress(props.id, { name, number, country, state, addressType, pinCode, addressLine1, addressLine2, landmark, city }, props.getAddresses)
     setShowFirstForm(true)
     props.setShowForm(false)
   }

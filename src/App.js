@@ -10,6 +10,7 @@ import Profile from './components/pages/Profile'
 import { auth, db } from './firebase'
 import { connect } from 'react-redux'
 import { getCartItems, getCartTotal } from './actions/cart'
+import { getWishList } from './actions/wishlist'
 import { getAddresses } from './actions/address'
 import { getOrders } from './actions/orders'
 import { userStateChanged } from './actions'
@@ -43,6 +44,7 @@ import SubCategory from './components/SubCategory'
 const App = (props) => {
 
     useEffect(() => {
+        console.log("cart changes")
         props.getCartTotal()
     }, [props.cart])
 
@@ -51,6 +53,7 @@ const App = (props) => {
             props.getCartItems()
             props.getAddresses()
             props.getOrders()
+            props.getWishList();
         }
 
     }, [props.user])
@@ -67,7 +70,7 @@ const App = (props) => {
         })
         return unsubscribe
     }, [])
-    // console.log(props.user)
+    console.log(props.user)
     return (
         <>
             {/* <SplashScreen /> */}
@@ -113,4 +116,4 @@ const App = (props) => {
 const mapStateToProps = (state) => {
     return { user: state.user?.user, cart: state.cart }
 }
-export default connect(mapStateToProps, { userStateChanged, getCartItems, getCartTotal, getAddresses, getOrders })(App)
+export default connect(mapStateToProps, { userStateChanged, getCartItems, getCartTotal, getAddresses, getOrders, getWishList })(App)

@@ -10,17 +10,10 @@ const AddressCard = (props) => {
   const [showForm, setShowForm] = useState(false)
   const [selected, setSelected] = useState(false);
 
-  useEffect(() => {
-    console.log("get adderss");
-    props.getAddresses();
-  }, []);
-
   const handleDelete = () => {
-    props.deleteAdress(props?.address?.id)
+    props.deleteAdress(props?.address?.id, props.getAddresses)
     setShowModal(false)
-    props.getAddresses();
   }
-
 
   const handleActiveIndex = () => {
     if (!props.disable) {
@@ -34,7 +27,7 @@ const AddressCard = (props) => {
   //style={props.i===activeIndex?{border:'2px solid #000'}:null};
   return (
     <>
-      <div style={props?.style} onClick={handleActiveIndex} className={`cursor-pointer address-card ${selected ? 'border-2' : 'border-1'}`}>
+      <div style={props?.style} onClick={handleActiveIndex} className={`cursor-pointer address-card ${selected ? 'border-2 border-primary' : 'border-1'}`}>
         <div className="title">
           <h1 className="font-bold">{props?.address?.name}</h1>
           <div className="icons">

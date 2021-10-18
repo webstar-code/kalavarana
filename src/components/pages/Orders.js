@@ -11,20 +11,18 @@ import { Link } from 'react-router-dom';
 
 const Orders = (props) => {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    console.log(props)
     let fdate = new Date(props.orders[0].bookingTime);
     let date = fdate.getDate();
     let month = fdate.getMonth();
     let year = fdate.getFullYear();
     const placeDate = `${date} ${months[month]} ${year}`
-    console.log(props.orders.map((i) => console.log(i)))
     return (
         <>
             <Header />
             <div className="profile-page">
                 <ProfileNavigation />
                 <div className="orders">
-                    <h1 className="profile-title orders-title text-primary flex items-center">
+                    <h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
                         <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
                         My Orders</h1>
                     <h2>{placeDate}</h2>

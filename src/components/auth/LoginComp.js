@@ -70,7 +70,7 @@ const LoginComp = (props) => {
             className={`${!isNum && 'border border-red-500'}`}
           />
           {!isNum && <p className="text-red-500">Number is required</p>}
-          {!props.showOtp && <button type="submit" className="w-full sm:w-1/2  bg-black py-2 px-3 my-2 text-white mt-8 bg-primary">
+          {!props.showOtp && <button type="submit" className="w-full sm:w-1/2 text-center py-2 px-3 my-2 text-white mt-8 bg-primary">
             {isLoading ? <LoadingSpinner /> : 'Proceed'}</button>}
           <div id="recaptcha-container"></div>
         </form>
@@ -87,7 +87,7 @@ const LoginComp = (props) => {
             />
             <span className="h-full text-black cursor-pointer" onClick={() => props.login(number)}>RESEND</span>
           </div>
-          <button type="submit" className="w-full sm:w-1/2  bg-black py-2 px-3 my-2 text-white mt-8 bg-primary">
+          <button type="submit" className="w-full sm:w-1/2 text-center py-2 px-3 my-2 text-white mt-8 bg-primary">
             {/* {sigin ? <LoadingSpinner /> : 'Login'} */}
             Login
           </button>
