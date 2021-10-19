@@ -18,7 +18,12 @@ export const addAdress = (data, getAddresses) => async (dispatch, getState) => {
   }).then(() => {
     dispatch({ type: ADD_ADDRES, payload: data })
     getAddresses();
-    notify("Address added", false);
+    
+    dispatch(notification({ msg: "New address added", err: false }))
+    setTimeout(() => {
+      dispatch(notification({ msg: "", err: false }))
+    }, 2000);
+
   })
     .catch((err) => {
       console.log(err)
@@ -67,11 +72,21 @@ export const deleteAdress = (id, getAddresses) => async (dispatch, getState) => 
     .then(() => {
       getAddresses();
       dispatch({ type: DELETE_ADDRESS, payload: id })
-      notify("Address deleted", false);
+      
+    dispatch(notification({ msg: "Address deleted", err: false }))
+    setTimeout(() => {
+      dispatch(notification({ msg: "", err: false }))
+    }, 2000);
+
     })
     .catch((err) => {
       console.log(err)
-      notify("Unable to delete", true);
+      
+    dispatch(notification({ msg: "Unable to delete address", err: false }))
+    setTimeout(() => {
+      dispatch(notification({ msg: "", err: false }))
+    }, 2000);
+
 
     })
 
@@ -103,9 +118,19 @@ export const updateAddress = (id, data, getAddresses) => async (dispatch, getSta
   userDbRef.collection('ADDRESS').doc(id).update(data).then(() => {
     getAddresses();
     dispatch({ type: UPDATE_ADDRESS, payload: data })
-    notify("Address updated", false);
+    
+    dispatch(notification({ msg: "Address updated", err: false }))
+    setTimeout(() => {
+      dispatch(notification({ msg: "", err: false }))
+    }, 2000);
+
   }).catch((err) => {
     console.log(err)
-    notify("Unable to update address", true);
+    
+    dispatch(notification({ msg: "Unable to update adderss", err: false }))
+    setTimeout(() => {
+      dispatch(notification({ msg: "", err: false }))
+    }, 2000);
+
   })
 }

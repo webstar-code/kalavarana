@@ -4,7 +4,6 @@ import { history } from '../history'
 
 // action creator for sending notification
 export const notification = (msg) => {
-  console.log(msg);
   return { type: MSG, payload: msg }
 }
 
