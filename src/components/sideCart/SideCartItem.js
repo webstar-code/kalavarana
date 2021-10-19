@@ -16,9 +16,6 @@ const SideCartItem = (props) => {
     if (updatedQuantity <= 0) {
         setQuantity(1)
     }
-
-    console.log(updatedQuantity);
-    console.log(props.quantity);
     useEffect(() => {
         if (!props.disable) {
             props.updateCartQauntity(props.id, updatedQuantity, props.getCartItems)

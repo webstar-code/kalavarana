@@ -108,8 +108,8 @@ const Checkout = (props) => {
 							</div>
 						</div>
 
-						<div className="process-area">
-							<button onClick={handlePlaceOrder}>Pay Online</button>
+						<div className="process-area ">
+							<button className="bg-primary" onClick={handlePlaceOrder}>Pay Online</button>
 
 							{/* {props.checkout.orderType === "Paid Online" ? 
 							<button onClick={displayRazorpay}>Pay Online</button> 

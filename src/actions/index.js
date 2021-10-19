@@ -4,8 +4,20 @@ import { history } from '../history'
 
 // action creator for sending notification
 export const notification = (msg) => {
+  console.log(msg);
   return { type: MSG, payload: msg }
 }
+
+export const notify = (msg, err = false) => async (dispatch, getState) => {
+  console.log(msg);
+  dispatch(notification({ msg: msg, err: err }))
+  setTimeout(() => {
+    dispatch(notification({ msg: "", err: false }))
+  }, 2000);
+
+}
+
+
 // action creator for showing the otp input if user is present db or not
 export const showOtp = (boolean) => {
   return { type: SHOW_OTP, payload: boolean }
@@ -39,14 +51,13 @@ export const sendOtp = (number, dispatch) => {
       // console.log(confirmationResult);
       console.log("OTP is sent");
       dispatch({ type: SIGN_IN, payload: 'OTP is sent' })
-      dispatch(notification({ msg: "OTP is sent", err: false })) //dispatch action sending nofication of otp
+      notify("OTP sent", false);
       dispatch({ type: SHOW_OTP, payload: true });
       dispatch({ type: NOT_SINGUPED, payload: number });
-      setTimeout(() => {
-        dispatch(notification({ msg: "", err: false }))
-      }, 2000)
+
     })
     .catch(function (error) {
+      notify("OTP failed, try again", true);
       console.log(error);
     });
 
@@ -71,10 +82,10 @@ export const sigin = (phoneNumber, email, name, uid) => async dispatch => {
     dispatch({ type: OTP, payload: newUser });
     history.push('/')
   })
-  .catch((err) => {
-    console.log(err)
-    console.log('unable to save user')
-  })
+    .catch((err) => {
+      console.log(err)
+      console.log('unable to save user')
+    })
 }
 
 export const submitOtp = (otp) => async dispatch => {
@@ -104,17 +115,14 @@ export const submitOtp = (otp) => async dispatch => {
         console.log("user does not exists");
         history.push({
           pathname: '/signup',
-          state: {uid: result.user.uid}
+          state: { uid: result.user.uid }
         });
       }
     })
   }).catch(function (error) {
     console.log(error);
     console.log('wrong otp')
-    dispatch(notification({ msg: "Wrong OTP", err: true })) //dispatch action sending nofication of otp
-    setTimeout(() => {
-      dispatch(notification({ msg: "", err: false }))
-    }, 2000)
+    notify("Wrong OTP", true);
   });
 }
 

@@ -1,6 +1,6 @@
 import { db } from '../firebase'
 import { ADD_TO_WHISLIST, GET_WISHLIST } from './types'
-import { notification } from './index'
+import { notify } from './index'
 
 export const addToWhislist = (product, getWishList) => async (dispatch, getState) => {
   const userID = getState().user?.user?.id;
@@ -10,19 +10,13 @@ export const addToWhislist = (product, getWishList) => async (dispatch, getState
     ...product,
     userID
   }).then(() => {
-    dispatch({type: ADD_TO_WHISLIST, payload: { ...product }})
+    dispatch({ type: ADD_TO_WHISLIST, payload: { ...product } })
     getWishList();
-    dispatch(notification({ msg: "Product added to wishlist", err: false }))
-    setTimeout(() => {
-      dispatch(notification({ msg: "", err: false }))
-    }, 2000)
+    notify("Product added to wishlist")
   })
     .catch((err) => {
       console.log(err)
-      dispatch(notification({ msg: "Unable added to wishlist", err: true }))
-      setTimeout(() => {
-        dispatch(notification({ msg: "", err: false }))
-      }, 2000)
+      notify("Unable added to wishlist", true);
     })
 }
 
@@ -32,11 +26,7 @@ export const deleteWishList = (id) => (dispatch, getState) => {
   const userDbRef = db.users.doc(userID);
   userDbRef.collection('WISHLIST').doc(id).delete()
     .then(() => {
-      console.log("delete");
-      dispatch(notification({ msg: "Removed from wishlist", err: true }))
-      setTimeout(() => {
-        dispatch(notification({ msg: "", err: false }))
-      }, 2000)
+      notify("Removed from wishlist", true);
     }).catch((err) => console.log(err));
 }
 

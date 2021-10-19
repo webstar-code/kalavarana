@@ -9,7 +9,7 @@ class Accordain extends Component {
         this.setState({active:this.state.active===""?"active":"",roatate:this.state.active==="active"?"0deg":"180deg"})
      }
     render(){
-        console.log(this.props.accItems.length)
+        // console.log(this.props.accItems.length)
      
     return (
         <>

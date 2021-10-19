@@ -1,3 +1,4 @@
+import { notify } from '.';
 import { db } from '../firebase';
 import { ADD_ADDRES, GET_ADDRESS, MSG, ADD_SINGLE_ADDRESS, DELETE_ADDRESS, UPDATE_ADDRESS } from './types';
 
@@ -17,17 +18,11 @@ export const addAdress = (data, getAddresses) => async (dispatch, getState) => {
   }).then(() => {
     dispatch({ type: ADD_ADDRES, payload: data })
     getAddresses();
-    dispatch(notification({ msg: "Address added", err: false }))
-    setTimeout(() => {
-      dispatch(notification({ msg: "", err: false }))
-    }, 2000)
+    notify("Address added", false);
   })
     .catch((err) => {
       console.log(err)
-      dispatch(notification({ msg: "Failed to add address", err: true }))
-      setTimeout(() => {
-        dispatch(notification({ msg: "", err: false }))
-      }, 2000)
+      notify("Failed to add address", true);
     })
 
 
@@ -72,17 +67,12 @@ export const deleteAdress = (id, getAddresses) => async (dispatch, getState) => 
     .then(() => {
       getAddresses();
       dispatch({ type: DELETE_ADDRESS, payload: id })
-      dispatch(notification({ msg: "Address deleted", err: false }))
-      setTimeout(() => {
-        dispatch(notification({ msg: "", err: false }))
-      }, 2000)
+      notify("Address deleted", false);
     })
     .catch((err) => {
       console.log(err)
-      dispatch(notification({ msg: "Unable deleted", err: true }))
-      setTimeout(() => {
-        dispatch(notification({ msg: "", err: false }))
-      }, 2000)
+      notify("Unable to delete", true);
+
     })
 
 
@@ -113,15 +103,9 @@ export const updateAddress = (id, data, getAddresses) => async (dispatch, getSta
   userDbRef.collection('ADDRESS').doc(id).update(data).then(() => {
     getAddresses();
     dispatch({ type: UPDATE_ADDRESS, payload: data })
-    dispatch(notification({ msg: "Address Updated", err: false }))
-    setTimeout(() => {
-      dispatch(notification({ msg: "", err: false }))
-    }, 2000)
+    notify("Address updated", false);
   }).catch((err) => {
     console.log(err)
-    dispatch(notification({ msg: "Unable to update address", err: true }))
-    setTimeout(() => {
-      dispatch(notification({ msg: "", err: false }))
-    }, 2000)
+    notify("Unable to update address", true);
   })
 }

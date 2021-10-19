@@ -1,6 +1,8 @@
 import { db, firestore } from "../firebase"
 import { history } from '../history'
 import { CANCEL_ORDER, GET_ORDERS, PLACE_ORDER } from "./types"
+import { getCartItems } from './cart'
+import { getAddresses } from "./address"
 
 // const Orders =  {
 //     id: unique Id,
@@ -39,9 +41,21 @@ export const placeOrder = (data) => async (dispatch, getState) => {
         dispatch({ type: PLACE_ORDER, payload: data })
     }).then(() => {
         cart.map((item, i) => {
+            let stock = item.product.stock - item.quantity;
+            if(stock <= 0) {
+                stock = 0;
+            }
+            console.log(stock);
+            firestore.collection('PRODUCTS').doc(item.product.id).update({
+                stock,
+                outOfStock: stock <= 0 ? true : false 
+            }).catch((err) => console.log(err));
             db.users.doc(userID).collection('CARTITEMS').doc(item.product.id).delete()
-                .then(() => console.log("cart deleted "))
-                
+                .then(() => {
+                    console.log("Cart deleted");
+                    getCartItems();
+                })
+
         })
     }).catch((err) => {
         console.log(err);
@@ -92,12 +106,12 @@ export const cancleOrder = (id, product) => (dispatch, getState) => {
         .then(() => {
             dispatch({ type: CANCEL_ORDER, payload: id })
         }).catch((err) => console.log(err));
-            // db.orders.doc(id).update({
-            //     cancled: true,
-            //     status: 'Canceled'
-            // })
-            //     .then(() => {
-            //         dispatch({ type: CANCEL_ORDER, payload: id })
-            //         firestore.collection('cancelOrders').add({ ...product, userId })
-            //     })
-        }
+    // db.orders.doc(id).update({
+    //     cancled: true,
+    //     status: 'Canceled'
+    // })
+    //     .then(() => {
+    //         dispatch({ type: CANCEL_ORDER, payload: id })
+    //         firestore.collection('cancelOrders').add({ ...product, userId })
+    //     })
+}
