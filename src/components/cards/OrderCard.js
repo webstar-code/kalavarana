@@ -8,20 +8,22 @@ const OrderCard = (props) => {
 	const [showCancleForm, setShowCancleForm] = useState(false)
 	const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	let fdate = new Date(props.order.bookingTime);
-	let date = fdate.getDate();
-	let month = fdate.getMonth();
-	let year = fdate.getFullYear();
-	const placedDate = props.order.bookingTime;
-
+	// let date = fdate.getDate();
+	// let month = fdate.getMonth();
+	// let year = fdate.getFullYear();
+	// const placedDate = props.order.bookingTime;
+	console.log(props);
 	const OneDay = props.order.bookingTime + (1000 * 60 * 60 * 24)
+	const dateNow = Date.now();
+	console.log(dateNow , OneDay);
 
 	useEffect(() => {
-		if (OneDay > placedDate) {
+		if (dateNow > OneDay) {
 			// The yourDate time is less than 1 days from now
 			console.log('you can cancel')
 			setCancel(true)
 		}
-		else if (OneDay < placedDate) {
+		else if (OneDay < dateNow) {
 			console.log('you canot cancel order')
 			setCancel(false)
 			// The yourDate time is more than 1 days from now

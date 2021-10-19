@@ -70,11 +70,7 @@ const Checkout = (props) => {
 							{props.cartItems?.map((cart, i) => (
 								<SideCartItem
 									key={cart.id}
-									id={cart.product.id}
-									name={cart.product.name}
-									picUrl={cart.product.picUrl}
-									mrp={cart.product.mrp}
-									totalPrice={12}
+									product={cart.product}
 									quantity={cart.quantity}
 									disable
 								/>

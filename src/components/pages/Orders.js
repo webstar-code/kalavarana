@@ -25,10 +25,12 @@ const Orders = (props) => {
                     <h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
                         <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
                         My Orders</h1>
-                    <h2>{placeDate}</h2>
                     {
                         props.orders.map((order, i) => (
+                            <>
+                            <h2>{placeDate}</h2>
                             <OrderCard key={order.id} order={order} />
+                            </>
                         ))
                     }
                     {/* <h2>03 FEBRUARY 2021</h2> */}

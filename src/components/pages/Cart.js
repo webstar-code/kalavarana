@@ -54,12 +54,8 @@ const Cart = (props) => {
 							{props.cartItems?.map((cart, i) => (
 								<SideCartItem
 									key={cart.product.id}
-									id={cart.product.id}
-									name={cart.product.name}
+									product={cart.product}
 									quantity={cart.quantity}
-									picUrl={cart.product.picUrl}
-									mrp={cart.product.mrp}
-								// totalPrice={cart.totalPrice}
 								/>
 							))}
 						</div>
@@ -76,7 +72,7 @@ const Cart = (props) => {
 										key={i} getActiveAdd={getActiveAdd}
 										i={i}
 										address={address}
-										style={i === activeIndex ? { border: '2px solid #08263F' } : null}
+										style={i === activeIndex ? { border: '3px solid #08263F' } : null}
 									/>
 								))
 							}

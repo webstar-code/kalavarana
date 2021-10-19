@@ -13,8 +13,11 @@ export const notify = (msg, err = false) => async (dispatch, getState) => {
   dispatch(notification({ msg: msg, err: err }))
   setTimeout(() => {
     dispatch(notification({ msg: "", err: false }))
-  }, 2000);
+  }, 3000);
+}
 
+export const message = (msg, err = false) => {
+  notify(msg, err)
 }
 
 

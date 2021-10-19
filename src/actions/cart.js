@@ -81,7 +81,7 @@ export const updateCartQauntity = (id, quantity, getCartItems) => async (dispatc
 
 export const getCartTotal = () => (dispatch, getState) => {
     const cartItems = getState().cart;
-    const total = cartItems.reduce((total, itm) => total + itm.product.discountedMrp * itm.quantity, 0);
+    const total = cartItems.reduce((total, itm) => !itm.product.outOfStock ? total + itm.product.discountedMrp * itm.quantity : total, 0);
     dispatch({ type: CART_TOTAL, payload: total })
 }
 

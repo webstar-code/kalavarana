@@ -16,15 +16,16 @@ const SideCart = (props) => {
             <CloseIcon />
           </div>
         </div>
+        {props.cartItems.length == 0 && 
+        <div className="w-full flex items-start justify-center pt-28">
+          <p className="text-3xl font-medium text-gray-400">Your Cart is Empty</p>
+        </div>
+        }
         <div className="side-cart-items">
           {props.cartItems?.map((cart, i) => (
             <SideCartItem
               key={cart.product.id}
-              id={cart.product.id}
-              name={cart.product.name}
-              picUrl={cart.product.picUrl}
-              mrp={cart.product.mrp}
-              totalPrice={12}
+              product={cart.product}
               quantity={cart.quantity}
             />
           ))}

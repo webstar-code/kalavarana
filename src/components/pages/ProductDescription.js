@@ -79,14 +79,16 @@ const ProductDescription = (props) => {
             </div>
             <div className="h-full flex flex-col items-start justify-start px-4 md:px-0">
               <div className="w-full flex justify-between items-start py-4 md:py-0">
-                <h1 className="text-2xl md:text-3xl font-medium">{product?.name}</h1>
+                <div>
+                  <h1 className="text-2xl md:text-3xl font-medium">{product?.name}</h1>
+                  {product?.outOfStock && <p className="text-red-500 text-sm py-2">Out of Stock</p>}
+                </div>
                 <div className="text-right">
                   <div className="flex justify-end items-center md:items-start">
-                    <img src={RUPPEEICON} className="w-6 h-6 md:w-8 md:h-8 -mr-1 -mt-1" />
+                    <img src={RUPPEEICON} className="w-6 h-6 md:w-8 md:h-8 self-end" />
                     <h1 className="text-xl md:text-3xl font-medium">{product?.discountedMrp}</h1>
                     <h1 className="text-lg md:text-2xl font-medium line-through text-gray-400">{product?.mrp}</h1>
                   </div>
-
                   {product?.discountPercentage ?
                     <p className="inline-block text-xs md:text-sm text-gray-400">Discount Applied : {product?.discountPercentage}% off</p>
                     : product?.flatDiscountAmount ?
