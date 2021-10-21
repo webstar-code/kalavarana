@@ -7,39 +7,42 @@ export const showCart = (boolean) => {
 
 export const addToCart = (data, callback) => async (dispatch, getState) => {
     const userID = getState().user?.user?.id;
-    const userDbRef = db.users.doc(userID);
-    let exists = false;
+    if (!userID) {
+        return;
+    } else {
+        const userDbRef = db.users.doc(userID);
+        let exists = false;
 
-    // check if product already exists in CARTITEMS
-    userDbRef.collection('CARTITEMS').get().then((items) => {
-        items.forEach((item) => {
-            if (item.id === data.product.id && item.data().quantity < data.quantity) {
-                console.log("updating quantity");
-                userDbRef.collection('CARTITEMS').doc(item.id).update({
-                    quantity: data.quantity
-                }).then(() => {
-                    callback()
-                }).catch((err) => console.log(err))
-                dispatch(showCart(true))
-                exists = true;
-            }
-        })
-    }).then(() => {
-        if (exists == false) {
-            userDbRef.collection('CARTITEMS').doc(data.product.id).set({
-                ...data
-            }).then(() => {
-                dispatch({ type: ADD_TO_CART, payload: { ...data } })
-                dispatch(showCart(true))
-                console.log("item added in cart")
-                callback();
-            }).catch((err) => {
-                console.log(err);
+        // check if product already exists in CARTITEMS
+        userDbRef.collection('CARTITEMS').get().then((items) => {
+            items.forEach((item) => {
+                if (item.id === data.product.id && item.data().quantity < data.quantity) {
+                    console.log("updating quantity");
+                    userDbRef.collection('CARTITEMS').doc(item.id).update({
+                        quantity: data.quantity
+                    }).then(() => {
+                        callback()
+                    }).catch((err) => console.log(err))
+                    dispatch(showCart(true))
+                    exists = true;
+                }
             })
-        }
-    })
+        }).then(() => {
+            if (exists == false) {
+                userDbRef.collection('CARTITEMS').doc(data.product.id).set({
+                    ...data
+                }).then(() => {
+                    dispatch({ type: ADD_TO_CART, payload: { ...data } })
+                    dispatch(showCart(true))
+                    console.log("item added in cart")
+                    callback();
+                }).catch((err) => {
+                    console.log(err);
+                })
+            }
+        }).catch((err) => console.log(err))
 
-
+    }
 }
 
 export const getCartItems = () => (dispatch, getState) => {

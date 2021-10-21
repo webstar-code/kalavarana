@@ -53,13 +53,19 @@ export const sendOtp = (number, dispatch) => {
       // console.log(confirmationResult);
       console.log("OTP is sent");
       dispatch({ type: SIGN_IN, payload: 'OTP is sent' })
-      notify("OTP sent", false);
+      dispatch(notification({ msg: 'OTP sent', err: false }))
+      setTimeout(() => {
+        dispatch(notification({ msg: "", err: false }))
+      }, 2000);
       dispatch({ type: SHOW_OTP, payload: true });
       dispatch({ type: NOT_SINGUPED, payload: number });
 
     })
     .catch(function (error) {
-      notify("OTP failed, try again", true);
+      dispatch(notification({ msg: 'Unable to send OTP, try again', err: true }))
+      setTimeout(() => {
+        dispatch(notification({ msg: "", err: false }))
+      }, 2000);
       console.log(error);
     });
 
@@ -101,10 +107,8 @@ export const submitOtp = (otp) => async dispatch => {
     // check if the user already exists
     db.users.get().then(querySnapshot => {
       querySnapshot.forEach((doc) => {
-        console.log(doc.data());
-        console.log(db.formatedDoc(doc).phoneNumber, user.phoneNumber);
         if (db.formatedDoc(doc).phoneNumber === user.phoneNumber) {
-          console.log('user already exists');
+          // console.log('user already exists');
           dispatch({ type: OTP, payload: db.formatedDoc(doc) });
           redirect = true;
           return;
@@ -114,7 +118,7 @@ export const submitOtp = (otp) => async dispatch => {
       if (redirect) {
         history.push('/');
       } else {
-        console.log("user does not exists");
+        // console.log("user does not exists");
         history.push({
           pathname: '/signup',
           state: { uid: result.user.uid }

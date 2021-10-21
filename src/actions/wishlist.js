@@ -32,11 +32,12 @@ export const addToWhislist = (product, getWishList) => async (dispatch, getState
 }
 
 
-export const deleteWishList = (id) => (dispatch, getState) => {
+export const deleteWishList = (id, getWishList) => (dispatch, getState) => {
   const userID = getState().user?.user?.id;
   const userDbRef = db.users.doc(userID);
   userDbRef.collection('WISHLIST').doc(id).delete()
     .then(() => {
+      getWishList();
       dispatch(notification({ msg: "Product removed from wishlist", err: false }))
       setTimeout(() => {
         dispatch(notification({ msg: "", err: false }))
