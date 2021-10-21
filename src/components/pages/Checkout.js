@@ -1,16 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SideCartItem from '../sideCart/SideCartItem'
 import AddressCard from '../profile/AddressCard'
 import { connect } from 'react-redux'
-import logo from '../../assets/img/login-logo.png'
 import { placeOrder } from '../../actions/orders'
+import { getCartItems } from '../../actions/cart'
+
 import Header from '../Header'
+import Checkbox from '@material-ui/core/Checkbox';
+import { Redirect } from 'react-router'
+import { history } from '../../history'
+
 const Checkout = (props) => {
+
 	console.log(props);
+	const donation = 50;
 	const [grandTotal, setGrandTotal] = useState((props.checkout.total + props.checkout.deliveryCharge) - props.checkout.couponDiscount);
+	const [checked, setChecked] = useState(false);
+
+	useEffect(() => {
+		console.log("checked");
+		if (checked) {
+			setGrandTotal(grandTotal + donation);
+		} else {
+			setGrandTotal((props.checkout.total + props.checkout.deliveryCharge) - props.checkout.couponDiscount);
+		}
+	}, [checked]);
+
 
 	const handlePlaceOrder = () => {
-		props.placeOrder({ ...props.checkout, grandTotal, isPaymentDone: true })
+		props.placeOrder({ ...props.checkout, grandTotal, isPaymentDone: true }, props.getCartItems)
 	}
 	const loadScripts = (src) => {
 		return new Promise((resolve) => {
@@ -32,7 +50,7 @@ const Checkout = (props) => {
 		"currency": 'INR',
 		"amount": 1 * 100,
 		"name": "ANA",
-		"image": logo,
+		// "image": logo,
 		"description": props.user.name,
 		//This is a sample Order ID. Pass the `id` obtained in the response of Step 1
 		"handler": function (response) {
@@ -60,21 +78,26 @@ const Checkout = (props) => {
 
 	return (
 		<>
-			<Header />
+			{!props.user === false || props.checkout === undefined && <Redirect to='/login' />}
+
 			<div className="main-cart-container">
 				<div className="main-cart-area">
 
 					<div className="main-right-cart">
 						<h1 className="text-2xl font-bold m-0 p-0">{props.cartItems.length} Items</h1>
 						<div className="side-cart-items">
-							{props.cartItems?.map((cart, i) => (
+							{props.cartItems.length > 0 ? props.cartItems?.map((cart, i) => (
 								<SideCartItem
 									key={cart.id}
 									product={cart.product}
 									quantity={cart.quantity}
 									disable
 								/>
-							))}
+							)) :
+								<div className="w-full flex items-start justify-center pt-28">
+									<p className="text-3xl font-medium text-gray-400">Your Cart is Empty</p>
+								</div>
+							}
 						</div>
 					</div>
 					<div className="main-cart-selection">
@@ -96,6 +119,21 @@ const Checkout = (props) => {
 								</div>
 								<div className="price-item">
 									<p>Discount</p><p>-{props.checkout.couponDiscount}</p>
+								</div>
+								<div className="price-item">
+									<div className="flex items-center -ml-2">
+										<Checkbox
+											defaultChecked
+											size="small"
+											checked={checked}
+											onChange={() => {
+												setChecked(!checked);
+											}}
+											inputProps={{ 'aria-label': 'checkbox with small size' }}
+										/>
+										<p>I would like to donate</p>
+									</div>
+									<p>{donation}</p>
 								</div>
 								<div className="price-item">
 									<p className="font-bold">Grand Total</p><p className="font-bold">{grandTotal} Rs</p>
@@ -128,4 +166,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, { placeOrder })(Checkout)
+export default connect(mapStateToProps, { placeOrder, getCartItems })(Checkout)

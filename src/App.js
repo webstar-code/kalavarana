@@ -1,10 +1,9 @@
 import './styles/global.css'
 import React, { useEffect } from 'react'
-import { Router, Route, Switch } from 'react-router-dom'
+import { Router, Route, Switch, Redirect } from 'react-router-dom'
 import MainPage from './components/pages/MainPage'
 import Signup from './components/pages/Signup'
 import Login from './components/pages/Login'
-import Dressses from './components/pages/Dressses'
 import { history } from './history'
 import Profile from './components/pages/Profile'
 import { auth, db } from './firebase'
@@ -38,13 +37,41 @@ import ProfileNavigation from './components/profile/ProfileNavigation'
 import Notification from './components/pages/Notification'
 import Error from './components/pages/Error'
 import SplashScreen from './components/splash-screen/SplashScreen'
-import Category from './components/Category'
-import SubCategory from './components/SubCategory'
+import Category from './components/pages/Category'
+import SubCategory from './components/pages/SubCategory'
+import Featured from './components/pages/Featured'
+import Sales from './components/pages/Sales'
+import Header from './components/Header'
 
+
+export function ProtectedRoute({ user, children, ...rest }) {
+    return (
+        <Route
+            {...rest}
+            render={({ location }) => {
+                if (user) {
+                    return children;
+                }
+
+                if (!user) {
+                    return (
+                        <Redirect
+                            to={{
+                                pathname: '/login',
+                                state: { from: location },
+                            }}
+                        />
+                    );
+                }
+
+                return null;
+            }}
+        />
+    );
+}
 const App = (props) => {
 
     useEffect(() => {
-        console.log("cart changes")
         props.getCartTotal()
     }, [props.cart])
 
@@ -55,7 +82,6 @@ const App = (props) => {
             props.getOrders()
             props.getWishList();
         }
-
     }, [props.user])
 
     useEffect(() => {
@@ -63,26 +89,28 @@ const App = (props) => {
             // console.log(user)
             if (user) {
                 const data = db.users.doc(user.uid).get().then(doc => {
-                    console.log(doc.data());
+                    // console.log(doc.data());
                     props.userStateChanged(db.formatedDoc(doc))
                 })
             }
         })
         return unsubscribe
     }, [])
-    console.log(props.user)
+    // console.log(props.user)
     return (
         <>
-            {/* <SplashScreen /> */}
+            <SplashScreen />
             <Router history={history}>
+                <Header />
                 <Switch>
                     <Route path="/" exact component={MainPage} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/login" component={Login} />
                     <Route path="/category/:category" exact component={Category} />
                     <Route path="/category/:category/:sub_category" component={SubCategory} />
+                    <Route path="/featured" component={Featured} />
+                    <Route path="/sales" component={Sales} />
                     <Route path="/loader" component={Loading} />
-                    <Route path="/dresses" component={Dressses} />
                     <Route path="/profile" exact component={Profile} />
                     <Route path="/profile/address" exact component={Adress} />
                     <Route path="/profile/orders" exact component={Orders} />

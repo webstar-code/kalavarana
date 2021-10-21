@@ -17,7 +17,6 @@ useEffect(()=>{
       
     return (
         <>
-        <Header/>
         <div className="confirmed-order">
             <img src={img} alt="" style={{width:'213px',height:'82px'}} />
             <h1 className="text-2xl font-bold mt-16 mb-6">Page Not Found</h1>

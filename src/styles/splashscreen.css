@@ -1,10 +1,13 @@
+
+
 .fade-out {
     opacity: 1;
-    animation: fadeOut 4s forwards ease-in-out;
+    animation: fadeOut 2s forwards ease-in-out;
 }
 
 .fade-out-slow {
-  animation: fadeOutSlow 6s forwards ease-in-out;
+  opacity: 1;
+  animation: fadeOutSlow 2s forwards ease-in-out;
   background: '#08263F';
 }
 

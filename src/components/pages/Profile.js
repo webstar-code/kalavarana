@@ -1,23 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {connect} from 'react-redux'
 import {logout} from '../../actions'
 import Header from '../Header'
 import '../../styles/profile.css'
 import UserInfo from '../profile/UserInfo'
 import ProfileNavigation from '../profile/ProfileNavigation'
+import { history } from '../../history'
+import { Redirect } from 'react-router'
 const Profile = (props) => {
+  // console.log(props.user.id)
+  useEffect(() => {
+    console.log("changed")
+    console.log(props.user)
+  }, [props.user])
 
-    const handleLogout=()=>{
-      props.logout()
-    }
-    
     return (
         <>
-        <Header/>
+        {!props.user.id && <Redirect to='/login' /> }
         <div className="profile-page" >
           <ProfileNavigation/>
-          <UserInfo user={props.user}/>
-        {/* <button onClick={handleLogout} className="bg-black text-white py-2 px-3">Logout</button> */}
+          <UserInfo />
         </div>
         </>
     )

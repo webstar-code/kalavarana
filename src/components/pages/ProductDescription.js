@@ -2,24 +2,22 @@ import React, { useState, useEffect } from 'react'
 import '../../styles/productDes.css'
 import Header from '../Header'
 import { connect } from 'react-redux'
-import { db, firestore } from '../../firebase'
+import { firestore } from '../../firebase'
 import { addToWhislist } from '../../actions/wishlist'
 import { addToCart, getCartItems } from '../../actions/cart'
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import Size from '../product/Size'
-import Color from '../product/Color'
 import Msg from '../notification/Msg'
-import Description from '../product/Description'
+import Rating from '../product/Rating'
 import Reviews from '../product/Reviews'
-import SizeChart from '../product/SizeChart'
 import RelatedProducts from '../product/RelatedProducts'
 import SideCart from '../sideCart/SideCart'
-import Fabric from '../product/Fabric'
 import { PAINTING1 } from '../../assetsKalavarna'
 import { useParams } from 'react-router-dom'
 import { RUPPEEICON } from '../../assetsKalavarna'
+import { history } from '../../history'
+import Footer from '../Footer'
 
 const dummyData = {
   picUrk: PAINTING1,
@@ -44,7 +42,7 @@ const ProductDescription = (props) => {
       }).catch((err) => {
         console.log(err);
       })
-  }, [])
+  }, [useParams().id])
 
 
 
@@ -54,16 +52,25 @@ const ProductDescription = (props) => {
 
 
   const handleAddToCart = () => {
-    props.addToCart({
-      product: { ...product },
-      quantity
-    }, props.getCartItems)
+    console.log(props.user);
+    if (props.user.id) {
+      props.addToCart({
+        product: { ...product },
+        quantity
+      }, props.getCartItems)
+    } else {
+      history.push('/login');
+    }
   }
 
   const handleWishList = () => {
-    props.addToWhislist({
-      ...product
-    })
+    if (props.user.id) {
+      props.addToWhislist({
+        ...product
+      })
+    } else {
+      history.push('/login');
+    }
   }
 
   return (
@@ -71,13 +78,12 @@ const ProductDescription = (props) => {
       <div className="w-full">
 
         <Msg />
-        <Header />
         <div className="w-full h-full flex flex-col items-center justify-center mt-20 md:mt-36">
           <div className="w-full h-full md:w-4/5 px-5 md:px-0  mt-10 grid grid-cols-1 md:grid-cols-2 place-items-start items-start justify-between">
             <div className="w-full flex justify-center items-center">
               <img src={PAINTING1} className=" md:max-w-xs h-full" />
             </div>
-            <div className="h-full flex flex-col items-start justify-start px-4 md:px-0">
+            <div className="w-full h-full flex flex-col items-start justify-start px-4 md:px-0">
               <div className="w-full flex justify-between items-start py-4 md:py-0">
                 <div>
                   <h1 className="text-2xl md:text-3xl font-medium">{product?.name}</h1>
@@ -112,18 +118,23 @@ const ProductDescription = (props) => {
               </div>
               <div className="handle-cart w-full flex flex-col md:flex-row items-start md:items-center justify-between mt-auto py-4 md:py-0">
                 <div className="flex ">
-                  <div className="w-9 h-9 flex items-center justify-center text-white border border-primary cursor-pointer bg-primary" onClick={() => setCount(quantity - 1)}>
+                  <button disabled={product?.outOfStock ? true : false}
+                    className={`w-9 h-9 flex items-center justify-center text-white border border-primary bg-primary ${product?.outOfStock ? 'opacity-70 cursor-default' : 'opacity-100 cursor-pointer'}`}
+                    onClick={() => setCount(quantity - 1)}>
                     <RemoveIcon />
-                  </div>
+                  </button>
                   <div className="w-9 h-9 flex items-center justify-center text-primary border border-primary cursor-pointer bg-white">
                     {quantity}
                   </div>
-                  <div className="w-9 h-9 flex items-center justify-center text-white border border-primary cursor-pointer bg-primary " onClick={() => setCount(quantity + 1)}>
+                  <button disabled={product?.outOfStock ? true : false}
+                    className={`w-9 h-9 flex items-center justify-center text-white border border-primary bg-primary ${product?.outOfStock ? 'opacity-70 cursor-default' : 'opacity-100 cursor-pointer'}`}
+                    onClick={() => setCount(quantity + 1)}>
                     <AddIcon />
-                  </div>
+                  </button>
                 </div>
 
-                <button onClick={handleAddToCart} className="bg-primary text-white h-9 px-8 py-2 border border-black flex justify-center items-center my-2 md:my-0 md:ml-5 mx-0 w-full whitespace-nowrap">
+                <button onClick={handleAddToCart} disabled={product?.outOfStock ? true : false}
+                  className={`bg-primary text-white h-9 px-8 py-2 border border-black flex justify-center items-center my-2 md:my-0 md:ml-5 mx-0 w-full whitespace-nowrap ${product?.outOfStock ? 'opacity-70' : 'opacity-100'}`}>
                   ADD TO CART
                 </button>
                 <button onClick={handleWishList} className="text-primary h-9 px-8 py-2 border border-black flex justify-center items-center my-2 md:my-0 md:ml-5 mx-0 w-full whitespace-nowrap">
@@ -136,12 +147,13 @@ const ProductDescription = (props) => {
 
 
           </div>
-          <Description text={dummyData?.description} />
-          <Reviews productID={dummyData?.productID} />
-          <RelatedProducts />
+          {/* <Rating text={dummyData?.description} />
+          <Reviews productID={dummyData?.productID} /> */}
+          {product.subcategories && <RelatedProducts category={product?.categories} subcats={product?.subcategories} />}
           <SideCart />
         </div>
       </div>
+      <Footer />
     </>
   )
 }
@@ -149,70 +161,7 @@ const ProductDescription = (props) => {
 const mapStateToProsp = (state, ownProps) => {
   return {
     id: ownProps.match.params.id,
-    userId: state.user?.user?.userId,
+    user: state.user?.user,
   }
 }
 export default connect(mapStateToProsp, { addToWhislist, addToCart, getCartItems })(ProductDescription)
-
-
-{/* <div className="sizes">
-              <div className="size-chart">
-                <p>Select Size</p>
-                <p onClick={() => setShowSizeChart(true)}>SIZE CHART</p>
-              </div>
-              <div className="size-select">
-                {
-                  product?.sizes?.map((size, i) => (
-                    <Size size={size.size}
-                      key={i}
-                      getSize={getSize}
-                      i={i}
-                      style={sizeActiveIndex === i ? { background: '#000', color: '#fff' } : { background: '#fff', color: '#000' }}
-                    />
-                  ))
-                }
-
-
-              </div>
-            </div> */}
-
-{/* <div className="custom-size">
-
-            </div>
-            <div className="colors">
-              <div className="color-text">
-                <p>SELECT COLOR</p>
-                <p>CUSTOM TEXT</p>
-              </div>
-              <div className="color-select">
-                <div className="color">
-                  {product?.colors?.map((col, i) => (
-                    <Color
-                      key={i}
-                      color={col.color}
-                      i={i}
-                      hex={col.hex}
-                      getColor={getColor}
-                      style={colorActiveIndex === i ? { border: '2px solid #000' } : { border: 'none' }}
-                    />
-                  ))}
-                </div>
-                <div className="custom-text">
-                  <TextField value={coustomText} onChange={(e) => setCustomText(e.target.value)} id="standard-basic" label="TEXT HERE" />
-                </div>
-              </div>
-              <p className="select-fabric">SELECT FABRIC</p>
-              <div className="color fabric">
-
-                {product?.fabrics?.map((col, i) => (
-                  <Fabric
-                    key={i}
-                    fabric={col.fabric}
-                    i={i}
-                    hex={col.hex}
-                    getFabric={getFabric}
-                    style={fabricActiveIndex === i ? { border: '2px solid #000' } : { border: 'none' }}
-                  />
-                ))}
-              </div>
-            </div> */}

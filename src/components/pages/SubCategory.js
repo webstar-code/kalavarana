@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import Header from './Header';
+import Header from '../Header';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-import { PAINTING1 } from '../assetsKalavarna';
+import { PAINTING1 } from '../../assetsKalavarna';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import ViewComfyIcon from '@material-ui/icons/ViewComfy';
-import PaintingCard from './cards/PaintingCard'
-import { db, firestore } from '../firebase';
+import PaintingCard from '../cards/PaintingCard'
+import { db, firestore } from '../../firebase';
 import { useParams } from 'react-router-dom'
-import '../styles/dresess.css';
-import Footer from './Footer';
+import '../../styles/dresess.css';
+import Footer from '../Footer';
 
 const dummyData = [
 	{
@@ -60,9 +60,9 @@ const SubCategory = () => {
 	const [products, setProducts] = useState([]);
 	const [sortedProducts, setSortedProducts] = useState([]);
 	const [filteredProducts, setFilteredProducts] = useState([]);
-	console.log(sortedProducts);
-	console.log(filteredProducts);
-
+	// console.log(sortedProducts);
+	// console.log(filteredProducts);
+	// console.log(products);
 	const [sort, setSort] = useState(false)
 	const [filter, setFilter] = useState(false);
 	const [fullScreen, setFullScreen] = useState(true)
@@ -86,6 +86,7 @@ const SubCategory = () => {
 	}
 
 	useEffect(() => {
+		console.log("fetch");
 		let items = [];
 		firestore.collection('PRODUCTS').get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
@@ -124,7 +125,6 @@ const SubCategory = () => {
 	const SortUtil = (type) => {
 		switch (type) {
 			case 'Featured':
-				setProducts([]);
 				setSortedProducts(products.filter((e) => e.isFeatured == true));
 				setFilteredProducts([]);
 				return;
@@ -150,7 +150,6 @@ const SubCategory = () => {
 	return (
 
 		<div className="w-full flex flex-col mt-20 md:mt-36">
-			<Header />
 			<div className="w-full bg-primary flex items-center justify-center mb-10" style={{ height: '256px' }}>
 				<h1 className="text-white text-2xl md:text-5xl uppercase">{subCategoryName}</h1>
 			</div>
@@ -177,20 +176,20 @@ const SubCategory = () => {
 						</p>
 					</div>
 				</div>
-				<div className={`w-full grid ${halfScreen && 'grid-cols-1 md:grid-cols-2'} ${fullScreen && 'grid-cols-2 xl:grid-cols-4'} gap-2 gap-y-6 mt-4 mb-12 place-items-center `}>
+				<div className={`w-full grid ${halfScreen && 'grid-cols-1 md:grid-cols-2'} ${fullScreen && 'grid-cols-2 xl:grid-cols-4'} gap-2 gap-y-6 mt-4 mb-12 `}>
 					{/* {products.map((product, i) => (
 						<Card product={product} key={i} />
 					))} */}
-					{sortedProducts  ?
+					{sortedProducts === false  ?
 						sortedProducts.map((product) => (<div className="max-w-sm">
 							<PaintingCard product={product} key={product.id} />
 						</div>))
-						: filteredProducts  ?
+						: filteredProducts === false  ?
 							filteredProducts.map((product) => (<div className="max-w-sm">
 								<PaintingCard product={product} key={product.id} />
 							</div>))
 							:
-							dummyData.map((product, i) => (
+							products.map((product, i) => (
 								<div className="max-w-sm">
 									<PaintingCard product={product} key={i} />
 								</div>

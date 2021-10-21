@@ -5,7 +5,6 @@ import Header from '../Header'
 const Notification = () => {
     return (
         <>
-        <Header/>
         <div className="notifaction-page">
             <h1>NOTIFICATIONS</h1>
             <div className="notifaction-area">

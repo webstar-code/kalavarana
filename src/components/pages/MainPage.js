@@ -1,28 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LoadingSpinner from '../LoadingSpinner'
 import Header from '../Header'
 import Banner from '../Banner'
 import Cards from '../cards/Cards'
-import Cards2 from '../cards/Cards2'
-import banner1 from '../../assetsKalavarna/images/5.png'
 import banner2 from '../../assetsKalavarna/images/3.png'
-
-// import banner2 from '../../assets/img/banner-2.png'
-import banner3 from '../../assets/img/banner-3.png'
-import banner4 from '../../assets/img/banner-4.png'
-import Feautred from '../Feautred'
 import Footer from '../Footer'
+import YouTubeToHtml5 from '@thelevicole/youtube-to-html5-loader'
+import SubCatProducts from '../SubCategoryCards';
 import '../../styles/home.css'
+import { firestore } from '../../firebase'
+
 const MainPage = () => {
+   const [subcats, setSubCats] = useState([]);
+
+   useEffect(() => {
+      firestore.collection('SUB-CATAGORIES').get().then((snapshot) => {
+         console.log(snapshot.docs.map((doc) => doc.data()))
+         setSubCats(snapshot.docs.map((doc) => doc.data()))
+      }).catch((err) => console.log(err))
+   }, []);   
+   new YouTubeToHtml5();
+
+   useEffect(() => {
+      console.log("Ad");
+      new YouTubeToHtml5();
+   });
    return (
       <>
-         <Header />
          <div className="w-full h-screen mb-12" style={{ marginBottom: '20px' }}>
-            {/* <Banner 
-           img={banner1}
-            height="512px"
-            /> */}
-            <iframe className="w-full h-full" src="https://www.youtube.com/embed/ByH9LuSILxU?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div className="relative flex items-center justify-center">
+               <video
+                  autoPlay
+                  controls
+                  loop
+                  muted
+                  data-yt2html5="https://youtu.be/xeXcCxvjVfA"
+                  className="w-full h-96 md:w-full md:h-full mt-20 md:mt-36 object-cover"
+               ></video>
+               {/* <h1 className="absolute text-4xl md:text-8xl ml-auto mt-auto z-10 text-white font-semibold text-center md:-mt-20 select-none leading-relaxed">Home for<br />Tanjore Paintings</h1> */}
+            </div>
+
             <Cards
                collection="Featured Paintings"
                colors />
@@ -31,8 +48,9 @@ const MainPage = () => {
                height="512px"
             />
 
-            {/* <Cards2 /> */}
-            {/* <Feautred /> */}
+            {subcats.length > 0 && subcats.map((subcat) => (
+               <SubCatProducts subcat={subcat} />
+            ))}
             <Footer />
          </div>
       </>

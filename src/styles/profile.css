@@ -151,12 +151,18 @@ border-bottom: 1px solid rgb(241, 239, 239);
     justify-content: center;
     flex-direction: column;
 }
+.innerModal > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+/* 
 .innerModal button{
     width: 157px;
     padding: 10px 5px;
-    background: #000;
+    background: #08263F;
     color: #fff;
-}
+} */
 .icon{
     padding: 5px;
     cursor: pointer;

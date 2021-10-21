@@ -2,7 +2,7 @@ import React from 'react'
 import StarIcon from '@material-ui/icons/Star';
 import { connect } from 'react-redux'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-const Description = (props) => {
+const Rating = (props) => {
 	const getRating = () => {
 		const counts = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 		props.reviews?.forEach((x) => { counts[x.stars] = (counts[x.stars] || 0) + 1; });
@@ -113,4 +113,4 @@ const Description = (props) => {
 const mapStateToProps = (state) => {
 	return { reviews: state.reviews }
 }
-export default connect(mapStateToProps)(Description)
+export default connect(mapStateToProps)(Rating)

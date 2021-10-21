@@ -1,21 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../Header'
-import blogImg from '../../assets/img/blog-img.png'
+import { useParams } from 'react-router-dom'
+import { firestore } from '../../firebase'
+
 const SingleBlog = () => {
+    const [blog, setBlog] = useState({});
+    const blogId = useParams().id;
+    
+    useEffect(() => {
+        firestore.collection('BLOGS').doc(blogId).get().then((doc) => {
+            setBlog(doc.data());
+        }).catch((err) => console.log(err))
+    }, []);
+    console.log(blog)
+
     return (
         <>
-        <Header/>
-        <div className="single-blog">
-            <img src={blogImg} alt="" />
-            <div className="single-blog-des">
-            <div className="bg-black p-2 text-white">FASHION</div>
-                <h1 className="py-4">Digital Fashion Player DressX <br/>Raises $2 Million</h1>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita incidunt, quas non beatae quos perferendis qui ad ipsa libero autem maxime sed aliquam corrupti ullam! Hic aperiam itaque obcaecati inventore consequatur! Velit possimus, aliquam id non soluta inventore, provident nisi adipisci esse pariatur ipsa.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita incidunt, quas non beatae quos perferendis qui ad ipsa libero autem maxime sed aliquam corrupti ullam! Hic aperiam itaque obcaecati inventore consequatur! Velit possimus, aliquam id non soluta inventore, provident nisi adipisci esse pariatur ipsa.</p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita incidunt, quas non beatae quos perferendis qui ad ipsa libero autem maxime sed aliquam corrupti ullam! Hic aperiam itaque obcaecati inventore consequatur! Velit possimus, aliquam id non soluta inventore, provident nisi adipisci esse pariatur ipsa.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita incidunt, quas non beatae quos perferendis qui ad ipsa libero autem maxime sed aliquam corrupti ullam! Hic aperiam itaque obcaecati inventore consequatur! Velit possimus, aliquam id non soluta inventore, provident nisi adipisci esse pariatur ipsa.</p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita incidunt, quas non beatae quos perferendis qui ad ipsa libero autem maxime sed aliquam corrupti ullam! Hic aperiam itaque obcaecati inventore consequatur! Velit possimus, aliquam id non soluta inventore, provident nisi adipisci esse pariatur ipsa.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita incidunt, quas non beatae quos perferendis qui ad ipsa libero autem maxime sed aliquam corrupti ullam! Hic aperiam itaque obcaecati inventore consequatur! Velit possimus, aliquam id non soluta inventore, provident nisi adipisci esse pariatur ipsa.</p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita incidunt, quas non beatae quos perferendis qui ad ipsa libero autem maxime sed aliquam corrupti ullam! Hic aperiam itaque obcaecati inventore consequatur! Velit possimus, aliquam id non soluta inventore, provident nisi adipisci esse pariatur ipsa.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita incidunt, quas non beatae quos perferendis qui ad ipsa libero autem maxime sed aliquam corrupti ullam! Hic aperiam itaque obcaecati inventore consequatur! Velit possimus, aliquam id non soluta inventore, provident nisi adipisci esse pariatur ipsa.</p>
+            <div className="single-blog">
+                <img src={blog.picUrl} alt="" />
+                <div className="single-blog-des">
+                    {/* <div className="bg-black p-2 text-white">FASHION</div> */}
+                    <h1 className="py-4">{blog.title}</h1>
+                    {blog.paragraphs && blog.paragraphs.map((para) => (
+                        <p>{para}</p>
+                    ))}
+                </div>
             </div>
-        </div>
         </>
     )
 }

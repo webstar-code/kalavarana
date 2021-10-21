@@ -9,6 +9,9 @@ import AddressForm from '../profile/AddressForm'
 import AddIcon from '@material-ui/icons/Add';
 import Msg from '../notification/Msg'
 import Coupon from '../cart/Coupon'
+import { history } from '../../history'
+
+
 const Cart = (props) => {
 	const [showForm, setShowForm] = useState(false)
 	const [showPromo, setShowPromo] = useState(false)
@@ -31,33 +34,38 @@ const Cart = (props) => {
 		console.log(selecAdd);
 	}
 
-
 	const handleCheckout = () => {
-		console.log(selectedAddress);
-		props.checkout({
-			address: selectedAddress,
-			orderType: 'Paid Online',
-			couponDiscount,
-			Code
-		})
+		if (props.user.id) {
+			props.checkout({
+				address: selectedAddress,
+				orderType: 'Paid Online',
+				couponDiscount,
+				Code
+			})
+		} else {
+			history.push('/login')
+		}
 	}
 
 	return (
 		<>
 			<Msg />
-			<Header />
 			<div className="main-cart-container">
 				<div className="main-cart-area">
 					<div className="main-right-cart">
 						<h1 className="text-2xl font-bold m-0 p-0">{props.cartItems.length} items {`(Item Total ${props.cartTotal})`}</h1>
 						<div className="side-cart-items">
-							{props.cartItems?.map((cart, i) => (
+							{props.cartItems.length > 0 ? props.cartItems?.map((cart, i) => (
 								<SideCartItem
-									key={cart.product.id}
+									key={cart.id}
 									product={cart.product}
 									quantity={cart.quantity}
 								/>
-							))}
+							)) :
+								<div className="w-full flex items-start justify-center pt-28">
+									<p className="text-3xl font-medium text-gray-400">Your Cart is Empty</p>
+								</div>
+							}
 						</div>
 					</div>
 					<div className="main-cart-selection">
@@ -78,10 +86,9 @@ const Cart = (props) => {
 							}
 						</div>
 
-						<div className="payment-method">
+						{/* <div className="payment-method">
 							<h1 className="text-xl font-bold">Payment Mode</h1>
 							<div className="payment-btns">
-								{/* <button onClick={handleCOD} className={`${cashOnDelivery&& 'active'}`}>Cash On Delivery</button> */}
 								<button className={`${payOnline && 'active'}`}>Pay Online</button>
 							</div>
 						</div>
@@ -96,11 +103,12 @@ const Cart = (props) => {
 								<input value={Code} type="text" placeholder="coupon" />
 								<button className="bg-primary">Apply</button>
 							</div>
-						</div>
+						</div> */}
 
 
 						<div className="process-area ">
-							<button className="bg-primary" onClick={handleCheckout}>Process</button>
+							<button disabled={props.cartItems.length <= 0 ? true : false}
+							className={`bg-primary ${props.cartItems.length <= 0 ? 'opacity-70' : 'opacity-100'}`} onClick={() => handleCheckout}>Process</button>
 						</div>
 					</div>
 				</div>
@@ -113,6 +121,7 @@ const Cart = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
+		user: state.user.user,
 		cartItems: state.cart,
 		cartTotal: state.cartTotal.total,
 		addresses: state.addresses,

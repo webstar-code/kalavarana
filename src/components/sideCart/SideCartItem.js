@@ -5,26 +5,25 @@ import { deleteCartItem, updateCartQauntity, getCartItems } from '../../actions/
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react';
 import { RUPPEEICON } from '../../assetsKalavarna'
+import CancelPrompt from '../CancelPrompt';
 
 const SideCartItem = (props) => {
-    // TODO: getting props.quanity updated but still showing prev quantity
-    // console.log(props);
-    // useEffect(() => {
-
-    // }, [props.quantity]);
-
-    console.log(props);
     const [Quantity, setQuantity] = useState(props.quantity)
     const [maxQuantityReached, setMaxQuantityReached] = useState(false);
-    
+    const [showModal, setShowModal] = useState(false)
+
     if (Quantity <= 0) {
         setQuantity(1)
     }
     useEffect(() => {
-        if (props.quantity >= props.product.stock) {
-            setQuantity(props.quantity);
-            setMaxQuantityReached(true);
-        }
+        console.log(Quantity);
+        console.log(props.quantity, props.product.stock)
+
+
+        // if (props.quantity >= props.product.stock) {
+        //     setQuantity(props.quantity);
+        //     setMaxQuantityReached(true);
+        // }
         if (!props.disable) {
             props.updateCartQauntity(props.product.id, Quantity, props.getCartItems)
         }
@@ -58,9 +57,12 @@ const SideCartItem = (props) => {
                         <p>{props.quantity}</p>
                         {!props.disable && <button onClick={() => setQuantity(props.quantity + 1)}>+</button>}
                     </div>
-                    {!props.disable && (<div className="trash-btn">
-                        <button onClick={handleDelete} className="p-2 hover:bg-gray-100 rounded-full"><DeleteOutlineIcon /></button>
-                    </div>)}
+                    {console.log(props.disable)}
+                    {!props.disable && <div className="trash-btn">
+                        <button onClick={() => setShowModal(true)} className="p-2 hover:bg-gray-100 rounded-full"><DeleteOutlineIcon /></button>
+                        {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDelete} />}
+                    </div>}
+
                 </div>
             </div>
         </div>

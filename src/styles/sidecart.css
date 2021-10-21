@@ -119,10 +119,11 @@ background: rgba(236, 236, 236, 0.8);
     border: 1px solid black;
 }
 @media(max-width:785px){
-    .side-cart{
+    /* .side-cart{
         display: none;
     }
+    
     .cart-full{
         display: none;
-    }
+    } */
 }

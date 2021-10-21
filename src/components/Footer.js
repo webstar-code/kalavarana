@@ -11,10 +11,16 @@ const Footer = () => {
                 <div className="flex flex-col h-full items-center">
                     <img src={logo} alt="KALAVARNA" className="w-32 h-24 md:w-52 md:h-36 mb-6" />
                     <div className="w-full flex items-center justify-evenly text-white text-xl mb-24">
-                        <FaFacebookF />
-                        <AiFillInstagram />
-                        <AiFillYoutube />
-                        <AiOutlineTwitter />
+                        <a href="https://www.facebook.com/kalavarana/" className="cursor-pointer" target="_blank" rel="noopener noreferrer">
+                            <FaFacebookF />
+                        </a>
+                        <a href="https://instagram.com/kalavarana?utm_medium=copy_link" className="cursor-pointer" target="_blank" rel="noopener noreferrer">
+                            <AiFillInstagram />
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCLuoIKgG1IMwWf_E0h1XaXg" className="cursor-pointer" target="_blank" rel="noopener noreferrer">
+                            <AiFillYoutube />
+                        </a>
+                        {/* <AiOutlineTwitter /> */}
                     </div>
                     <p className="text-sm text-white">Designed and developed by<a className="underline text-sm px-1" href="https://flexxited.com/">flexxited</a></p>
                 </div>
@@ -22,7 +28,7 @@ const Footer = () => {
                     <div className="flex flex-col h-full justify-evenly">
                         <h3 className="text-sm font-medium md:text-xl md:font-bold">INFORMATION</h3>
                         <Link to="/profile"><p className="font-normal py-2">Account</p></Link>
-                        <Link to="/blog"><p className="font-normal py-2">Blog</p></Link>
+                        {/* <Link to="/blog"><p className="font-normal py-2">Blog</p></Link> */}
                         <Link to="/terms"><p className="font-normal py-2">Terms and Service</p></Link>
                         <Link to="privacy-policy"><p className="font-normal py-2">Privacy Policy</p></Link>
                     </div>

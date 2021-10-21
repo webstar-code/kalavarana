@@ -5,7 +5,6 @@ import Header from '../Header'
 const Career = () => {
     return (
         <>
-        <Header/>
         <div className="careers">
             <div className="career-area">
             <h1 className="text-3xl font-bold">Secure your career and <br/>future with us.</h1>

@@ -1,5 +1,5 @@
 import {OTP, SIGN_IN,AUTH_STATE, LOG_OUT, NOT_SINGUPED} from '../actions/types'
-const authReducer=(state={},action)=>{
+const authReducer=(state={user: {}},action)=>{
 switch (action.type) {
     case SIGN_IN:
         return state

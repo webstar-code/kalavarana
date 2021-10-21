@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react';
@@ -11,10 +11,13 @@ import { db } from '../../firebase';
 import { message, notify } from '../../actions';
 import Msg from '../notification/Msg'
 
-const UserInfo = ({ user, notify }) => {
-  const [name, setName] = useState(user.name);
-  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
-  const [email, setEmail] = useState(user.email);
+const UserInfo = (props) => {
+  console.log(props);
+
+
+  const [name, setName] = useState(props.user.name);
+  const [phoneNumber, setPhoneNumber] = useState(props.user.phoneNumber);
+  const [email, setEmail] = useState(props.user.email);
   const [isName, setIsName] = useState(true);
   const [isEmail, setIsEmail] = useState(true)
   const [isNumber, setIsNumber] = useState(true)
@@ -53,13 +56,13 @@ const UserInfo = ({ user, notify }) => {
 
     console.log(phoneNumber);
     if (name && email && phoneNumber && isName && isNumber && isEmail) {
-      db.users.doc(user.id).update({
+      db.users.doc(props.user.id).update({
         name,
         phoneNumber,
         email
       }).then(() => {
-        console.log("user updated")
-        notify("profile updated", false);
+        console.log("props.user updated")
+        props.notify("profile updated", false);
         // message("profile updated");
       }).catch((err) => {
 
@@ -71,7 +74,7 @@ const UserInfo = ({ user, notify }) => {
   return (
     <>
       <Msg />
-      <div className="w-full md:w-4/6 py-12 md:px-12 flex flex-col items-center justify-center ">
+      <div className="w-full md:w-4/6 py-12 px-6 md:px-12 flex flex-col justify-center ">
         <h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
           <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
           Profile Details</h1>
@@ -89,20 +92,20 @@ const UserInfo = ({ user, notify }) => {
           />
           {!isName && <p className="text-red-500">Name is required</p>}
 
-          <div className="email-country" style={{ marginTop: '40px' }}>
-            <TextField
-              autoComplete="off"
-              id="outlined-basic"
-              label="EMAIL ADDRESS"
-              variant="outlined"
-              onChange={(e) => {
-                setEmail(e.target.value)
-              }}
-              value={email}
-              style={{ marginRight: '20px' }}
-            />
+          {/* <div className="" style={{ marginTop: '40px' }}> */}
+          <TextField
+            style={{ marginTop: '40px' }}
+            autoComplete="off"
+            id="outlined-basic"
+            label="EMAIL ADDRESS"
+            variant="outlined"
+            onChange={(e) => {
+              setEmail(e.target.value)
+            }}
+            value={email}
+          />
 
-            <FormControl variant="outlined" >
+          {/* <FormControl variant="outlined" >
               <InputLabel id="demo-simple-select-outlined-label">COUNTRY</InputLabel>
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -118,9 +121,9 @@ const UserInfo = ({ user, notify }) => {
                 <option value={'Italy'}>Italy</option>
               </Select>
             </FormControl>
-            {!isEmail && <p className="text-red-500">Email is required</p>}
+            {!isEmail && <p className="text-red-500">Email is required</p>} */}
 
-          </div>
+          {/* </div> */}
 
           <TextField
             style={{ marginTop: '40px' }}
@@ -144,6 +147,7 @@ const UserInfo = ({ user, notify }) => {
 
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return { user: state.user?.user }
 }
 export default connect(mapStateToProps, { notify })(UserInfo)

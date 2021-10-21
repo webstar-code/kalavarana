@@ -2,7 +2,6 @@ import React from 'react'
 import ProfileNavigation from '../profile/ProfileNavigation'
 import Header from '../Header'
 import { connect } from 'react-redux'
-import DressCard from '../cards/DressCard';
 import '../../styles/wishlist.css';
 import { db } from '../../firebase'
 import { useEffect } from 'react';
@@ -42,29 +41,28 @@ const dummyData = [
 
 
 const WhisList = (props) => {
-    const [product, setProduct] = useState([])
-    useEffect(() => {
-        db.users.doc(props.user.id).collection('WISHLIST').get().then((snapshot) => {
-            setProduct(snapshot.docs.map(e => db.formatedDoc(e)))
-        })
-    }, [props.userId])
+    // const [product, setProduct] = useState([])
+    // useEffect(() => {
+    //     db.users.doc(props.user.id).collection('WISHLIST').get().then((snapshot) => {
+    //         setProduct(snapshot.docs.map(e => db.formatedDoc(e)))
+    //     })
+    // }, [props.userId])
     return (
         <>
-            <Header />
             <div className="profile-page">
                 <ProfileNavigation />
-                <div className="wish-list">
-                    <h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
+                <div className="w-full md:w-4/6 py-12 px-6 md:px-12 flex flex-col items-start justify-center">
+                    <h1 className="text-primary flex items-center justify-start mb-3 md:mb-0 md:hidden text-2xl font-medium">
                         <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
                         Wishlist</h1>
-                    <div className="grid grid-cols-2 md:grid-cols-3  gap-3">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {
-                            // product.map((pro) => (
-                            //     <PaintingCard product={pro} key={pro.id} />
-                            // ))
-                            dummyData.map((pro) => (
+                            props.wishlist.map((pro) => (
                                 <PaintingCard product={pro} key={pro.id} />
                             ))
+                            // dummyData.map((pro) => (
+                            //     <PaintingCard product={pro} key={pro.id} />
+                            // ))
 
                         }
 
@@ -76,7 +74,10 @@ const WhisList = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    return { user: state.user?.user }
+    return { 
+        user: state.user?.user,
+        wishlist: state.wishlist
+    }
 }
 
 export default connect(mapStateToProps)(WhisList)

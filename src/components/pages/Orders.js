@@ -16,9 +16,17 @@ const Orders = (props) => {
     let month = fdate.getMonth();
     let year = fdate.getFullYear();
     const placeDate = `${date} ${months[month]} ${year}`
+
+    const formatDate = (ms) => {
+        let fdate = new Date(ms);
+        let date = fdate.getDate();
+        let month = fdate.getMonth();
+        let year = fdate.getFullYear();
+        return `${date} ${months[month]} ${year}`
+    }
+
     return (
         <>
-            <Header />
             <div className="profile-page">
                 <ProfileNavigation />
                 <div className="orders">
@@ -28,8 +36,8 @@ const Orders = (props) => {
                     {
                         props.orders.map((order, i) => (
                             <>
-                            <h2>{placeDate}</h2>
-                            <OrderCard key={order.id} order={order} />
+                                <h2>{formatDate(order.bookingTime)}</h2>
+                                <OrderCard key={order.id} order={order} />
                             </>
                         ))
                     }

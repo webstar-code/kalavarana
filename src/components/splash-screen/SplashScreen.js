@@ -4,9 +4,9 @@ import '../../styles/splashscreen.css'
 
 const SplashScreen = () => {
     return(
-        <div className="splash absolute top-0 w-screen h-screen z-20 flex items-center justify-center fade-out-slow"
+        <div className="splash absolute top-0 w-full h-full z-20 flex items-center justify-center fade-out"
          style={{background: '#08263F'}}>
-            <img src={BlueBgLogo} className="fade-out" />
+            <img src={BlueBgLogo} className="fade-out-slow" />
         </div>
     )
 }

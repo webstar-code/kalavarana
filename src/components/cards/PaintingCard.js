@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import Bookmark from '@material-ui/icons/Bookmark';
 import { RUPPEEICON } from '../../assetsKalavarna'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { addToWhislist, getWishList, deleteWishList } from '../../actions/wishlist';
 import { connect } from 'react-redux';
 import Msg from '../notification/Msg';
+import { history } from '../../history';
+import CancelPrompt from '../CancelPrompt';
 
 const PaintingCard = (props) => {
     const product = props.product;
     const [saved, setSaved] = useState(false);
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         props.wishlist.map((item) => {
@@ -22,13 +25,18 @@ const PaintingCard = (props) => {
     const handleDeleteWishList = () => {
         props.deleteWishList(product.id, props.getWishList);
         setSaved(false);
+        setShowModal(false)
     }
 
     const handleAddtoWishList = () => {
-        props.addToWhislist({
-            ...product
-        }, props.getWishList)
-        setSaved(true);
+        if (props.user.id) {
+            props.addToWhislist({
+                ...product
+            }, props.getWishList)
+            setSaved(true);
+        } else {
+            history.push('/login')
+        }
 
     }
 
@@ -36,15 +44,18 @@ const PaintingCard = (props) => {
         <>
             <Msg />
             <div className="w-full">
-                <Link to={`/products/${product.id}`}>
+                <Link 
+                // to={`/products/${product.id}` } 
+                to={{ pathname: `/products/${product.id}`, state: 'flushDeal' }}                
+                >
                     <div className="relative w-full">
                         <img src={product.picUrl} alt="" className="w-full" />
-                        {product.onSale && <div className="absolute top-0 right-0 m-4 bg-gray-200 p-1">ON SALE</div>}
+                        {product.onSale && <div className="w-14 h-7 md:w-16 md:h-8 text-xs md:text-sm flex items-center justify-center absolute top-0 right-0 m-4 bg-gray-200 p-1">ON SALE</div>}
                     </div>
                 </Link>
                 <div className="flex justify-between items-start py-2 px-1">
                     <div className="flex flex-col items-start">
-                        <h3 className="text-lg font-medium pb-2">{product.name}</h3>
+                        <h3 className="text-base md:text-lg font-medium pb-2">{product.name}</h3>
                         <div className="flex items-center">
                             <img src={RUPPEEICON} className="w-4 h-4" />
                             <p className="text-lg font-medium">{product.discountedMrp}</p>
@@ -53,7 +64,7 @@ const PaintingCard = (props) => {
                         </div>
                     </div>
                     {saved ?
-                        <div className="" onClick={() => handleDeleteWishList()}>
+                        <div className="" onClick={() => setShowModal(true)}>
                             <Bookmark className="cursor-pointer" />
                         </div>
                         :
@@ -63,12 +74,13 @@ const PaintingCard = (props) => {
                     }
                 </div >
             </div >
+            {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDeleteWishList} />}
         </>
     )
 }
 
 const mapStateToProps = (state) => {
-    return { wishlist: state.wishlist }
+    return { wishlist: state.wishlist, user: state.user.user }
 }
 
 export default connect(mapStateToProps, { addToWhislist, getWishList, deleteWishList })(PaintingCard)

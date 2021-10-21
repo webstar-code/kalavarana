@@ -17,7 +17,6 @@ useEffect(()=>{
       
     return (
         <>
-        <Header/>
         <div className="confirmed-order">
             <img src={img} alt="" />
             <h1 className="text-2xl font-bold mt-16 mb-6">Order has been placed!</h1>

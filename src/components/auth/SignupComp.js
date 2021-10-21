@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import './inputstyle.css'
 import '../../styles/auth.css'
@@ -7,7 +7,8 @@ import { sigin } from '../../actions'
 import Msg from '../notification/Msg'
 import TextField from '@material-ui/core/TextField';
 import { COLLAGE, KALAVARANA_LOGO } from '../../assetsKalavarna'
-import { useLocation  } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import LoadingSpinner from '../LoadingSpinner'
 
 const SignupComp = (props) => {
   const [name, setName] = useState('')
@@ -104,18 +105,17 @@ const SignupComp = (props) => {
 
           <TextField
             style={{ marginTop: '10px' }}
-            // onChange={(e) => {
-            //   !props.mobNo && setNumber(e.target.value)
-            // }}
-            value={props.mobNo ? props.mobNo : number}
+            disabled
+            defaultValue={props.mobNo}
+            // value={props.mobNo ? props.mobNo : number}
             variant="outlined"
             label="PHONE"
             type="text"
             placeholder="PHONE"
             className={`p-2 my-2 outline-none border border-gray w-full ${!isNumber && 'border border-red-500'}`} />
           {!isNumber && <p className="text-red-500">Number is required</p>}
-
-          <button type="submit" className="w-full sm:w-1/2 text-center py-2 px-3 my-2 text-white mt-8 bg-primary">Proceed</button>
+          <button type="submit" className="w-full sm:w-1/2 flex justify-center items-center py-2 px-3 my-2 text-white mt-8 bg-primary">
+            {isLoading ? <LoadingSpinner /> : 'Proceed'}</button>
         </form>
       </div>
     </div>

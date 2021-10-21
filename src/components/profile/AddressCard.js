@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete';
-import { connect } from 'react-redux'
-import EditAddressForm from './EditAddressForm';
-import { deleteAdress, getAddresses } from '../../actions/address'
 import EditIcon from '@material-ui/icons/Edit';
 import WarningIcon from '@material-ui/icons/Warning';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { deleteAdress, getAddresses } from '../../actions/address';
 import Msg from '../notification/Msg';
+import EditAddressForm from './EditAddressForm';
+
 const AddressCard = (props) => {
   const [showModal, setShowModal] = useState(false)
   const [showForm, setShowForm] = useState(false)
@@ -29,7 +30,7 @@ const AddressCard = (props) => {
   return (
     <>
     <Msg />
-      <div style={props?.style} onClick={handleActiveIndex} className={`cursor-pointer address-card ${selected ? 'border-2 border-primary' : 'border-1'}`}>
+      <div style={props?.style} onClick={handleActiveIndex} className={`cursor-pointer address-card p-2 ${selected ? 'border-2 border-primary' : 'border-1 border-gray-300'}`}>
         <div className="title">
           <h1 className="font-bold">{props?.address?.name}</h1>
           <div className="icons">

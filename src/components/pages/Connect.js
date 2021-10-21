@@ -50,7 +50,6 @@ const Enquiry = (props) => {
 
     return (
         <>
-            <Header />
             <Msg />
             <div className="connect-area">
                 <div className="connect">
@@ -99,11 +98,11 @@ const Enquiry = (props) => {
                                 <p>If you face any problem with our service feel free to contact us directly</p>
                                 <div className="email">
                                     <MailOutlineIcon />
-                                    <p>help@kalavarana.com</p>
+                                    <a href="mailto:info@kalavarana.com">info@kalavarana.com</a>
                                 </div>
                                 <div className="mobile">
                                     <img src={phone} alt="" />
-                                    <p>+91 9452325632</p>
+                                    <p>+91 9108784301</p>
                                 </div>
                                 <button> <img src={watsapp} alt="" /> WhatsApp us</button>
                             </div>

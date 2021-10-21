@@ -17,7 +17,6 @@ useEffect(()=>{
       
     return (
         <>
-        <Header/>
         <div className="confirmed-order">
             <img className="err-img" style={{height:'144px',width:"207px"}} src={img} alt="" />
             <h1 className="text-2xl font-bold mt-16 mb-6">Error Message</h1>

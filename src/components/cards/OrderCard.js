@@ -6,16 +6,9 @@ import CancleForm from '../orders/CancleForm'
 const OrderCard = (props) => {
 	const [cancel, setCancel] = useState(true)
 	const [showCancleForm, setShowCancleForm] = useState(false)
-	const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-	let fdate = new Date(props.order.bookingTime);
-	// let date = fdate.getDate();
-	// let month = fdate.getMonth();
-	// let year = fdate.getFullYear();
-	// const placedDate = props.order.bookingTime;
-	console.log(props);
+
 	const OneDay = props.order.bookingTime + (1000 * 60 * 60 * 24)
 	const dateNow = Date.now();
-	console.log(dateNow , OneDay);
 
 	useEffect(() => {
 		if (dateNow > OneDay) {
@@ -50,13 +43,7 @@ const OrderCard = (props) => {
 						{props.order.state === 'delivered' && <p className="text-sm text-green-600 mb-2">DELIVERED</p>}
 						{props.order.state === 'canceled' && <p className="text-sm text-red-600 mb-2">CANCELED</p>}
 						<div className="order-btns">
-							{!(props.order.state === 'canceled') && !(props.order.state === 'delivered') ?
-								<div className="full-cancel flex flex-col items-start justify-start cancel-area">
-									{(cancel) ? <button onClick={() => setShowCancleForm(true)} className={`cancle-btn cancel`}>CANCEL PACKAGE</button> : <button className={`cancle-btn`}>CANCEL PACKAGE</button>}
-									{cancel && <p className="text-xs pt-2 text-right" style={{ color: '#D10404CF' }}>WITHIN 24 HOURS OF PLACING ORDER</p>}
-									{!cancel && <p className="text-xs pt-2 underline text-right" > CONTACT SUPPORT</p>}
-								</div>
-								: null}
+							<p className="text-xs pt-2 underline text-right" > CONTACT SUPPORT</p>
 						</div>
 
 					</div>

@@ -24,27 +24,31 @@ const Adress = (props) => {
 			<Msg />
 			<div className="profile-page">
 				<ProfileNavigation />
-				<div className="address justify-start items-start md:justify-center md:items-start ">
+				<div className="w-full md:w-4/6 mr-auto py-12 px-6 md:px-12 ">
 					<h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
 						<span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
 						My Address</h1>
-					{
-						props.addresses.map((address, i) => (
-							<AddressCard
-								key={i} getActiveAdd={getActiveAdd}
-								i={i}
-								address={address}
-								style={i === activeIndex ? { border: '2px solid #000' } : null} />
-						))
-					}
-					<div className="w-80 h-40 mt-4 flex flex-col px-2 items-center justify-center cursor-pointer 
-					rounded-md border-dashed border hover:border-primary hover:scale-110"
-						onClick={() => setShowForm(true)}>
-						<div className="add-icon">
-							<AddIcon className="icon-add" />
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-2 place-items-center">
+						{
+							props.addresses.map((address, i) => (
+								<AddressCard
+									key={i} getActiveAdd={getActiveAdd}
+									i={i}
+									address={address}
+								/>
+							))
+						}
+						<div className="w-80 h-40 mt-4 flex flex-col p-2 items-center justify-center cursor-pointer 
+					rounded-md border-dashed border border-black hover:border-primary hover:scale-110"
+							onClick={() => setShowForm(true)}>
+							<div className="add-icon self-center">
+								<AddIcon className="icon-add" />
+							</div>
+							<h3 className="self-center">Add New Address</h3>
 						</div>
-						<h3>Add New Address</h3>
 					</div>
+
+
 				</div>
 			</div>
 			{showForm && <AddressForm setShowForm={setShowForm} />}
