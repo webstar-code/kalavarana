@@ -9,6 +9,7 @@ const cartReducer = (state = [], action) => {
         case UPDATE_CART_QUANITY:
             return state
         case GET_CART:
+            console.log(action.payload)
             return [...action.payload]
         default:
             return state

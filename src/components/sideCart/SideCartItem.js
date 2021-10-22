@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { connect } from 'react-redux'
-import { deleteCartItem, updateCartQauntity, getCartItems } from '../../actions/cart'
+import { deleteCartItem, updateCartQauntity, getCartItems, getLocalCartItems } from '../../actions/cart'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react';
 import { RUPPEEICON } from '../../assetsKalavarna'
 import CancelPrompt from '../CancelPrompt';
+import localdb from '../../localDB'
 
 const SideCartItem = (props) => {
     const [Quantity, setQuantity] = useState(props.quantity)
@@ -16,21 +17,34 @@ const SideCartItem = (props) => {
         setQuantity(1)
     }
     useEffect(() => {
-        console.log(Quantity);
-        console.log(props.quantity, props.product.stock)
-
-
-        // if (props.quantity >= props.product.stock) {
-        //     setQuantity(props.quantity);
-        //     setMaxQuantityReached(true);
-        // }
-        if (!props.disable) {
-            props.updateCartQauntity(props.product.id, Quantity, props.getCartItems)
+        if (props.user.id) {
+            console.log(Quantity);
+            console.log(props.quantity, props.product.stock)
+            // if (props.quantity >= props.product.stock) {
+            //     setQuantity(props.quantity);
+            //     setMaxQuantityReached(true);
+            // }
+            if (!props.disable) {
+                props.updateCartQauntity(props.product.id, Quantity, props.getCartItems)
+            }
+        } else {
+            // update local cart items
+            console.log(Quantity);
+            localdb.cart.where('id').equals(props.product.id).modify({ quantity: Quantity });
+            props.getLocalCartItems();
         }
     }, [Quantity])
 
     const handleDelete = () => {
-        props.deleteCartItem(props.product.id, props.getCartItems)
+        if (props.user.id) {
+            props.deleteCartItem(props.product.id, props.getCartItems)
+        } else {
+            localdb.cart.where('id').equals(props.product.id).delete();
+            props.getLocalCartItems();
+        }
+
+
+
     }
 
     return (
@@ -57,7 +71,6 @@ const SideCartItem = (props) => {
                         <p>{props.quantity}</p>
                         {!props.disable && <button onClick={() => setQuantity(props.quantity + 1)}>+</button>}
                     </div>
-                    {console.log(props.disable)}
                     {!props.disable && <div className="trash-btn">
                         <button onClick={() => setShowModal(true)} className="p-2 hover:bg-gray-100 rounded-full"><DeleteOutlineIcon /></button>
                         {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDelete} />}
@@ -69,6 +82,11 @@ const SideCartItem = (props) => {
     )
 }
 
+const mapStateToProsp = (state,) => {
+    return {
+        user: state.user?.user,
+    }
+}
 
 
-export default connect(null, { deleteCartItem, updateCartQauntity, getCartItems })(SideCartItem)
+export default connect(mapStateToProsp, { deleteCartItem, updateCartQauntity, getCartItems, getLocalCartItems })(SideCartItem)

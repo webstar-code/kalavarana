@@ -78,7 +78,7 @@ const Checkout = (props) => {
 
 	return (
 		<>
-			{!props.user === false || props.checkout === undefined && <Redirect to='/login' />}
+			{props.user.id && <Redirect to='/login' />}
 
 			<div className="main-cart-container">
 				<div className="main-cart-area">

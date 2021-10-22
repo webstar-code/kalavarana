@@ -1,5 +1,6 @@
 import { ADD_TO_CART, SHOW_CART, GET_CART, CART_TOTAL, DELETE_CART_ITEM, UPDATE_CART_QUANITY } from './types'
 import { db } from '../firebase'
+import localdb from '../localDB'
 
 export const showCart = (boolean) => {
     return { type: SHOW_CART, payload: boolean }
@@ -12,7 +13,7 @@ export const addToCart = (data, callback) => async (dispatch, getState) => {
     } else {
         const userDbRef = db.users.doc(userID);
         let exists = false;
-
+        console.log(data);
         // check if product already exists in CARTITEMS
         userDbRef.collection('CARTITEMS').get().then((items) => {
             items.forEach((item) => {
@@ -21,7 +22,9 @@ export const addToCart = (data, callback) => async (dispatch, getState) => {
                     userDbRef.collection('CARTITEMS').doc(item.id).update({
                         quantity: data.quantity
                     }).then(() => {
-                        callback()
+                        if (callback) {
+                            callback()
+                        }
                     }).catch((err) => console.log(err))
                     dispatch(showCart(true))
                     exists = true;
@@ -35,7 +38,9 @@ export const addToCart = (data, callback) => async (dispatch, getState) => {
                     dispatch({ type: ADD_TO_CART, payload: { ...data } })
                     dispatch(showCart(true))
                     console.log("item added in cart")
-                    callback();
+                    if (callback) {
+                        callback()
+                    }
                 }).catch((err) => {
                     console.log(err);
                 })
@@ -48,11 +53,20 @@ export const addToCart = (data, callback) => async (dispatch, getState) => {
 export const getCartItems = () => (dispatch, getState) => {
     const userID = getState().user?.user?.id;
     db.users.doc(userID).collection('CARTITEMS').get().then((snapshot) => {
-        console.log(snapshot.docs.map(db.formatedDoc))
+        // console.log(snapshot.docs.map(db.formatedDoc))
         dispatch({ type: GET_CART, payload: snapshot.docs.map(db.formatedDoc) })
     })
+}
 
-
+export const getLocalCartItems = () => async (dispatch, getState) => {
+    let cartItems = [];
+    // localdb.cart.each((item) => {
+    //     console.log(item);
+    //     cartItems.push(item)
+    // })
+    const all = await localdb.cart.toArray();
+    // console.log(all)
+    dispatch({ type: GET_CART, payload: all });
 }
 
 export const deleteCartItem = (id, getCartItems) => (dispatch, getState) => {

@@ -4,7 +4,7 @@ import Header from '../Header'
 import { connect } from 'react-redux'
 import { firestore } from '../../firebase'
 import { addToWhislist } from '../../actions/wishlist'
-import { addToCart, getCartItems } from '../../actions/cart'
+import { addToCart, getCartItems, getLocalCartItems, showCart } from '../../actions/cart'
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom'
 import { RUPPEEICON } from '../../assetsKalavarna'
 import { history } from '../../history'
 import Footer from '../Footer'
+import localdb from '../../localDB'
 
 const dummyData = {
   picUrk: PAINTING1,
@@ -59,7 +60,24 @@ const ProductDescription = (props) => {
         quantity
       }, props.getCartItems)
     } else {
-      history.push('/login');
+
+      localdb.transaction('rw', localdb.cart, () => {
+        localdb.cart.put({
+          id: productID,
+          product: { ...product },
+          quantity
+        });
+      }).then(() => {
+        // add to cart
+        // dispatch(showCart(true))
+        props.showCart(true);
+
+        props.getLocalCartItems();
+      })
+        .catch(function (e) {
+          console.log(e);
+        });
+
     }
   }
 
@@ -149,7 +167,7 @@ const ProductDescription = (props) => {
           </div>
           {/* <Rating text={dummyData?.description} />
           <Reviews productID={dummyData?.productID} /> */}
-          {product.subcategories && <RelatedProducts category={product?.categories} subcats={product?.subcategories} />}
+          {/* {product.subcategories && <RelatedProducts category={product?.categories} subcats={product?.subcategories} />} */}
           <SideCart />
         </div>
       </div>
@@ -164,4 +182,4 @@ const mapStateToProsp = (state, ownProps) => {
     user: state.user?.user,
   }
 }
-export default connect(mapStateToProsp, { addToWhislist, addToCart, getCartItems })(ProductDescription)
+export default connect(mapStateToProsp, { addToWhislist, addToCart, getCartItems, getLocalCartItems, showCart })(ProductDescription)

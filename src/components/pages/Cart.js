@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Msg from '../notification/Msg'
 import Coupon from '../cart/Coupon'
 import { history } from '../../history'
+import { Redirect } from 'react-router'
 
 
 const Cart = (props) => {
@@ -35,6 +36,7 @@ const Cart = (props) => {
 	}
 
 	const handleCheckout = () => {
+		console.log("ads");
 		if (props.user.id) {
 			props.checkout({
 				address: selectedAddress,
@@ -49,6 +51,7 @@ const Cart = (props) => {
 
 	return (
 		<>
+			{/* {!props.user.id && <Redirect to='/login' />} */}
 			<Msg />
 			<div className="main-cart-container">
 				<div className="main-cart-area">
@@ -107,8 +110,8 @@ const Cart = (props) => {
 
 
 						<div className="process-area ">
-							<button disabled={props.cartItems.length <= 0 ? true : false}
-							className={`bg-primary ${props.cartItems.length <= 0 ? 'opacity-70' : 'opacity-100'}`} onClick={() => handleCheckout}>Process</button>
+							<button
+								className={`bg-primary ${props.cartItems.length <= 0 ? 'opacity-70' : 'opacity-100'}`} onClick={() => handleCheckout()}>Process</button>
 						</div>
 					</div>
 				</div>
