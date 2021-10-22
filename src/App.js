@@ -43,32 +43,6 @@ import Featured from './components/pages/Featured'
 import Sales from './components/pages/Sales'
 import Header from './components/Header'
 
-
-export function ProtectedRoute({ user, children, ...rest }) {
-    return (
-        <Route
-            {...rest}
-            render={({ location }) => {
-                if (user) {
-                    return children;
-                }
-
-                if (!user) {
-                    return (
-                        <Redirect
-                            to={{
-                                pathname: '/login',
-                                state: { from: location },
-                            }}
-                        />
-                    );
-                }
-
-                return null;
-            }}
-        />
-    );
-}
 const App = (props) => {
 
     useEffect(() => {
@@ -101,39 +75,42 @@ const App = (props) => {
         <>
             <SplashScreen />
             <Router history={history}>
-                <Header />
                 <Switch>
-                    <Route path="/" exact component={MainPage} />
-                    <Route path="/signup" component={Signup} />
                     <Route path="/login" component={Login} />
-                    <Route path="/category/:category" exact component={Category} />
-                    <Route path="/category/:category/:sub_category" component={SubCategory} />
-                    <Route path="/featured" component={Featured} />
-                    <Route path="/sales" component={Sales} />
-                    <Route path="/loader" component={Loading} />
-                    <Route path="/profile" exact component={Profile} />
-                    <Route path="/profile/address" exact component={Adress} />
-                    <Route path="/profile/orders" exact component={Orders} />
-                    <Route path="/profile/whislist" exact component={WhisList} />
-                    <Route path="/profile/orders" exact component={Orders} />
-                    <Route path="/checkout" exact component={Checkout} />
-                    <Route path="/order-confirmed" exact component={Confirm} />
-                    <Route path="/cart" exact component={Cart} />
-                    <Route path="/privacy-policy" exact component={PrivacyPolicy} />
-                    <Route path="/terms" exact component={Terms} />
-                    <Route path="/return-policy" exact component={Return} />
-                    <Route path="/connect" exact component={Connect} />
-                    <Route path="/collab" exact component={Collab} />
-                    <Route path="/collections" exact component={Collections} />
-                    <Route path="/blog" exact component={Blog} />
-                    <Route path="/careers" exact component={Career} />
-                    <Route path="/about" exact component={About} />
-                    <Route path="/profile-and-details" component={ProfileNavigation} />
-                    <Route path="/notification" component={Notification} />
-                    <Route path="/products/:id" exact component={ProductDescription} />
-                    <Route path="/error" exact component={Error} />
-                    <Route path="/blog/:id" exact component={SingleBlog} />
-                    <Route component={NotFound} />
+                    <Route path="/signup" component={Signup} />
+                    <div>
+                        <Header />
+                        <Route path="/" exact component={MainPage} />
+                        <Route path="/sales" component={Sales} />
+                        <Route path="/featured" component={Featured} />
+                        <Route path="/category/:category" exact component={Category} />
+                        <Route path="/category/:category/:sub_category" component={SubCategory} />
+                        <Route path="/loader" component={Loading} />
+                        <Route path="/profile" exact component={Profile} />
+                        <Route path="/profile/address" exact component={Adress} />
+                        <Route path="/profile/orders" exact component={Orders} />
+                        <Route path="/profile/whislist" exact component={WhisList} />
+                        <Route path="/profile/orders" exact component={Orders} />
+                        <Route path="/cart" exact component={Cart} />
+                        <Route path="/checkout" exact component={Checkout} />
+                        <Route path="/order-confirmed" exact component={Confirm} />
+                        <Route path="/blog" exact component={Blog} />
+                        <Route path="/blog/:id" exact component={SingleBlog} />
+                        <Route path="/privacy-policy" exact component={PrivacyPolicy} />
+                        <Route path="/careers" exact component={Career} />
+                        <Route path="/about" exact component={About} />
+                        <Route path="/profile-and-details" component={ProfileNavigation} />
+                        <Route path="/notification" component={Notification} />
+                        <Route path="/products/:id" exact component={ProductDescription} />
+                        <Route path="/terms" exact component={Terms} />
+                        <Route path="/return-policy" exact component={Return} />
+                        <Route path="/connect" exact component={Connect} />
+                        <Route path="/collab" exact component={Collab} />
+                        <Route path="/collections" exact component={Collections} />
+                        <Route path="/error" exact component={Error} />
+                        <Route component={NotFound} />
+                    </ div>
+
                 </Switch>
             </Router>
         </>
