@@ -4,7 +4,7 @@ import { BiSearch } from 'react-icons/bi'
 import { AiOutlineUser } from 'react-icons/ai'
 import { FiShoppingCart, FiMenu } from 'react-icons/fi'
 import { IoMdArrowDropdown } from 'react-icons/io'
-import { Link , useHistory} from 'react-router-dom'
+import { Link , useHistory, useLocation} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { KALAVARANA_LOGO } from '../assetsKalavarna';
 import { firestore } from '../firebase'
@@ -12,7 +12,6 @@ import { firestore } from '../firebase'
 
 // import {AiOutlineUser} from 'react-icons/ai'
 const Header = (props) => {
-	console.log("render");
 	const [showSideBar, setShowSideBar] = useState(false)
 	const [categories, setCategories] = useState([]);
 	const [showHeader, setShowHeader] = useState({ show: true, scrollPos: 0 });
@@ -52,7 +51,11 @@ const Header = (props) => {
 		}
 	}, []);
 
-
+	const path = useLocation().pathname;
+	if(path === '/login' || path === 'signup') {
+		return null;
+	}
+	
 	return (
 		<div className={`fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full h-20 md:h-36 pt-4 px-3 z-50 transition-all
 			${!showHeader.show ? '-top-20 md:-top-36' : 'top-0'} 
