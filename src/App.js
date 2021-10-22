@@ -103,9 +103,9 @@ const App = (props) => {
         <>
             <div>
 
-                <Header />
                 <SplashScreen />
                 <Router history={history}>
+                <Header />
                     <Switch>
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={Signup} />
