@@ -31,13 +31,12 @@ const MainPage = () => {
             <div className="relative flex items-center justify-center">
                <video
                   autoPlay
-                  controls
                   loop
                   muted
                   data-yt2html5="https://youtu.be/xeXcCxvjVfA"
                   className="w-full h-96 md:w-full md:h-full mt-20 md:mt-36 object-cover"
                ></video>
-               {/* <h1 className="absolute text-4xl md:text-8xl ml-auto mt-auto z-10 text-white font-semibold text-center md:-mt-20 select-none leading-relaxed">Home for<br />Tanjore Paintings</h1> */}
+               <h1 className="absolute text-4xl md:text-8xl ml-auto mt-auto z-10 text-white font-semibold text-center md:-mt-20 select-none leading-relaxed">Home for<br />Tanjore Paintings</h1>
             </div>
 
             <Cards
