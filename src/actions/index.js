@@ -35,13 +35,12 @@ export const showOtp = (boolean) => {
 //   lastSignInDataTime = '123213213',
 // }
 
-export const login = (number) => async dispatch => {
-  sendOtp(number, dispatch);
+export const login = (data) => async dispatch => {
+  let phoneNumber = data.countryCode + data.number;
+  sendOtp(phoneNumber, dispatch);
 }
 
-export const sendOtp = (number, dispatch) => {
-  let phoneNumber = "+91" + number;
-  console.log(phoneNumber);
+export const sendOtp = (phoneNumber, dispatch) => {
   let appVerifier = window.recaptchaVerifier;
   firebase
     .auth()
@@ -58,7 +57,7 @@ export const sendOtp = (number, dispatch) => {
         dispatch(notification({ msg: "", err: false }))
       }, 2000);
       dispatch({ type: SHOW_OTP, payload: true });
-      dispatch({ type: NOT_SINGUPED, payload: number });
+      dispatch({ type: NOT_SINGUPED, payload: phoneNumber });
 
     })
     .catch(function (error) {
@@ -76,7 +75,7 @@ export const sigin = (phoneNumber, email, name, uid) => async dispatch => {
   const newUser = {
     name,
     email,
-    phoneNumber: '+91' + phoneNumber,
+    phoneNumber,
     role: 'user',
     picUrl: '',
     id: uid

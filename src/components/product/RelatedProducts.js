@@ -50,7 +50,7 @@ const RelatedProducts = (props) => {
             </div>
             <div className="dress-cards dress-card-overfolow">
                 {products.length > 0 && products.map((product) => (
-                    <div className="max-w-sm">
+                    <div className="w-80">
                         <PaintingCard product={product} key={product.id} />
                     </div>
                 ))}

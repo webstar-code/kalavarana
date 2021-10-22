@@ -12,6 +12,7 @@ import { firestore } from '../firebase'
 
 // import {AiOutlineUser} from 'react-icons/ai'
 const Header = (props) => {
+	console.log("render");
 	const [showSideBar, setShowSideBar] = useState(false)
 	const [categories, setCategories] = useState([]);
 	const [showHeader, setShowHeader] = useState({ show: true, scrollPos: 0 });
@@ -53,7 +54,7 @@ const Header = (props) => {
 
 
 	return (
-		<div className={`fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full h-20 md:h-36 pt-4 px-3 z-10 transition-all
+		<div className={`fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full h-20 md:h-36 pt-4 px-3 z-50 transition-all
 			${!showHeader.show ? '-top-20 md:-top-36' : 'top-0'} 
 		`}>
 			<div className="w-full h-full md:w-4/5 mx-auto">

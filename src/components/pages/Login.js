@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import { history } from '../../history'
 
 const Login = (props) => {
-    if (props.user) {
-        if (props.user?.id) {
-            history.push('/')
-        }
-    }
+    // if (props.user) {
+    //     if (props.user?.id) {
+    //         history.push('/')
+    //     }
+    // }
     return (
         <LoginComp />
     )

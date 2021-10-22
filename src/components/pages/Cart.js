@@ -36,7 +36,7 @@ const Cart = (props) => {
 	}
 
 	const handleCheckout = () => {
-		console.log("ads");
+		console.log(props.user.id)
 		if (props.user.id) {
 			props.checkout({
 				address: selectedAddress,

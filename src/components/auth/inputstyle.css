@@ -1,6 +1,9 @@
 .MuiFormLabel-root{
   font-size: 14px;
 }
+.MuiTextField-root {
+  border: 0;
+}
 .otp-input{
   border-radius: 3px;
 }

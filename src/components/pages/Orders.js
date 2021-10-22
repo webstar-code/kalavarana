@@ -11,11 +11,11 @@ import { Link } from 'react-router-dom';
 
 const Orders = (props) => {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    let fdate = new Date(props.orders[0].bookingTime);
-    let date = fdate.getDate();
-    let month = fdate.getMonth();
-    let year = fdate.getFullYear();
-    const placeDate = `${date} ${months[month]} ${year}`
+    // let fdate = new Date(props.orders[0].bookingTime);
+    // let date = fdate.getDate();
+    // let month = fdate.getMonth();
+    // let year = fdate.getFullYear();
+    // const placeDate = `${date} ${months[month]} ${year}`
 
     const formatDate = (ms) => {
         let fdate = new Date(ms);
@@ -34,12 +34,13 @@ const Orders = (props) => {
                         <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
                         My Orders</h1>
                     {
-                        props.orders.map((order, i) => (
+                        props.orders.length > 0 ? props.orders.map((order, i) => (
                             <>
                                 <h2>{formatDate(order.bookingTime)}</h2>
                                 <OrderCard key={order.id} order={order} />
                             </>
                         ))
+                        : <h1>No orders yet</h1>
                     }
                     {/* <h2>03 FEBRUARY 2021</h2> */}
                     {/* <OrderCard/>*/}

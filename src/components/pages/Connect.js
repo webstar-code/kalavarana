@@ -5,6 +5,7 @@ import connectpng from '../../assets/img/connect.png'
 import chat from '../../assets/img/chat.png'
 import TextField from '@material-ui/core/TextField';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import Home from '@material-ui/icons/Store';
 import phone from '../../assets/img/phone-icon.png'
 import watsapp from '../../assets/img/watsapp.png'
 import Accordain from '../Accordian'
@@ -12,6 +13,7 @@ import { firestore } from '../../firebase'
 import Msg from '../notification/Msg'
 import { connect } from 'react-redux'
 import { notify } from '../../actions'
+
 
 const Enquiry = (props) => {
     const [name, setName] = useState('')
@@ -104,6 +106,10 @@ const Enquiry = (props) => {
                                     <img src={phone} alt="" />
                                     <p>+91 9108784301</p>
                                 </div>
+                                <div className="email">
+                                    <Home />
+                                    <p>Kalavarana,#147,tgr argade,Bethel nagar layout,kodigehalli main road,K.r.puram, bangalore 36</p>
+                                </div>
                                 <button> <img src={watsapp} alt="" /> WhatsApp us</button>
                             </div>
                         </div>
@@ -135,4 +141,4 @@ const mapStateToProps = (state) => {
     return { user: state?.user?.user };
 }
 
-export default connect(mapStateToProps, {notify})(Enquiry);
+export default connect(mapStateToProps, { notify })(Enquiry);

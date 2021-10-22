@@ -167,7 +167,7 @@ const ProductDescription = (props) => {
           </div>
           {/* <Rating text={dummyData?.description} />
           <Reviews productID={dummyData?.productID} /> */}
-          {/* {product.subcategories && <RelatedProducts category={product?.categories} subcats={product?.subcategories} />} */}
+          {product.subcategories && <RelatedProducts category={product?.categories} subcats={product?.subcategories} />}
           <SideCart />
         </div>
       </div>

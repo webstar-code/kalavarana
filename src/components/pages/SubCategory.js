@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Header';
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import { PAINTING1 } from '../../assetsKalavarna';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
@@ -109,16 +108,11 @@ const SubCategory = () => {
 		{ name: 'Alphabetically, Z-A' },
 		{ name: 'Price , Low to High' },
 		{ name: 'Price, High to Low' },
-		{ name: 'Date, Old to New' }
 	]
 
 	const filters = [
-		{ name: 'Product' },
-		{ name: 'Product' },
-		{ name: 'Product' },
-		{ name: 'Product' },
-		{ name: 'Product' },
-		{ name: 'Product' },
+		{ name: 'Dimensions' },
+	
 	]
 
 
@@ -147,6 +141,14 @@ const SubCategory = () => {
 		}
 	}
 
+	const FilterUtil = (type) => {
+		switch(type) {
+			case 'Dimensions':
+				setFilteredProducts(products.sort((a, b) => (a.height * a.width) < (b.height * b.width) ? -1 : 1))
+				setSortedProducts([]);
+		}
+	}
+
 	return (
 
 		<div className="w-full flex flex-col mt-20 md:mt-36">
@@ -163,7 +165,7 @@ const SubCategory = () => {
 						<p className="cursor-pointer px-1 relative" onClick={handleFilter}>Filter<ArrowDropDownIcon className={`filter-btn ${filter && 'rotate-180'}`} />
 							{filter && (<div className={`inline-table absolute top-6 right-0 z-10 bg-white text-right py-2 shadow-lg w-28 h-0 transition-all ${filter && 'h-auto'}`}>
 								{filters.map((item, i) => (
-									<p className="px-4 py-2 whitespace-nowrap" onClick={() => SortUtil(item.name)} key={i}>{item.name}</p>
+									<p className="px-4 py-2 whitespace-nowrap" onClick={() => FilterUtil(item.name)} key={i}>{item.name}</p>
 								))}
 							</div>)}
 						</p>
