@@ -4,11 +4,13 @@ import AddressCard from '../profile/AddressCard'
 import { connect } from 'react-redux'
 import { placeOrder } from '../../actions/orders'
 import { getCartItems } from '../../actions/cart'
+import InfoIcon from '@material-ui/icons/Info'
 
 import Header from '../Header'
 import Checkbox from '@material-ui/core/Checkbox';
 import { Redirect } from 'react-router'
 import { history } from '../../history'
+import { Link } from 'react-router-dom'
 
 const Checkout = (props) => {
 
@@ -78,7 +80,7 @@ const Checkout = (props) => {
 
 	return (
 		<>
-			{props.user.id && <Redirect to='/login' />}
+			{!props.user.id && <Redirect to='/login' />}
 
 			<div className="main-cart-container">
 				<div className="main-cart-area">
@@ -120,9 +122,10 @@ const Checkout = (props) => {
 								<div className="price-item">
 									<p>Discount</p><p>-{props.checkout.couponDiscount}</p>
 								</div>
-								<div className="price-item">
-									<div className="flex items-center -ml-2">
+								<div className={`price-item ${checked ? 'bg-gray-200' : 'bg-white'}`}>
+									<div className={`flex items-center -ml-2 `}>
 										<Checkbox
+											color="#08263F"
 											defaultChecked
 											size="small"
 											checked={checked}
@@ -132,6 +135,9 @@ const Checkout = (props) => {
 											inputProps={{ 'aria-label': 'checkbox with small size' }}
 										/>
 										<p>I would like to donate</p>
+										<Link to="">
+											<InfoIcon className="text-sm w-4 h-4 text-primary mx-2 cursor-pointer" />
+										</Link>
 									</div>
 									<p>{donation}</p>
 								</div>
