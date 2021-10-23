@@ -40,8 +40,7 @@ const Header = (props) => {
 	useEffect(() => {
 		setRender(true);
 	}, [categories]);
-	console.log(categories);
-	console.log(render);
+	// console.log(categories);
 
 	const handleScroll = () => {
 		if (window.scrollY < 100) {
@@ -67,7 +66,7 @@ const Header = (props) => {
 	}
 
 	return (
-		<div className={`fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full h-20 md:h-36 pt-4 px-3 z-50 transition-all
+		<div className={`fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full h-20 md:h-36 pt-4 px-3 z-20 transition-all
 			${!showHeader.show ? '-top-20 md:-top-36' : 'top-0'} 
 		`}>
 			<div className="w-full h-full md:w-4/5 mx-auto">
@@ -93,14 +92,14 @@ const Header = (props) => {
 				</div>
 
 				<div className="w-full md:flex px-10 py-0 md:py-5 items-center justify-center ">
-					<ul className={`nav-links ${showSideBar && 'show-side-bar'} cursor-pointer upper-case flex items-center select-none`}>
+					<ul className={`nav-links ${showSideBar && 'show-side-bar'} cursor-pointer upper-case flex items-center select-none z-50`}>
 
 						<div className="profile bg-primary justify-start">
 
-							{props.user.id ? <Link to="/profile-and-details"> <AiOutlineUser className="user-icon" /></Link>
+							{props.user.id ? <Link to="/profile-and-details" onClick={() => setShowSideBar(false)}> <AiOutlineUser className="user-icon" /></Link>
 								:
 								<div className="w-full h-full flex items-center justify-center">
-									<Link to="/login">
+									<Link to="/login" onClick={() => setShowSideBar(false)}>
 										<button className="bg-white text-primary uppercase px-4 py-2">Login</button>
 									</Link>
 								</div>
@@ -108,18 +107,17 @@ const Header = (props) => {
 							<p className="px-3">{props.user?.name}</p>
 						</div>
 
-						<Link to="/sales">
+						<Link to="/sales" onClick={() => setShowSideBar(false)}>
 							<li className="relative">Sales</li>
 						</Link>
 
 						{categories.length > 0 && categories.map((item) => (
 							<>
-								<Link to={`/category/${item.cat.name}`}>
+								<Link to={`/category/${item.cat.name}`} onClick={() => setShowSideBar(false)}>
 									<li className="hover relative first-list whitespace-nowrap">{item.cat.name}
 										<div className="drop-down whitespace-nowrap">
 											{item.subcats.length > 0 && item.subcats.map((subcat) => (
 												<Link to={`/category/${item.cat.name}/${subcat.name}`}>
-													{console.log(subcat)}
 													<p className="flex py-2">{subcat.name}</p>
 												</Link>
 											))}
@@ -145,9 +143,9 @@ const Header = (props) => {
 						))}
 
 
-						<Link to="/about"><li className="whitespace-nowrap">About us</li></Link>
-						<Link to="/blog"><li className="whitespace-nowrap">Blog</li></Link>
-						<Link to="/connect"><li className="whitespace-nowrap">Contact us</li></Link>
+						<Link to="/about" onClick={() => setShowSideBar(false)}><li className="whitespace-nowrap">About us</li></Link>
+						<Link to="/blog" onClick={() => setShowSideBar(false)}><li className="whitespace-nowrap">Blog</li></Link>
+						<Link to="/connect" onClick={() => setShowSideBar(false)}><li className="whitespace-nowrap">Contact us</li></Link>
 					</ul>
 					<div onClick={() => setShowSideBar(false)} className={`blank-screen ${showSideBar && 'show-side-bar'}`}>
 
@@ -163,7 +161,6 @@ const Header = (props) => {
 
 const ListItem = ({ item, setShowSideBar }) => {
 	const [state, setState] = useState();
-	console.log(item);
 	return (
 		<li className="onclick relative first-list whitespace-nowrap outline-none focus:outline-none select-none">
 			<span className="flex items-center justify-between" >

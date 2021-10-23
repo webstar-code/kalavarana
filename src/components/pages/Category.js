@@ -54,7 +54,7 @@ const Category = () => {
                     <SubCatProducts subcat={item} />
                 ))}
             </div>
-            {/* <Footer /> */}
+            <Footer />
         </>
     )
 }

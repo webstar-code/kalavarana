@@ -26,7 +26,7 @@ font-weight: 600;
 .order-img{
     width: 137px;
     height:100%;
-    background: #F3F3F3;
+    /* background: #F3F3F3; */
 }
 .order-des{
     height: 100%;

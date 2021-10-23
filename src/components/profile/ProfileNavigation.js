@@ -17,7 +17,7 @@ const ProfileNavigation = (props) => {
     <>
       {/* {path === '/profile-and-details' && <Header />} */}
       <div 
-      className="fixed" 
+      className="md:z-50" 
       style={path === '/profile-and-details' ? { marginTop: '70px' } : { marginTop: '0px' }} className={`profile-nav ${path === '/profile-and-details' && 'show-porfile'}`}>
         <h1>< KeyboardBackspaceIcon /> Profile</h1>
         <p className="font-bold text-sm">PROFILE AND DETAILS</p>

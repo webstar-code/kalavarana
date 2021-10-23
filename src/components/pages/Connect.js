@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Header from '../Header'
 import '../../styles/connect.css'
 import connectpng from '../../assets/img/connect.png'
 import chat from '../../assets/img/chat.png'
@@ -13,6 +12,7 @@ import { firestore } from '../../firebase'
 import Msg from '../notification/Msg'
 import { connect } from 'react-redux'
 import { notify } from '../../actions'
+import Footer from '../Footer';
 
 
 const Enquiry = (props) => {
@@ -20,14 +20,6 @@ const Enquiry = (props) => {
     const [email, setEmail] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [reason, setReason] = useState('')
-
-    // const enquiry = {
-    //     id,
-    //     name,
-    //     email,
-    //     phoneNumber,
-    //     reason
-    // }
 
 
     const saveData = (e) => {
@@ -108,7 +100,7 @@ const Enquiry = (props) => {
                                 </div>
                                 <div className="email">
                                     <Home />
-                                    <p>Kalavarana,#147,tgr argade,Bethel nagar layout,kodigehalli main road,K.r.puram, bangalore 36</p>
+                                    <p>Kalavarana,#147,tgr argade,Bethel nagar layout,<br />kodigehalli main road,K.r.puram, bangalore 36</p>
                                 </div>
                                 <button> <img src={watsapp} alt="" /> WhatsApp us</button>
                             </div>
@@ -133,6 +125,7 @@ const Enquiry = (props) => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

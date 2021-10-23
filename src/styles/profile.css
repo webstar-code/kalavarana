@@ -17,7 +17,7 @@
     justify-content: center;
     flex-direction: column;
 }
-.profile-nav{
+/* .profile-nav{
     width:35%;
     height: 100%;
     margin-left: 8rem;
@@ -27,7 +27,34 @@
     justify-content: center;
     flex-direction: column;
     border-right: 1px solid rgb(221, 219, 219);
+} */
+
+
+.profile-nav {
+    width: 30%;
+    position: fixed;
+    height: 100vh;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid rgb(221, 219, 219);
+    margin-left: 8rem;
+    padding-top: 300px;
+    padding-bottom: 150px;
 }
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+::-webkit-scrollbar-track-piece {
+    background: transparent !important;
+}
+::-webkit-scrollbar-thumb {
+    background: #08263F;
+    border-radius: 10px;
+}
+
 .profile-nav h1{
     font-size: 2rem;
     padding-bottom: 20px;

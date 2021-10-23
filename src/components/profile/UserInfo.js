@@ -85,7 +85,6 @@ const UserInfo = (props) => {
             <div className="info">
               <TextField
                 style={{ marginTop: '40px', maxWidth: '350px' }}
-
                 autoComplete="off"
                 id="outlined-basic"
                 label="FULL NAME"

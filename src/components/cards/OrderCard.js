@@ -27,9 +27,9 @@ const OrderCard = (props) => {
 		<>
 
 			{props.order.items.map((item) => (
-				<div className="order-card">
+				<div className="flex w-full justify-start items-start my-4">
 					<Link to={`/products/${item.product.id}`}>
-						<div className="order-img">
+						<div className="w-32 h-40 md:w-40 md:h-48">
 							<img src={item.product.picUrl} alt="" />
 						</div>
 					</Link>

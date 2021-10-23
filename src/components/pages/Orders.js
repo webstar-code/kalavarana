@@ -29,23 +29,26 @@ const Orders = (props) => {
         <>
             <div className="profile-page">
                 <ProfileNavigation />
-                <div className="orders">
-                    <h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
-                        <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
-                        My Orders</h1>
-                    {
-                        props.orders.length > 0 ? props.orders.map((order, i) => (
-                            <>
-                                <h2>{formatDate(order.bookingTime)}</h2>
-                                <OrderCard key={order.id} order={order} />
-                            </>
-                        ))
-                        : <h1>No orders yet</h1>
-                    }
-                    {/* <h2>03 FEBRUARY 2021</h2> */}
-                    {/* <OrderCard/>*/}
+                <div className="w-full md:w-3/5 py-12 px-6 md:px-12 flex flex-col justify-center ml-auto ">
+                    <div className="flex flex-col justify-start">
+                        <h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium mb-4">
+                            <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
+                            My Orders</h1>
+                        {
+                            props.orders.length > 0 ? props.orders.map((order, i) => (
+                                <>
+                                    <h2>{formatDate(order.bookingTime)}</h2>
+                                    <OrderCard key={order.id} order={order} />
+                                </>
+                            ))
+                                : <h1>No orders yet</h1>
+                        }
+                        {/* <h2>03 FEBRUARY 2021</h2> */}
+                        {/* <OrderCard/>*/}
+                    </div>
                 </div>
             </div>
+
         </>
     )
 }

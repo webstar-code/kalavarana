@@ -24,33 +24,37 @@ const Adress = (props) => {
 			<Msg />
 			<div className="profile-page">
 				<ProfileNavigation />
-				<div className="w-full md:w-4/6 mr-auto py-12 px-6 md:px-12 ">
-					<h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
-						<span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
-						My Address</h1>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-2 place-items-center">
-						{
-							props.addresses.map((address, i) => (
-								<AddressCard
-									key={i} getActiveAdd={getActiveAdd}
-									i={i}
-									address={address}
-								/>
-							))
-						}
-						<div className="w-80 h-40 mt-4 flex flex-col p-2 items-center justify-center cursor-pointer 
+				<div className="w-full md:w-3/5 py-12 px-6 md:px-12 flex flex-col justify-center ml-auto ">
+
+					<div className="mr-auto">
+						<h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
+							<span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
+							My Address</h1>
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-2 place-items-center">
+							{
+								props.addresses.map((address, i) => (
+									<AddressCard
+										key={i} getActiveAdd={getActiveAdd}
+										i={i}
+										address={address}
+									/>
+								))
+							}
+							<div className="w-80 h-40 mt-4 flex flex-col p-2 items-center justify-center cursor-pointer 
 					rounded-md border-dashed border border-black hover:border-primary hover:scale-110"
-							onClick={() => setShowForm(true)}>
-							<div className="add-icon self-center">
-								<AddIcon className="icon-add" />
+								onClick={() => setShowForm(true)}>
+								<div className="add-icon self-center">
+									<AddIcon className="icon-add" />
+								</div>
+								<h3 className="self-center">Add New Address</h3>
 							</div>
-							<h3 className="self-center">Add New Address</h3>
 						</div>
+
+
 					</div>
-
-
 				</div>
 			</div>
+
 			{showForm && <AddressForm setShowForm={setShowForm} />}
 		</>
 	)

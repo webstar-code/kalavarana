@@ -4,7 +4,7 @@ import './style.css'
 const Msg = ({ msg }) => {
     console.log(msg.err);
     return (
-        <div className={`hide py-3 px-3 text-white fixed top-32 rounded  z-20 ${msg.err ? 'bg-red-500' : 'bg-primary'} ${msg.msg && 'show'}`}>{msg.msg}</div>
+        <div className={`hide z-50 py-3 px-3 text-white fixed top-32 rounded ${msg.err ? 'bg-red-500' : 'bg-primary'} ${msg.msg && 'show'}`}>{msg.msg}</div>
     )
 }
 
