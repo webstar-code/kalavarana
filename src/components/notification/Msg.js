@@ -1,14 +1,15 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import './style.css'
-const Msg = ({msg}) => {
+const Msg = ({ msg }) => {
+    console.log(msg.err);
     return (
-        <div className={`hide py-3 px-3 text-white bg-primary fixed top-32 rounded  z-20 ${msg.err&&'bg-red-500'} ${msg.msg&&'show'}`}>{msg.msg}</div>
+        <div className={`hide py-3 px-3 text-white fixed top-32 rounded  z-20 ${msg.err ? 'bg-red-500' : 'bg-primary'} ${msg.msg && 'show'}`}>{msg.msg}</div>
     )
 }
 
-const mapStateToProps=(state)=>{
-    return{msg:state.notification}
+const mapStateToProps = (state) => {
+    return { msg: state.notification }
 }
 
 export default connect(mapStateToProps)(Msg)

@@ -8,7 +8,7 @@ export const notification = (msg) => {
 }
 
 export const notify = (msg, err = false) => async (dispatch, getState) => {
-  console.log(msg);
+  console.log(msg, err);
   dispatch(notification({ msg: msg, err: err }))
   setTimeout(() => {
     dispatch(notification({ msg: "", err: false }))

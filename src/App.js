@@ -44,22 +44,20 @@ import Sales from './components/pages/Sales'
 import Header from './components/Header'
 import localdb from './localDB'
 
-
-const Layout = ({ children }) => {
-    return (
-        <>
-            <Header />
-            {children}
-        </>
-    )
-}
-
-
 const App = (props) => {
 
     useEffect(() => {
-        props.getCartTotal()
-    }, [props.cart])
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            // console.log(user)
+            if (user) {
+                const data = db.users.doc(user.uid).get().then(doc => {
+                    // console.log(doc.data());
+                    props.userStateChanged(db.formatedDoc(doc))
+                })
+            }
+        })
+        return unsubscribe
+    }, [])
 
     useEffect(() => {
         if (props.user?.id) {
@@ -87,17 +85,9 @@ const App = (props) => {
     }, [props.user])
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            // console.log(user)
-            if (user) {
-                const data = db.users.doc(user.uid).get().then(doc => {
-                    // console.log(doc.data());
-                    props.userStateChanged(db.formatedDoc(doc))
-                })
-            }
-        })
-        return unsubscribe
-    }, [])
+        props.getCartTotal()
+    }, [props.cart])
+
     // console.log(props.user)
     return (
         <>
@@ -137,7 +127,7 @@ const App = (props) => {
                     <Route component={NotFound} />
                 </Switch>
             </Router>
-``        </>
+            ``        </>
     )
 }
 

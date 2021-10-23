@@ -11,6 +11,7 @@ import Msg from '../notification/Msg'
 import Coupon from '../cart/Coupon'
 import { history } from '../../history'
 import { Redirect } from 'react-router'
+import { notify } from '../../actions'
 
 
 const Cart = (props) => {
@@ -38,12 +39,16 @@ const Cart = (props) => {
 	const handleCheckout = () => {
 		console.log(props.user.id)
 		if (props.user.id) {
-			props.checkout({
-				address: selectedAddress,
-				orderType: 'Paid Online',
-				couponDiscount,
-				Code
-			})
+			if (props.addresses.length <= 0) {
+				props.notify("No address available.", true);
+			} else {
+				props.checkout({
+					address: selectedAddress,
+					orderType: 'Paid Online',
+					couponDiscount,
+					Code
+				})
+			}
 		} else {
 			history.push('/login')
 		}
@@ -74,7 +79,13 @@ const Cart = (props) => {
 					<div className="main-cart-selection">
 						<div className="selection-title">
 							<h1 className="text-2xl font-bold m-0 p-0">Select Address</h1>
-							<div onClick={() => setShowForm(true)}><AddIcon className="adress-add-icon" /></div>
+							<div onClick={() => {
+								if (props.user.id) {
+									setShowForm(true);
+								} else {
+									history.push('/login');
+								}
+							}}><AddIcon className="adress-add-icon" /></div>
 						</div>
 						<div className="address">
 							{
@@ -131,4 +142,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, { checkout })(Cart)
+export default connect(mapStateToProps, { checkout, notify })(Cart)
