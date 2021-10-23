@@ -134,7 +134,7 @@ const App = (props) => {
                     <Route path="/products/:id" exact component={ProductDescription} />
                     <Route path="/error" exact component={Error} />
                     <Route path="/blog/:id" exact component={SingleBlog} />
-                    <Route path="*" component={NotFound} />
+                    <Route component={NotFound} />
                 </Switch>
             </Router>
 ``        </>
