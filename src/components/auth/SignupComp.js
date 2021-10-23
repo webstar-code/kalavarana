@@ -9,11 +9,12 @@ import TextField from '@material-ui/core/TextField';
 import { COLLAGE, KALAVARANA_LOGO } from '../../assetsKalavarna'
 import { useLocation } from 'react-router-dom';
 import LoadingSpinner from '../LoadingSpinner'
+import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 
 const SignupComp = (props) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [number, setNumber] = useState(props.mobNo ? props.mobNo : '')
+  const [number, setNumber] = useState(props.mobNo ? props.mobNo : '+917427854917')
   const [isName, setIsName] = useState(true);
   const [isEmail, setIsEmail] = useState(true)
   const [isNumber, setIsNumber] = useState(true)
@@ -103,7 +104,7 @@ const SignupComp = (props) => {
             className={`p-2 my-2 outline-none border border-gray w-full ${!isName && 'border border-red-500'}`} />
           {!isName && <p className="text-red-500">Name is required</p>}
 
-          <TextField
+          {/* <TextField
             style={{ marginTop: '10px' }}
             disabled
             defaultValue={props.mobNo}
@@ -112,8 +113,11 @@ const SignupComp = (props) => {
             label="PHONE"
             type="text"
             placeholder="PHONE"
-            className={`p-2 my-2 outline-none border border-gray w-full ${!isNumber && 'border border-red-500'}`} />
-          {!isNumber && <p className="text-red-500">Number is required</p>}
+            className={`p-2 my-2 outline-none border border-gray w-full ${!isNumber && 'border border-red-500'}`} /> */}
+
+          <PhoneNumberInput value={number}
+            disabled
+          />
           <button type="submit" className="w-full sm:w-1/2 flex justify-center items-center py-2 px-3 my-2 text-white mt-8 bg-primary">
             {isLoading ? <LoadingSpinner /> : 'Proceed'}</button>
         </form>

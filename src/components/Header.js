@@ -52,7 +52,7 @@ const Header = (props) => {
 	}, []);
 
 	const path = useLocation().pathname;
-	if(path === '/login' || path === 'signup') {
+	if(path === '/login' || path === '/signup') {
 		return null;
 	}
 	

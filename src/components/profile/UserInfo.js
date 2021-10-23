@@ -9,6 +9,8 @@ import { message, notify } from '../../actions';
 import Msg from '../notification/Msg'
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
+
 
 const UserInfo = (props) => {
   console.log(props);
@@ -19,14 +21,18 @@ const UserInfo = (props) => {
   const [isName, setIsName] = useState(true);
   const [isEmail, setIsEmail] = useState(true)
   const [isNumber, setIsNumber] = useState(true)
+  const [phoneCount, setPhoneCount] = useState();
+
+  useEffect(() => {
+    console.log("re render");
+  }, [props.user.id])
 
   const validate = (type, value) => {
-    if (type == 'number' && !value.match(/^\d{10}$/)) {
-      setIsNumber(false);
+    if (type == 'number' && phoneCount != phoneNumber.length) {
+      setIsName(false);
     } else {
-      setIsNumber(true);
+      setIsName(true);
     }
-
     if (type == 'email' && !value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
       setIsEmail(false);
     } else {
@@ -49,7 +55,7 @@ const UserInfo = (props) => {
 
     validate('name', name);
     validate('email', email);
-    // validate('number', phoneNumber);
+    validate('number', phoneNumber);
 
     console.log(phoneNumber);
     if (name && email && phoneNumber && isName && isNumber && isEmail) {
@@ -58,11 +64,9 @@ const UserInfo = (props) => {
         phoneNumber,
         email
       }).then(() => {
-        console.log("props.user updated")
         props.notify("profile updated", false);
         // message("profile updated");
       }).catch((err) => {
-
         console.log(err);
       })
     }
@@ -78,6 +82,7 @@ const UserInfo = (props) => {
         <div className="info">
           <TextField
             style={{ marginTop: '40px', maxWidth: '350px' }}
+
             autoComplete="off"
             id="outlined-basic"
             label="FULL NAME"
@@ -123,40 +128,9 @@ const UserInfo = (props) => {
 
           {/* </div> */}
 
-          <div className="flex" style={{ marginTop: '40px', maxWidth: '350px' }}
-          >
-            <Select
-              className="border border-r-0 px-2 h-14 rounded-sm border-gray-200"
-              value={countryCode}
-              onChange={(e) => setCountryCode(e.target.value)}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
-            >
-              <MenuItem value="+91">
-                {countryCode}
-              </MenuItem>
-              <MenuItem value={+61}>+61</MenuItem>
-              <MenuItem value={+21}>+21</MenuItem>
-              <MenuItem value={+144}>+144</MenuItem>
-            </Select>
-            {/* <FormHelperText>Without label</FormHelperText> */}
 
-            <TextField
-              error={!isNumber ? true : false}
-              helperText={!isNumber ? 'Please enter a vaild number' : ''}
-              autoComplete="off"
-              id="outlined-basic"
-              label="PHONE"
-              variant="outlined"
-              color={!isNumber ? "secondary" : 'primary'}
-              onChange={(e) => {
-                setPhoneNumber(e.target.value)
-              }}
-              value={phoneNumber}
-              placeholder="PHONE NUMBER"
-              className={` border-0 ${!isNumber && 'border border-red-500'}`}
-            />
-          </div>
+          <PhoneNumberInput value={phoneNumber} setValue={setPhoneNumber} setPhoneCount={setPhoneCount} containerStyle={{ maxWidth: '350px', marginTop: '40px' }} />
+
           {!isNumber && <p className="text-red-500">Name is required</p>}
 
           <button onClick={() => handleUpdate()} className="update-profile-btn bg-primary">Update Info</button>

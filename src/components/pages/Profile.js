@@ -12,11 +12,11 @@ const Profile = (props) => {
   useEffect(() => {
     console.log("changed")
     console.log(props.user)
-  }, [props.user])
+  }, [props.user.id])
 
     return (
         <>
-        {!props.user.id && <Redirect to='/login' /> }
+        {/* {!props.user.id && <Redirect to='/login' /> } */}
         <div className="profile-page" >
           <ProfileNavigation/>
           <UserInfo />

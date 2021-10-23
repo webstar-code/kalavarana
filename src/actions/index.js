@@ -36,7 +36,8 @@ export const showOtp = (boolean) => {
 // }
 
 export const login = (data) => async dispatch => {
-  let phoneNumber = data.countryCode + data.number;
+  let phoneNumber = data.number;
+  console.log(phoneNumber);
   sendOtp(phoneNumber, dispatch);
 }
 
@@ -61,7 +62,8 @@ export const sendOtp = (phoneNumber, dispatch) => {
 
     })
     .catch(function (error) {
-      dispatch(notification({ msg: 'Unable to send OTP, try again', err: true }))
+      dispatch({ type: SHOW_OTP, payload: false });
+      dispatch(notification({ msg: error.message, err: true }))
       setTimeout(() => {
         dispatch(notification({ msg: "", err: false }))
       }, 2000);

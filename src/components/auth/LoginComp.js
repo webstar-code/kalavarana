@@ -7,9 +7,7 @@ import { COLLAGE, KALAVARANA_LOGO } from '../../assetsKalavarna';
 import Msg from '../notification/Msg'
 import TextField from '@material-ui/core/TextField';
 import LoadingSpinner from '../LoadingSpinner'
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-
+import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 
 const LoginComp = (props) => {
   const [otp, setOtp] = useState('')
@@ -17,6 +15,7 @@ const LoginComp = (props) => {
   const [isNum, setIsNum] = useState(true);
   const [countryCode, setCountryCode] = useState('+91')
   const [isLoading, setIsLoading] = useState(false)
+  const [phoneCount, setPhoneCount] = useState();
 
   useEffect(() => {
     setIsLoading(false);
@@ -38,14 +37,14 @@ const LoginComp = (props) => {
 
   const onSignInSubmit = (e) => {
     e.preventDefault();
-    if (!number.match(/^\d{10}$/) || number === '' || countryCode === '') {
-      setIsNum(false)
-    }
-    else {
+    console.log(isNum);
+    if (phoneCount != number.length) {
+      setIsNum(false);
+    } else {
       setIsNum(true)
       setIsLoading(true)
       setUpRecaptcha();
-      props.login({number, countryCode});
+      props.login({ number: '+' + number, countryCode });
     }
   };
 
@@ -66,39 +65,8 @@ const LoginComp = (props) => {
 
           <img src={KALAVARANA_LOGO} alt="ANA" style={{ width: '125px' }} className="mx-auto sm:-ml-2" />
           <h1 className="text-2xl font-bold py-12 text-primary">Welcome, to kalavarana</h1>
-          <div className="flex">
 
-              <Select
-              className="border border-r-0 px-2 h-14 rounded-sm border-gray-200"
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-              >
-                <MenuItem value="+91">
-                  {countryCode}
-                </MenuItem>
-                <MenuItem value={+61}>+61</MenuItem>
-                <MenuItem value={+21}>+21</MenuItem>
-                <MenuItem value={+144}>+144</MenuItem>
-              </Select>
-              {/* <FormHelperText>Without label</FormHelperText> */}
-
-            <TextField
-              error={!isNum ? true : false}
-              helperText={!isNum ? 'Please enter a vaild number' : ''}
-              autoComplete="off"
-              id="outlined-basic"
-              label="PHONE"
-              variant="outlined"
-              color={!isNum ? "secondary" : 'primary'}
-              onChange={(e) => {
-                setNumber(e.target.value)
-              }}
-              placeholder="PHONE"
-              className={` border-0 ${!isNum && 'border border-red-500'}`}
-            />
-          </div>
+          <PhoneNumberInput value={number} setValue={setNumber} setPhoneCount={setPhoneCount} />
 
           {!isNum && <p className="text-red-500">Number is required</p>}
 
