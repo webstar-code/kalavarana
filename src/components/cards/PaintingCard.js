@@ -46,7 +46,7 @@ const PaintingCard = (props) => {
             <div className="w-full">
                 <Link 
                 // to={`/products/${product.id}` } 
-                to={{ pathname: `/products/${product.id}`, state: 'flushDeal' }}                
+                to={{ pathname: `/products/${product.id}` }}                
                 >
                     <div className="relative w-full">
                         <img src={product.picUrl} alt="" className="w-full" />

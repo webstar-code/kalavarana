@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { connect } from 'react-redux'
 import { deleteCartItem, updateCartQauntity, getCartItems, getLocalCartItems } from '../../actions/cart'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useEffect } from 'react';
 import { RUPPEEICON } from '../../assetsKalavarna'
 import CancelPrompt from '../CancelPrompt';
 import localdb from '../../localDB'
 
 const SideCartItem = (props) => {
+    const location = useLocation().pathname
     const [Quantity, setQuantity] = useState(props.quantity)
     const [maxQuantityReached, setMaxQuantityReached] = useState(false);
     const [showModal, setShowModal] = useState(false)
@@ -49,7 +50,7 @@ const SideCartItem = (props) => {
 
     return (
         <div className="side-cart-item">
-            <Link to={`products/${props.product.id}`}>
+            <Link to={location.pathname === '/products' ? `/${props.product.id}` : `/products/${props.product.id}`}>
                 <div className="side-cart-item-img">
                     <img src={props.product.picUrl} alt="" />
                 </div>

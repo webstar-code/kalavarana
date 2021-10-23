@@ -4,7 +4,7 @@ import { BiSearch } from 'react-icons/bi'
 import { AiOutlineUser } from 'react-icons/ai'
 import { FiShoppingCart, FiMenu } from 'react-icons/fi'
 import { IoMdArrowDropdown } from 'react-icons/io'
-import { Link , useHistory, useLocation} from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { KALAVARANA_LOGO } from '../assetsKalavarna';
 import { firestore } from '../firebase'
@@ -15,6 +15,7 @@ const Header = (props) => {
 	const [showSideBar, setShowSideBar] = useState(false)
 	const [categories, setCategories] = useState([]);
 	const [showHeader, setShowHeader] = useState({ show: true, scrollPos: 0 });
+	const [render, setRender] = useState(false);
 
 	useEffect(() => {
 		let items = [];
@@ -33,15 +34,24 @@ const Header = (props) => {
 		}).then(() => {
 			setCategories(items);
 		}).
-		catch(err => console.log(err));
+			catch(err => console.log(err));
 	}, []);
 
+	useEffect(() => {
+		setRender(true);
+	}, [categories]);
+	console.log(categories);
+	console.log(render);
 
 	const handleScroll = () => {
-		setShowHeader((prev) => ({
-			scrollPos: document.body.getBoundingClientRect().top,
-			show: document.body.getBoundingClientRect().top > prev.scrollPos
-		}))
+		if (window.scrollY < 100) {
+			setShowHeader((prev) => ({ ...showHeader, show: true }));
+		} else {
+			setShowHeader((prev) => ({
+				scrollPos: document.body.getBoundingClientRect().top,
+				show: document.body.getBoundingClientRect().top > prev.scrollPos
+			}))
+		}
 	}
 
 	useEffect(() => {
@@ -52,10 +62,10 @@ const Header = (props) => {
 	}, []);
 
 	const path = useLocation().pathname;
-	if(path === '/login' || path === '/signup') {
+	if (path === '/login' || path === '/signup') {
 		return null;
 	}
-	
+
 	return (
 		<div className={`fixed border-b border-gray-200 bg-white top-0 left-0 flex flex-col w-full h-20 md:h-36 pt-4 px-3 z-50 transition-all
 			${!showHeader.show ? '-top-20 md:-top-36' : 'top-0'} 
@@ -99,7 +109,7 @@ const Header = (props) => {
 						</div>
 
 						<Link to="/sales">
-							<li className="hover relative first-list">Sales</li>
+							<li className="relative">Sales</li>
 						</Link>
 
 						{categories.length > 0 && categories.map((item) => (
@@ -109,6 +119,7 @@ const Header = (props) => {
 										<div className="drop-down whitespace-nowrap">
 											{item.subcats.length > 0 && item.subcats.map((subcat) => (
 												<Link to={`/category/${item.cat.name}/${subcat.name}`}>
+													{console.log(subcat)}
 													<p className="flex py-2">{subcat.name}</p>
 												</Link>
 											))}
@@ -116,7 +127,7 @@ const Header = (props) => {
 										</div>
 									</li>
 								</Link>
-								<ListItem item={item} setShowSideBar={setShowSideBar}/>
+								<ListItem item={item} setShowSideBar={setShowSideBar} />
 								{/* <Link to={`/category/${item.cat.name}`}>
 									<li className="onclick relative first-list whitespace-nowrap">
 										<span className="flex items-center justify-between" onClick={() => setTanjore(!showTanjore)}>{item.cat.name}
@@ -152,6 +163,7 @@ const Header = (props) => {
 
 const ListItem = ({ item, setShowSideBar }) => {
 	const [state, setState] = useState();
+	console.log(item);
 	return (
 		<li className="onclick relative first-list whitespace-nowrap outline-none focus:outline-none select-none">
 			<span className="flex items-center justify-between" >

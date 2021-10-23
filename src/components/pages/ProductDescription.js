@@ -36,6 +36,7 @@ const ProductDescription = (props) => {
   const [quantity, setCount] = useState(1)
 
   useEffect(() => {
+    props.showCart(false);
     firestore.collection('PRODUCTS').doc(productID).get()
       .then((doc) => {
         console.log(doc.data());
@@ -43,9 +44,11 @@ const ProductDescription = (props) => {
       }).catch((err) => {
         console.log(err);
       })
+
   }, [useParams().id])
 
-
+  // useEffect(() => {
+  // }, [pathname]);
 
   if (quantity <= 0) {
     setCount(1)
