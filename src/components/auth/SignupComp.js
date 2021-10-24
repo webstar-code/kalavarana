@@ -50,28 +50,28 @@ const SignupComp = (props) => {
     e.preventDefault();
     setIsLoading(true);
     
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 10000);
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    // }, 10000);
     // check validation of email, name, number
-    // if (email === '' && name === '' && number === '') {
-    //   setIsEmail(false)
-    //   setIsName(false)
-    //   setIsNumber(false)
-    // }
+    if (email === '' && name === '' && number === '') {
+      setIsEmail(false)
+      setIsName(false)
+      setIsNumber(false)
+    }
 
-    // validate('email', email);
-    // validate('name', name);
-    // validate('number', number);
+    validate('email', email);
+    validate('name', name);
+    validate('number', number);
 
-    // if (name && email && number && isName && isNumber && isEmail) {
-    //   console.log("all good");
-    //   setIsName(true)
-    //   setIsNumber(true)
-    //   setIsEmail(true)
-    //   setIsLoading(true)
-    //   props.sigin(number, email, name, location.state.uid)
-    // }
+    if (name && email && number && isName && isNumber && isEmail) {
+      console.log("all good");
+      setIsName(true)
+      setIsNumber(true)
+      setIsEmail(true)
+      setIsLoading(true)
+      props.sigin(number, email, name, location.state.uid)
+    }
   };
 
 

@@ -39,14 +39,14 @@ const LoginComp = (props) => {
     e.preventDefault();
   
     // console.log(isNum);
-    // if (phoneCount != number.length) {
-    //   setIsNum(false);
-    // } else {
-    //   setIsNum(true)
-    //   setIsLoading(true)
-    //   setUpRecaptcha();
-    //   props.login({ number: '+' + number, countryCode });
-    // }
+    if (phoneCount != number.length) {
+      setIsNum(false);
+    } else {
+      setIsNum(true)
+      setIsLoading(true)
+      setUpRecaptcha();
+      props.login({ number: '+' + number, countryCode });
+    }
   };
 
   const onSubmitOtp = (e) => {
