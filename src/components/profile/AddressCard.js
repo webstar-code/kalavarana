@@ -4,6 +4,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { deleteAdress, getAddresses } from '../../actions/address';
+import CancelPrompt from '../CancelPrompt';
 import Msg from '../notification/Msg';
 import EditAddressForm from './EditAddressForm';
 
@@ -29,7 +30,7 @@ const AddressCard = (props) => {
   //style={props.i===activeIndex?{border:'2px solid #000'}:null};
   return (
     <>
-    <Msg />
+      <Msg />
       <div style={props?.style} onClick={handleActiveIndex} className={`cursor-pointer address-card p-2 ${selected ? 'border-2 border-primary' : 'border-1 border-gray-300'}`}>
         <div className="title">
           <h1 className="font-bold">{props?.address?.name}</h1>
@@ -50,13 +51,7 @@ const AddressCard = (props) => {
         </div>
         <p className="address-text">{props?.address?.addressLine1},{props?.address?.addressLine2},{props?.address?.landmark},<br />{props?.address?.city},{props?.address?.pinCode},{props?.address?.state},{props?.address?.country}</p>
       </div>
-      {showModal && (<div className="delete-modal" onClick={() => setShowModal(false)}>
-        <div className="innerModal" onClick={(e) => e.stopPropagation()}>
-          <WarningIcon className="text-red-500" />
-          <h1 className="py-3">Are you sure you want delete address?</h1>
-          <button onClick={handleDelete} className="delet-btn">Delete</button>
-        </div>
-      </div>)}
+      {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDelete} message="Are you sure you to delete this address?" />}
       {showForm && (<EditAddressForm
         id={props?.address?.id} setShowForm={setShowForm}
         name={props?.address?.name}

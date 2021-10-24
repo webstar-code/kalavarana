@@ -6,8 +6,8 @@ import { sigin, submitOtp, login } from '../../actions'
 import { COLLAGE, KALAVARANA_LOGO } from '../../assetsKalavarna';
 import Msg from '../notification/Msg'
 import TextField from '@material-ui/core/TextField';
-import LoadingSpinner from '../LoadingSpinner'
 import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
+import Loader from "react-loader-spinner";
 
 const LoginComp = (props) => {
   const [otp, setOtp] = useState('')
@@ -37,15 +37,16 @@ const LoginComp = (props) => {
 
   const onSignInSubmit = (e) => {
     e.preventDefault();
-    console.log(isNum);
-    if (phoneCount != number.length) {
-      setIsNum(false);
-    } else {
-      setIsNum(true)
-      setIsLoading(true)
-      setUpRecaptcha();
-      props.login({ number: '+' + number, countryCode });
-    }
+  
+    // console.log(isNum);
+    // if (phoneCount != number.length) {
+    //   setIsNum(false);
+    // } else {
+    //   setIsNum(true)
+    //   setIsLoading(true)
+    //   setUpRecaptcha();
+    //   props.login({ number: '+' + number, countryCode });
+    // }
   };
 
   const onSubmitOtp = (e) => {
@@ -72,7 +73,7 @@ const LoginComp = (props) => {
 
 
           {!props.showOtp && <button type="submit" className="w-full sm:w-1/2 flex justify-center items-center py-2 px-3 my-2 text-white mt-8 bg-primary">
-            {isLoading ? <LoadingSpinner /> : 'Proceed'}</button>}
+            {isLoading ? <Loader type="TailSpin" color="#fff" height={15} width={15} /> : 'Proceed'}</button>}
           <div id="recaptcha-container"></div>
 
         </form>

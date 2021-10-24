@@ -6,18 +6,16 @@ import CancleForm from '../orders/CancleForm'
 const OrderCard = (props) => {
 	const [cancel, setCancel] = useState(true)
 	const [showCancleForm, setShowCancleForm] = useState(false)
-
+	
 	const OneDay = props.order.bookingTime + (1000 * 60 * 60 * 24)
 	const dateNow = Date.now();
 
 	useEffect(() => {
 		if (dateNow > OneDay) {
 			// The yourDate time is less than 1 days from now
-			console.log('you can cancel')
 			setCancel(true)
 		}
 		else if (OneDay < dateNow) {
-			console.log('you canot cancel order')
 			setCancel(false)
 			// The yourDate time is more than 1 days from now
 		}

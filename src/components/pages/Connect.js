@@ -76,7 +76,7 @@ const Enquiry = (props) => {
                                     autoComplete="off" id="outlined-basic" label="CONTACT REASON" variant="outlined"
                                     onChange={(e) => setReason(e.target.value)}
                                 />
-                                <button type="submit">Submit</button>
+                                <button type="submit" className="bg-primary">Submit</button>
                             </form>
                         </div>
                     </div>

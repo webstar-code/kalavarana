@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../Header';
-import { PAINTING1 } from '../../assetsKalavarna';
 import { Link } from 'react-router-dom';
 import { db, firestore } from '../../firebase';
 import { useParams } from 'react-router-dom'
-import PaintingCard from '../cards/PaintingCard'
 import Footer from '../Footer';
 import SubCatProducts from '../SubCategoryCards';
+
+import LoadingSpinner from '../LoadingSpinner';
 
 const Category = () => {
     const categoryName = useParams().category;
     const [categoryInfo, setCategoryInfo] = useState({});
     const [subCats, setSubCats] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    // get a cat with the given name
     useEffect(() => {
-        setCategoryInfo({});
+        // setCategoryInfo({});
+        // setSubCats([]);
         firestore.collection('CATAGORIES').get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 // console.log(doc.data().name, categoryName);
@@ -31,6 +31,7 @@ const Category = () => {
 
     // get sub-cats
     useEffect(() => {
+        setLoading(true);
         let items = [];
         firestore.collection('SUB-CATAGORIES').get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -40,8 +41,11 @@ const Category = () => {
                 }
             })
             setSubCats(items);
+            setLoading(false);
         })
     }, [categoryInfo]);
+    // console.log(categoryInfo)
+    // console.log(subCats);
 
     return (
         <>
@@ -50,9 +54,15 @@ const Category = () => {
                     <h1 className="text-white text-2xl md:text-5xl uppercase">{categoryInfo.name}</h1>
                     {/* <img src={categoryInfo.picUrl} /> */}
                 </div>
-                {subCats.map((item) => (
-                    <SubCatProducts subcat={item} />
-                ))}
+                {subCats.length > 0 ? subCats.map((item) => (
+                    <SubCatProducts subcat={item} key={item.name} />
+                ))
+                    :
+                    loading ?
+                        <LoadingSpinner />
+                        : subCats.length <= 0 ?
+                            <h1 className="h-64 flex items-center justify-center text-gray-400 text-5xl">No items in this category</h1>
+                            : null}
             </div>
             <Footer />
         </>

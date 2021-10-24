@@ -20,7 +20,6 @@ import WhisList from './components/pages/WhisList'
 import ProductDescription from './components/pages/ProductDescription'
 import Checkout from './components/pages/Checkout'
 import Cart from './components/pages/Cart'
-import dummy from './dummy'
 import Confirm from './components/pages/Confirm'
 import PrivacyPolicy from './components/policies/PrivacyPolicy'
 import Terms from './components/policies/Terms'
@@ -44,6 +43,8 @@ import Sales from './components/pages/Sales'
 import Header from './components/Header'
 import localdb from './localDB'
 
+// import dummy from './dummy'
+
 const ScrollToTop = (props) => {
     const location = useLocation();
     useEffect(() => {
@@ -60,7 +61,7 @@ const App = (props) => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             // console.log(user)
             if (user) {
-                const data = db.users.doc(user.uid).get().then(doc => {
+                db.users.doc(user.uid).get().then(doc => {
                     // console.log(doc.data());
                     props.userStateChanged(db.formatedDoc(doc))
                 })

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../Header';
 import { PAINTING1 } from '../../assetsKalavarna';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
@@ -9,6 +8,7 @@ import { db, firestore } from '../../firebase';
 import { useParams } from 'react-router-dom'
 import '../../styles/dresess.css';
 import Footer from '../Footer';
+import LoadingSpinner from '../LoadingSpinner';
 
 const dummyData = [
 	{
@@ -55,7 +55,7 @@ const dummyData = [
 
 const SubCategory = () => {
 	const subCategoryName = useParams().sub_category;
-
+	const [loading, setLoading] = useState(false);
 	const [products, setProducts] = useState([]);
 	const [sortedProducts, setSortedProducts] = useState([]);
 	const [filteredProducts, setFilteredProducts] = useState([]);
@@ -85,8 +85,8 @@ const SubCategory = () => {
 	}
 
 	useEffect(() => {
-		console.log("fetch");
 		let items = [];
+		setLoading(true);
 		firestore.collection('PRODUCTS').get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				let x = doc.data();
@@ -97,9 +97,13 @@ const SubCategory = () => {
 					}
 				})
 			})
+			return items
+		}).then((items) => {
+			console.log(items);
 			setProducts(items);
+			setLoading(false);
 		})
-	}, []);
+	}, [subCategoryName]);
 
 	const sorts = [
 		{ name: 'Featured' },

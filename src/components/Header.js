@@ -113,11 +113,11 @@ const Header = (props) => {
 
 						{categories.length > 0 && categories.map((item) => (
 							<>
-								<Link to={`/category/${item.cat.name}`} onClick={() => setShowSideBar(false)}>
+								<Link to={`/category/${item.cat.name}`} key={item.cat.id} onClick={() => setShowSideBar(false)}>
 									<li className="hover relative first-list whitespace-nowrap">{item.cat.name}
 										<div className="drop-down whitespace-nowrap">
 											{item.subcats.length > 0 && item.subcats.map((subcat) => (
-												<Link to={`/category/${item.cat.name}/${subcat.name}`}>
+												<Link to={`/category/${item.cat.name}/${subcat.name}`} key={subcat.id}>
 													<p className="flex py-2">{subcat.name}</p>
 												</Link>
 											))}
@@ -125,7 +125,7 @@ const Header = (props) => {
 										</div>
 									</li>
 								</Link>
-								<ListItem item={item} setShowSideBar={setShowSideBar} />
+								<ListItem item={item} setShowSideBar={setShowSideBar} key={item.cat.name} />
 								{/* <Link to={`/category/${item.cat.name}`}>
 									<li className="onclick relative first-list whitespace-nowrap">
 										<span className="flex items-center justify-between" onClick={() => setTanjore(!showTanjore)}>{item.cat.name}
@@ -171,7 +171,7 @@ const ListItem = ({ item, setShowSideBar }) => {
 			</span>
 			<div className={`onclick-drop-down ${state && 'showOnClick'}`}>
 				{item.subcats.length > 0 && item.subcats.map((subcat) => (
-					<Link to={`/category/${item.cat.name}/${subcat.name}`} onClick={() => setShowSideBar(false)}>
+					<Link to={`/category/${item.cat.name}/${subcat.name}`} onClick={() => setShowSideBar(false)} key={subcat.name}>
 						<p className="flex py-2">{subcat.name}</p>
 					</Link>
 				))}

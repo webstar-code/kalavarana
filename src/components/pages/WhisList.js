@@ -58,7 +58,9 @@ const WhisList = (props) => {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {
                             props.wishlist.length > 0 ? props.wishlist.map((pro) => (
+                                <div className="">
                                 <PaintingCard product={pro} key={pro.id} />
+                                </div>
                             ))
                             :
                             <h1>No items in wishlist</h1>

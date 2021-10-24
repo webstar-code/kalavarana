@@ -74,7 +74,7 @@ const SideCartItem = (props) => {
                     </div>
                     {!props.disable && <div className="trash-btn">
                         <button onClick={() => setShowModal(true)} className="p-2 hover:bg-gray-100 rounded-full"><DeleteOutlineIcon /></button>
-                        {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDelete} />}
+                        {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDelete} message="Are you sure you to remove the item from your cart?" />}
                     </div>}
 
                 </div>

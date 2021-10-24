@@ -7,7 +7,7 @@
     margin-top: 150px;
     display: flex;
     align-items:flex-start;
-    justify-content:start;
+    justify-content:flex-start;
 }
 .user-info{
     width: 65%;

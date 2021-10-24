@@ -41,7 +41,10 @@ const Cart = (props) => {
 		if (props.user.id) {
 			if (props.addresses.length <= 0) {
 				props.notify("No address available.", true);
-			} else {
+			} if (props.cartItems.length <= 0) {
+				props.notify("No item in the cart.", true);
+			}
+			else {
 				props.checkout({
 					address: selectedAddress,
 					orderType: 'Paid Online',
