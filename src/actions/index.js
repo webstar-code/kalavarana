@@ -32,7 +32,6 @@ export const showOtp = (boolean) => {
 //   phoneNumber: '123456789',
 //   picUrl: '',
 //   role: 'user',
-//   lastSignInDataTime = '123213213',
 // }
 
 export const login = (data) => async dispatch => {
@@ -93,7 +92,11 @@ export const sigin = (phoneNumber, email, name, uid) => async dispatch => {
   })
     .catch((err) => {
       console.log(err)
-      console.log('unable to save user')
+      dispatch(notification({ msg: "Something went wrong", err: true }))
+      setTimeout(() => {
+        dispatch(notification({ msg: "", err: false }))
+      }, 2000);
+
     })
 }
 
@@ -128,8 +131,10 @@ export const submitOtp = (otp) => async dispatch => {
     })
   }).catch(function (error) {
     console.log(error);
-    console.log('wrong otp')
-    notify("Wrong OTP", true);
+    dispatch(notification({ msg: "Wrong OTP", err: true }))
+    setTimeout(() => {
+      dispatch(notification({ msg: "", err: false }))
+    }, 2000);
   });
 }
 
@@ -142,6 +147,10 @@ export const logout = () => async dispatch => {
   await auth.signOut();
   dispatch({ type: LOG_OUT, payload: {} })
   dispatch({ type: SHOW_OTP, payload: false })
+  dispatch(notification({ msg: "logged out successfully", err: false }))
+  setTimeout(() => {
+    dispatch(notification({ msg: "", err: false }))
+  }, 2000);
   history.push('/login')
 }
 

@@ -38,25 +38,26 @@ const Cart = (props) => {
 
 	const handleCheckout = () => {
 		console.log(props.user.id)
-		if (props.user.id) {
-			if (props.addresses.length <= 0) {
-				props.notify("No address available.", true);
-			} if (props.cartItems.length <= 0) {
-				props.notify("No item in the cart.", true);
-			}
-			else {
-				props.checkout({
-					address: selectedAddress,
-					orderType: 'Paid Online',
-					couponDiscount,
-					Code
-				})
-			}
+		if (props.cartItems.length <= 0) {
+			props.notify("No item in the cart.", true);
 		} else {
-			history.push('/login')
+			if (props.user.id) {
+				if (props.addresses.length <= 0) {
+					props.notify("No address available.", true);
+				}
+				else {
+					props.checkout({
+						address: selectedAddress,
+						orderType: 'Paid Online',
+						couponDiscount,
+						Code
+					})
+				}
+			} else {
+				history.push('/login')
+			}
 		}
 	}
-
 	return (
 		<>
 			{/* {!props.user.id && <Redirect to='/login' />} */}
