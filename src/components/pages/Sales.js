@@ -44,7 +44,7 @@ const Sales = () => {
                         : loading ?
                             <LoadingSpinner />
                             : products.length <= 0 ?
-                                <h1 className="h-64 flex items-center justify-center text-gray-400 text-5xl">No products here</h1>
+                            <h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl md:text-5xl">No products here</h1>
                                 : null
                     }
                 </div>

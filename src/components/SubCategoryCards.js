@@ -37,7 +37,7 @@ const SubCat = ({ subcat, banner = true }) => {
 
     return (
         <>
-            <div className="w-full px-2 md:w-4/5 mx-auto my-16 flex flex-col">
+            <div className="w-full px-2 md:w-4/5 mx-auto my-12 md:my-16 flex flex-col">
                 {banner &&
                     <div className="bg-primary flex" style={{ height: '256px' }}>
                         <h1 className="text-white text-2xl md:text-5xl mt-auto px-8 py-10">{subcat.name}</h1>
@@ -61,7 +61,7 @@ const SubCat = ({ subcat, banner = true }) => {
                         loading ?
                             <LoadingSpinner />
                             : products.length <= 0 ?
-                                <h1 className="h-64 flex items-center justify-center text-gray-400 text-5xl">No products here</h1>
+                                <h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl md:text-5xl">No products here</h1>
                                 : null}
             </div>
         </>

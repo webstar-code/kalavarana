@@ -21,12 +21,12 @@ const MainPage = () => {
          setSubCats(snapshot.docs.map((doc) => doc.data()))
       }).catch((err) => console.log(err))
    }, []);
-   new YouTubeToHtml5();
+   // new YouTubeToHtml5();
 
    useEffect(() => {
       console.log("Ad");
       new YouTubeToHtml5();
-   });
+   }, []);
    return (
       <>
          <div className="w-full h-screen mb-12" style={{ marginBottom: '20px' }}>

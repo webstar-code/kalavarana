@@ -1,11 +1,11 @@
-import React ,{useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { firestore } from '../../firebase'
 import '../../styles/blog.css'
 import BlogCard from '../cards/BlogCard'
-import Header from '../Header'
+import Footer from '../Footer'
 
 const Blog = () => {
-    const [blogs, setBlogs] = useState([]); 
+    const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {
         let items = [];
@@ -18,15 +18,14 @@ const Blog = () => {
     console.log(blogs);
     return (
         <>
-        <div className="blog-area">
-            <div className="blog">
-                {blogs.map((blog) => (
-                    <BlogCard blog={blog}/>
-                ))}
-                {/* <BlogCard/>
-                <BlogCard/> */}
+            <div className="blog-area">
+                <div className="blog">
+                    {blogs.map((blog) => (
+                        <BlogCard blog={blog} />
+                    ))}
+                </div>
             </div>
-        </div>
+            <Footer />
         </>
     )
 }

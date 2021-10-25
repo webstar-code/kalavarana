@@ -26,7 +26,7 @@ const Adress = (props) => {
 				<ProfileNavigation />
 				<div className="w-full md:w-3/5 py-12 px-6 md:px-12 flex flex-col justify-center ml-auto ">
 
-					<div className="mr-auto">
+					<div className="md:mr-auto">
 						<h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
 							<span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
 							My Address</h1>

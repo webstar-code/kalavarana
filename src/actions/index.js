@@ -103,11 +103,11 @@ export const sigin = (phoneNumber, email, name, uid) => async dispatch => {
 export const submitOtp = (otp) => async dispatch => {
   let redirect = false;
   let otpInput = otp;
-  console.log(otp);
+  // console.log(otp);
   let optConfirm = window.confirmationResult;
   optConfirm.confirm(otpInput).then((result) => {
     let user = result.user;
-    console.log(result);
+    // console.log(result);
     // check if the user already exists
     db.users.get().then(querySnapshot => {
       querySnapshot.forEach((doc) => {

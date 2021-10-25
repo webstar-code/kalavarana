@@ -20,7 +20,6 @@ const AddressCard = (props) => {
 
   const handleActiveIndex = () => {
     if (!props.disable) {
-      console.log(props);
       setSelected(true);
       props?.getActiveAdd(props.i, props?.address)
     }
@@ -31,7 +30,7 @@ const AddressCard = (props) => {
   return (
     <>
       <Msg />
-      <div style={props?.style} onClick={handleActiveIndex} className={`cursor-pointer address-card p-2 ${selected ? 'border-2 border-primary' : 'border-1 border-gray-300'}`}>
+      <div style={props?.style} onClick={handleActiveIndex} className={`cursor-pointer address-card p-2 `}>
         <div className="title">
           <h1 className="font-bold">{props?.address?.name}</h1>
           <div className="icons">

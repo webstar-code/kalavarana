@@ -59,6 +59,7 @@ const SubCategory = () => {
 	const [products, setProducts] = useState([]);
 	const [sortedProducts, setSortedProducts] = useState([]);
 	const [filteredProducts, setFilteredProducts] = useState([]);
+
 	// console.log(sortedProducts);
 	// console.log(filteredProducts);
 	// console.log(products);
@@ -99,7 +100,7 @@ const SubCategory = () => {
 			})
 			return items
 		}).then((items) => {
-			console.log(items);
+			// console.log(items);
 			setProducts(items);
 			setLoading(false);
 		})
@@ -107,7 +108,7 @@ const SubCategory = () => {
 
 	const sorts = [
 		{ name: 'Featured' },
-		{ name: 'Best Selling' },
+		// { name: 'Best Selling' },
 		{ name: 'Alphabetically, A-Z' },
 		{ name: 'Alphabetically, Z-A' },
 		{ name: 'Price , Low to High' },
@@ -116,7 +117,7 @@ const SubCategory = () => {
 
 	const filters = [
 		{ name: 'Dimensions' },
-	
+
 	]
 
 
@@ -146,7 +147,7 @@ const SubCategory = () => {
 	}
 
 	const FilterUtil = (type) => {
-		switch(type) {
+		switch (type) {
 			case 'Dimensions':
 				setFilteredProducts(products.sort((a, b) => (a.height * a.width) < (b.height * b.width) ? -1 : 1))
 				setSortedProducts([]);
@@ -159,7 +160,7 @@ const SubCategory = () => {
 			<div className="w-full bg-primary flex items-center justify-center mb-10" style={{ height: '256px' }}>
 				<h1 className="text-white text-2xl md:text-5xl uppercase">{subCategoryName}</h1>
 			</div>
-			<div className="w-full md:w-4/5 px-6 md:px-0 mx-auto ">
+			<div className="relative w-full md:w-4/5 px-6 md:px-0 mx-auto ">
 				<div className="w-full flex justify-between py-5">
 					<div className="flex">
 						<div className="px-1" onClick={handleFullScreen}><ViewComfyIcon className={`view-icon ${fullScreen && 'active'}`} /></div>
@@ -182,33 +183,38 @@ const SubCategory = () => {
 						</p>
 					</div>
 				</div>
-				<div className={`w-full grid ${halfScreen && 'grid-cols-1 md:grid-cols-2'} ${fullScreen && 'grid-cols-2 xl:grid-cols-4'} gap-2 gap-y-6 mt-4 mb-12 `}>
-					{/* {products.map((product, i) => (
-						<Card product={product} key={i} />
-					))} */}
-					{sortedProducts === false  ?
-						sortedProducts.map((product) => (<div className="max-w-sm">
-							<PaintingCard product={product} key={product.id} />
-						</div>))
-						: filteredProducts === false  ?
-							filteredProducts.map((product) => (<div className="max-w-sm">
+				{products.length > 0 ?
+					<div className={`w-full grid ${halfScreen && 'grid-cols-1 md:grid-cols-2'} ${fullScreen && 'grid-cols-2 xl:grid-cols-4'} gap-2 gap-y-6 mt-4 mb-12 `}>
+
+						{sortedProducts === false ?
+							sortedProducts.map((product) => (<div className="max-w-sm">
 								<PaintingCard product={product} key={product.id} />
 							</div>))
-							:
-							products.map((product, i) => (
-								<div className="max-w-sm">
-									<PaintingCard product={product} key={i} />
-								</div>
-							))
-					}
+							: filteredProducts === false ?
+								filteredProducts.map((product) => (<div className="max-w-sm">
+									<PaintingCard product={product} key={product.id} />
+								</div>))
+								:
+								products.map((product, i) => (
+									<div className="max-w-sm">
+										<PaintingCard product={product} key={i} />
+									</div>
+								))
+						}
 
-					{/* 
+
+						{/* 
 					{dummyData.map((product, i) => (
 						<div className="max-w-sm">
 							<PaintingCard product={product} key={i} />
 						</div>
 					))} */}
-				</div>
+					</div> :
+					loading ?
+						<LoadingSpinner />
+						: products.length <= 0 ?
+							<h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl md:text-5xl">No products here</h1>
+							: null}
 			</div>
 			<Footer />
 		</div>

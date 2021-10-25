@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../Header'
 import { useParams } from 'react-router-dom'
 import { firestore } from '../../firebase'
+import Footer from '../Footer';
 
 const SingleBlog = () => {
     const [blog, setBlog] = useState({});
@@ -16,7 +16,7 @@ const SingleBlog = () => {
 
     return (
         <>
-            <div className="single-blog">
+            <div className="single-blog mb-12">
                 <img src={blog.picUrl} alt="" />
                 <div className="single-blog-des">
                     {/* <div className="bg-black p-2 text-white">FASHION</div> */}
@@ -26,6 +26,7 @@ const SingleBlog = () => {
                     ))}
                 </div>
             </div>
+            <Footer />
         </>
     )
 }
