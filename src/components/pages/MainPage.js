@@ -73,7 +73,7 @@ const MainPage = () => {
             <div className="flex p-6 flex-col-reverse md:flex-col items-center justify-center my-32">
                <div className="w-full md:w-4/5 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                   {subcats.length > 0 && subcats.map((subcat) => (
-                     <div className="max-w-xs relative bg-white flex flex-col items-center justify-between p-2 border border-primary border-opacity-50">
+                     <div className="max-w-xs relative bg-white flex flex-col items-start justify-between p-2 border border-primary border-opacity-50">
                         <img src={subcat.picUrl} className="w-full" />
                         <div className="flex flex-col p-1 md:p-2 md:px-1 mb-2 md:mb-4 text-black">
                            <h3 className="text-md my-2 md:text-2xl text-primary font-medium py-1">{subcat.name}</h3>

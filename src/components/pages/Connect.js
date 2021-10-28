@@ -102,7 +102,7 @@ const Enquiry = (props) => {
                                     <Home />
                                     <p>Kalavarana,#147,tgr argade,Bethel nagar layout,<br />kodigehalli main road,K.r.puram, bangalore 36</p>
                                 </div>
-                                <button> <img src={watsapp} alt="" /> WhatsApp us</button>
+                                <a href="https://wa.me/917066397333" target="_blank"> <button> <img src={watsapp} alt="" /> WhatsApp us</button></a>
                             </div>
                         </div>
                     </div>
