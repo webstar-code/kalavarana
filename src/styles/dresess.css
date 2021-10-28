@@ -40,14 +40,14 @@
     margin-right: 10px;
 }
 .dress-cards{
-    width: 80%;
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
     flex-wrap: wrap;
-    margin-top: 2rem;
-    position: relative;
+    padding: 20px 10px;
 }
+
+
+
 .dress-card{
     height: 437px;
     width: 261px;
@@ -135,7 +135,7 @@
 }
 .view-icon{
     font-size: 22px;
-    color: #F3F3F3;
+    color: #ddd9d9;
     cursor: pointer;
 }
 .view-icon.active{
@@ -149,6 +149,11 @@
     height: 637px;
     transition: all 0.3s ease-in-out;
 }
+
+.dress-cards-overflow::-webkit-scrollbar{
+    display: none;
+}
+
 @media(max-width:985px){
     .dress-card{
         height: 337px;
@@ -163,10 +168,21 @@
         margin: 0 10px;
     }
 }
+
+@media(max-width:769px){
+    .dress-cards-overflow{
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 40px;
+        width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+}
+
 @media(max-width:500px){
     .dress-cards{
         width: 95%;
-        justify-content:space-evenly;
     }
     .dresses-sec{
         margin-top: 60px;
@@ -177,6 +193,7 @@
     .dress-icons{
         display: none;
     }
+  
 }
 @media(max-width:410px){
     .dress-card{

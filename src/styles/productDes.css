@@ -147,14 +147,7 @@ height: 378px;
     .add-to-cart-btn, .add-to-wishlist{
         font-size: 14px;
     }
-    .dress-card-overfolow{
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 40px;
-        width: 100%;
-        overflow-x: scroll;
-        overflow-y: hidden;
-    }
+
 }
 @media(max-width:915px){
     .product-selection{

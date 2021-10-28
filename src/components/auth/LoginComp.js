@@ -8,6 +8,7 @@ import Msg from '../notification/Msg'
 import TextField from '@material-ui/core/TextField';
 import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 import Loader from "react-loader-spinner";
+import { history } from '../../history'
 
 const LoginComp = (props) => {
   const [otp, setOtp] = useState('')
@@ -20,6 +21,12 @@ const LoginComp = (props) => {
   useEffect(() => {
     setIsLoading(false);
   }, [props.noti.err]);
+
+  useEffect(() => {
+    if(props.user.id) {
+      history.goBack();
+    }
+  }, [props.user.id]);
 
   const setUpRecaptcha = () => {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -105,7 +112,8 @@ const mapStateToProps = (state) => {
     msg: state.notification,
     mobNo: state.mobNo.mobNo,
     showOtp: state.showOtp.showOtp,
-    noti: state.notification
+    noti: state.notification,
+    user: state.user.user
   }
 }
 export default connect(mapStateToProps, { login, sigin, submitOtp })(LoginComp)

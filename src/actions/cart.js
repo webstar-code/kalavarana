@@ -13,11 +13,11 @@ export const addToCart = (data, callback) => async (dispatch, getState) => {
     } else {
         const userDbRef = db.users.doc(userID);
         let exists = false;
-        console.log(data);
+        // console.log(data);
         // check if product already exists in CARTITEMS
         userDbRef.collection('CARTITEMS').get().then((items) => {
             items.forEach((item) => {
-                if (item.id === data.product.id && item.data().quantity < data.quantity) {
+                if (item.id === data.product.id) {
                     console.log("updating quantity");
                     userDbRef.collection('CARTITEMS').doc(item.id).update({
                         quantity: data.quantity

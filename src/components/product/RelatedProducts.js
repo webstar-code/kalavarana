@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { PAINTING3 } from '../../assetsKalavarna'
+import { PAINTING1, PAINTING3 } from '../../assetsKalavarna'
 import { firestore } from '../../firebase';
 import PaintingCard from '../cards/PaintingCard';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const RelatedProducts = (props) => {
     const [products, setProducts] = useState(new Set());
     const maxCards = 8;
-    console.log(props);
+    // console.log(props);
 
     useEffect(() => {
         props.subcats.map((subcat) => {
@@ -20,7 +20,7 @@ const RelatedProducts = (props) => {
 
                     x.subcategories.map((e) => {
                         // console.log(e.name, subcat.name)
-                        console.log(e.name, subcat.name)
+                        // console.log(e.name, subcat.name)
                         if (e.name === subcat.name) {
                             items.add(x);
                         }
@@ -29,7 +29,7 @@ const RelatedProducts = (props) => {
                         break;
                     }
                 }
-                console.log(items)
+                // console.log(items)/
                 items.forEach((i) => {
                     arr.push(i);
                 })
@@ -38,7 +38,7 @@ const RelatedProducts = (props) => {
         })
     }, []);
 
-    console.log(products);
+    // console.log(products);
 
     return (
         <div className="related-products mb-12">
@@ -48,13 +48,17 @@ const RelatedProducts = (props) => {
                     <button className="related-btn uppercase">VIEW ALL</button>
                 </Link>
             </div>
-            <div className="dress-cards dress-card-overfolow">
-                {products.length > 0 && products.map((product) => (
-                    <div className="w-64">
-                        <PaintingCard product={product} key={product.id} />
-                    </div>
-                ))}
+            <div className="w-full md:w-4/5 mx-auto flex flex-col justify-start">
+
+                <div className="dress-cards dress-cards-overflow">
+                    {products.length > 0 && products.map((product) => (
+                        <div className="w-64 flex-none mx-5"  key={product.id}>
+                            <PaintingCard product={product} />
+                        </div>
+                    ))}
+                </div>
             </div>
+
         </div>
     )
 }

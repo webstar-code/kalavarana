@@ -6,16 +6,13 @@ import { FiShoppingCart, FiMenu } from 'react-icons/fi'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { KALAVARANA_LOGO } from '../assetsKalavarna';
+import {  KALAVARANA_LOGO2X} from '../assetsKalavarna';
 import { firestore } from '../firebase'
 
-
-// import {AiOutlineUser} from 'react-icons/ai'
 const Header = (props) => {
 	const [showSideBar, setShowSideBar] = useState(false)
 	const [categories, setCategories] = useState([]);
 	const [showHeader, setShowHeader] = useState({ show: true, scrollPos: 0 });
-	const [render, setRender] = useState(false);
 
 	useEffect(() => {
 		let items = [];
@@ -37,11 +34,6 @@ const Header = (props) => {
 			catch(err => console.log(err));
 	}, []);
 
-	useEffect(() => {
-		setRender(true);
-	}, [categories]);
-	// console.log(categories);
-
 	const handleScroll = () => {
 		if (window.scrollY < 100) {
 			setShowHeader((prev) => ({ ...showHeader, show: true }));
@@ -61,7 +53,8 @@ const Header = (props) => {
 	}, []);
 
 	const path = useLocation().pathname;
-	if (path === '/login' || path === '/signup') {
+
+	if (path === '/login' || path === '/signup' || path === '/checkout') {
 		return null;
 	}
 
@@ -71,18 +64,17 @@ const Header = (props) => {
 		`}>
 			<div className="w-full h-full md:w-4/5 mx-auto">
 				<div className="div">
-
 				</div>
 				<div className="w-full h-3/5 relative flex items-center justify-around">
 					<div className="md:hidden" onClick={() => { setShowSideBar(true) }}>
 						<FiMenu className="text-xl" />
 					</div>
 					<div className="absolute mx-auto">
-						<Link to="/"><img src={KALAVARANA_LOGO} alt="KALAVARNA" className="w-auto h-12 md:h-20 md:mx-auto" /></Link>
+						<Link to="/"><img src={KALAVARANA_LOGO2X} alt="KALAVARNA" className="w-auto h-12 md:h-20 md:mx-auto" /></Link>
 					</div>
 					<div className="flex ml-auto justify-evenly text-black">
-						<BiSearch className="text-xl mx-3" />
-						{props.user.id && <Link to="/profile"><AiOutlineUser className="hidden md:block text-xl mx-3" /></Link>}
+						{/* <BiSearch className="text-xl mx-3" /> */}
+						<Link to={!props.user.id ? '/login' : '/profile'}><AiOutlineUser className="hidden md:block text-xl mx-3" /></Link>
 						<Link to="/cart">
 							<div className="relative">
 								<span className="inline-block absolute -top-2 right-0 bg-primary w-4 h-4 text-white text-center text-xs rounded-full">{props.cart?.length}</span><FiShoppingCart className="text-xl mx-3" />
@@ -126,35 +118,18 @@ const Header = (props) => {
 									</li>
 								</Link>
 								<ListItem item={item} setShowSideBar={setShowSideBar} key={item.cat.name} />
-								{/* <Link to={`/category/${item.cat.name}`}>
-									<li className="onclick relative first-list whitespace-nowrap">
-										<span className="flex items-center justify-between" onClick={() => setTanjore(!showTanjore)}>{item.cat.name}
-											<IoMdArrowDropdown style={{ transform: showTanjore ? "rotate(180deg)" : "rotate(0deg)" }} /></span>
-										<div className={`onclick-drop-down ${showTanjore && 'showOnClick'}`}>
-											{item.subcats.length > 0 && item.subcats.map((subcat) => (
-												<Link to={`/category/${item.cat.name}/${subcat.name}`}>
-													<p className="flex py-2">{subcat.name}</p>
-												</Link>
-											))}
-										</div>
-									</li>
-								</Link> */}
 							</>
 						))}
-
 
 						<Link to="/about" onClick={() => setShowSideBar(false)}><li className="whitespace-nowrap">About us</li></Link>
 						<Link to="/blog" onClick={() => setShowSideBar(false)}><li className="whitespace-nowrap">Blog</li></Link>
 						<Link to="/connect" onClick={() => setShowSideBar(false)}><li className="whitespace-nowrap">Contact us</li></Link>
 					</ul>
 					<div onClick={() => setShowSideBar(false)} className={`blank-screen ${showSideBar && 'show-side-bar'}`}>
-
 					</div>
 				</div>
-
 			</div>
-
-		</div>
+		</div >
 	)
 }
 
@@ -162,7 +137,7 @@ const Header = (props) => {
 const ListItem = ({ item, setShowSideBar }) => {
 	const [state, setState] = useState();
 	return (
-		<li className="onclick relative first-list whitespace-nowrap outline-none focus:outline-none select-none">
+		<li className="onclick relative first-list whitespace-nowrap outline-none focus:outline-none select-none"  key={item.cat.name}>
 			<span className="flex items-center justify-between" >
 				<Link to={`/category/${item.cat.name}`} onClick={() => setShowSideBar(false)}>
 					<p>{item.cat.name}</p>
@@ -171,7 +146,7 @@ const ListItem = ({ item, setShowSideBar }) => {
 			</span>
 			<div className={`onclick-drop-down ${state && 'showOnClick'}`}>
 				{item.subcats.length > 0 && item.subcats.map((subcat) => (
-					<Link to={`/category/${item.cat.name}/${subcat.name}`} onClick={() => setShowSideBar(false)} key={subcat.name}>
+					<Link to={`/category/${item.cat.name}/${subcat.name}`} onClick={() => setShowSideBar(false)}  key={subcat.name}>
 						<p className="flex py-2">{subcat.name}</p>
 					</Link>
 				))}

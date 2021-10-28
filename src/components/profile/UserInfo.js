@@ -13,12 +13,7 @@ import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 import LoadingSpinner from '../LoadingSpinner'
 
 const UserInfo = (props) => {
-  console.log(props);
-  useEffect(() => {
-    setName(props.user.name)
-    setEmail(props.user.email)
-    setPhoneNumber(props.user.phoneNumber);
-  }, [props.user.id])
+  // console.log(props);
 
   const [name, setName] = useState(props.user.name);
   const [phoneNumber, setPhoneNumber] = useState(props.user.phoneNumber);
@@ -28,6 +23,11 @@ const UserInfo = (props) => {
   const [isNumber, setIsNumber] = useState(true)
   const [phoneCount, setPhoneCount] = useState();
 
+  useEffect(() => {
+    setName(props.user.name)
+    setEmail(props.user.email)
+    setPhoneNumber(props.user.phoneNumber);
+  }, [props.user.id])
 
   const validate = (type, value) => {
     if (type == 'number' && phoneCount != phoneNumber.length) {

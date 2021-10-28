@@ -37,11 +37,11 @@
     overflow: scroll;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     border-right: 1px solid rgb(221, 219, 219);
     margin-left: 8rem;
-    padding-top: 300px;
-    padding-bottom: 150px;
+    /* padding-top: 300px;*/
+    padding-bottom: 150px; 
 }
 
 ::-webkit-scrollbar {
@@ -202,7 +202,7 @@ border-bottom: 1px solid rgb(241, 239, 239);
     .info{
         /* padding-right: 10%; */
         padding-right: 0px;
-
+        
     }
 
 }
@@ -211,7 +211,7 @@ border-bottom: 1px solid rgb(241, 239, 239);
         margin-left: 10%;
     }
 }
-@media(max-width:749px){
+@media(max-width:769px){
     .profile-title{
         display: block;
         width: 100%;
@@ -238,7 +238,6 @@ border-bottom: 1px solid rgb(241, 239, 239);
     }
     .address{
         align-items: center;
-        justify-content: center;
         padding: 0px 30px;
         /* padding-right:30px; */
         /* padding-left:30px; */

@@ -29,7 +29,7 @@ const Sales = () => {
     return (
         <>
             <div className="w-full flex flex-col mt-20 md:mt-36">
-                <div className="w-full bg-primary flex items-center justify-center mb-10" style={{ height: '256px' }}>
+                <div className="w-full bg-primary flex items-center justify-center mb-10" style={{ height: '512px' }}>
                     <h1 className="text-white text-2xl md:text-5xl uppercase">Sales</h1>
                 </div>
                 <div className="w-full md:w-4/5 px-6 md:px-0 mx-auto mb-12">

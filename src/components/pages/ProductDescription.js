@@ -45,6 +45,15 @@ const ProductDescription = (props) => {
         console.log(err);
       })
 
+
+      if(props.cartItems.length > 0) {
+        props.cartItems.map((item) => {
+          if(item.product.id === productID) {
+            setCount(item.quantity);
+          }
+        })
+      }
+
   }, [useParams().id])
 
   // useEffect(() => {
@@ -58,12 +67,13 @@ const ProductDescription = (props) => {
   const handleAddToCart = () => {
     console.log(props.user);
     if (props.user.id) {
+      console.log("Add");
       props.addToCart({
         product: { ...product },
         quantity
       }, props.getCartItems)
     } else {
-
+      console.log("local")
       localdb.transaction('rw', localdb.cart, () => {
         localdb.cart.put({
           id: productID,
@@ -183,6 +193,7 @@ const mapStateToProsp = (state, ownProps) => {
   return {
     id: ownProps.match.params.id,
     user: state.user?.user,
+    cartItems: state.cart
   }
 }
 export default connect(mapStateToProsp, { addToWhislist, addToCart, getCartItems, getLocalCartItems, showCart })(ProductDescription)

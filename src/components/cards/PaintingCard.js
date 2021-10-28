@@ -21,7 +21,7 @@ const PaintingCard = (props) => {
                 setSaved(true);
             }
         })
-    }, []);
+    }, [props.wishlist]);
 
     const handleDeleteWishList = () => {
         props.deleteWishList(product.id, props.getWishList);
@@ -79,7 +79,7 @@ const PaintingCard = (props) => {
                     }
                 </div >
             </div >
-            {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDeleteWishList} />}
+            {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDeleteWishList} message="Are you sure you want to remove this item from your wishlist?"/>}
         </>
     )
 }

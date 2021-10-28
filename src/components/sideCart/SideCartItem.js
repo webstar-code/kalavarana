@@ -19,8 +19,6 @@ const SideCartItem = (props) => {
     }
     useEffect(() => {
         if (props.user.id) {
-            console.log(Quantity);
-            console.log(props.quantity, props.product.stock)
             // if (props.quantity >= props.product.stock) {
             //     setQuantity(props.quantity);
             //     setMaxQuantityReached(true);
@@ -43,8 +41,6 @@ const SideCartItem = (props) => {
             localdb.cart.where('id').equals(props.product.id).delete();
             props.getLocalCartItems();
         }
-
-
 
     }
 

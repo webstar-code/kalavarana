@@ -46,7 +46,7 @@ const SubCat = ({ subcat, banner = true }) => {
                 {
                     products.length > 0 ?
                         <div className="flex p-6 flex-col-reverse md:flex-col items-center justify-center">
-                            <Link to={`${window.location.pathname}/${subcat.name}`} className="ml-auto">
+                            <Link to={`${window.location.pathname}/${subcat.name}`} className="mx-auto">
                                 <button className="ml-auto mr-4 md:mr-0 uppercase border border-black my-8 px-6 py-2 cursor-pointer">view all</button>
                             </Link>
                             <div className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">

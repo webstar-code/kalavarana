@@ -10,6 +10,26 @@ import '../../styles/home.css'
 import { firestore } from '../../firebase'
 import { Link } from 'react-router-dom'
 
+const dummyData = [
+   {
+      picUrl: banner2,
+      name: 'Ganesh Painting',
+   },
+   {
+      picUrl: banner2,
+      name: 'Balaji Painting',
+   },
+   {
+      picUrl: banner2,
+      name: 'Trimuti Painting',
+   },
+   {
+      picUrl: banner2,
+      name: 'Chakra Painting',
+   },
+
+
+]
 
 
 const MainPage = () => {
@@ -49,21 +69,24 @@ const MainPage = () => {
                height="512px"
             />
 
-            <div className="w-full md:w-4/5 mx-auto px-6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4 my-28">
-               {subcats.length > 0 && subcats.map((subcat) => (
-                  <div className="max-w-xs relative bg-white flex flex-col items-start justify-start p-0 md:p-2 mr-2 border border-primary">
-                     <img src={subcat.picUrl} className="w-full h-full object-cover" />
-                     <div className="flex flex-col p-0 md:py-5 absolute bottom-0 left-3 mb-2 md:mb-5 md:left-5 text-3xl text-black">
-                        <h3 className="text-base md:text-2xl text-primary font-medium py-1">{subcat.name}</h3>
-                        <Link to={`/category/${subcat.category.name}/${subcat.name}`}>
-                           <button className="w-20 md:w-36 text-sm md:text-base py-1 px-2 bg-transparent border-2 border-primary">View aLL</button>
-                        </Link>
+      
+            <div className="flex p-6 flex-col-reverse md:flex-col items-center justify-center my-32">
+               <div className="w-full md:w-4/5 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
+                  {subcats.length > 0 && subcats.map((subcat) => (
+                     <div className="max-w-xs relative bg-white flex flex-col items-center justify-between p-2 border border-primary border-opacity-50">
+                        <img src={subcat.picUrl} className="w-full" />
+                        <div className="flex flex-col p-1 md:p-2 md:px-1 mb-2 md:mb-4 text-black">
+                           <h3 className="text-md my-2 md:text-2xl text-primary font-medium py-1">{subcat.name}</h3>
+                           {/* <Link to={`/category/${subcat.category.name}/${subcat.name}`}> */}
+                           <button className="w-24 md:w-32 text-sm md:text-base py-1 px-2 bg-transparent border border-primary uppercase">View aLL</button>
+                           {/* </Link> */}
+                        </div>
                      </div>
-                  </div>
-               ))}
+                  ))}
+               </div>
             </div>
 
-            <div className="w-full bg-gray-100">
+            {/* <div className="w-full bg-gray-100">
                <div className="bg-gray-100 md:w-4/5 mx-auto p-6 md:p-32 flex flex-col justify-start">
                   <div className="flex items-center justify-between">
                      <div className="">
@@ -86,7 +109,7 @@ const MainPage = () => {
                      <img src={banner2} className="w-64 p-0 md:p-2" alt="" />
                   </div>
                </div>
-            </div>
+            </div> */}
 
 
             <Footer />

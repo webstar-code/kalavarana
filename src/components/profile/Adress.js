@@ -20,7 +20,6 @@ const Adress = (props) => {
 
 	return (
 		<>
-			<Header />
 			<Msg />
 			<div className="profile-page">
 				<ProfileNavigation />
@@ -30,7 +29,7 @@ const Adress = (props) => {
 						<h1 className="text-primary flex items-center justify-start md:hidden text-2xl font-medium">
 							<span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
 							My Address</h1>
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-2 place-items-center">
+						<div className="grid grid-cols-1 sm:grid-cols-2 gap-2 place-items-center">
 							{
 								props.addresses.map((address, i) => (
 									<AddressCard

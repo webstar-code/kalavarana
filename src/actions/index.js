@@ -88,7 +88,7 @@ export const sigin = (phoneNumber, email, name, uid) => async dispatch => {
   }).then(() => {
     console.log("new user added");
     dispatch({ type: OTP, payload: newUser });
-    history.push('/')
+    history.goBack();
   })
     .catch((err) => {
       console.log(err)
@@ -120,7 +120,7 @@ export const submitOtp = (otp) => async dispatch => {
       });
 
       if (redirect) {
-        history.push('/');
+        history.goBack();
       } else {
         // console.log("user does not exists");
         history.push({

@@ -62,11 +62,12 @@ const SubCategory = () => {
 
 	// console.log(sortedProducts);
 	// console.log(filteredProducts);
-	// console.log(products);
+	console.log(products);
 	const [sort, setSort] = useState(false)
 	const [filter, setFilter] = useState(false);
 	const [fullScreen, setFullScreen] = useState(true)
 	const [halfScreen, setHalfScreen] = useState(false)
+
 	const handleFullScreen = () => {
 		setFullScreen(true)
 		setHalfScreen(false)
@@ -88,6 +89,9 @@ const SubCategory = () => {
 	useEffect(() => {
 		let items = [];
 		setLoading(true);
+		setProducts([]);
+		setSortedProducts([]);
+		setFilteredProducts([]);
 		firestore.collection('PRODUCTS').get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				let x = doc.data();
@@ -115,10 +119,13 @@ const SubCategory = () => {
 		{ name: 'Price, High to Low' },
 	]
 
-	const filters = [
-		{ name: 'Dimensions' },
-
-	]
+	const filters = products.map((product) => {
+		return {
+			name: `Dimension: ${product.width} x ${product.height}`,
+			width: product.width,
+			height: product.height
+		};
+	});
 
 
 	const SortUtil = (type) => {
@@ -147,17 +154,20 @@ const SubCategory = () => {
 	}
 
 	const FilterUtil = (type) => {
-		switch (type) {
-			case 'Dimensions':
-				setFilteredProducts(products.sort((a, b) => (a.height * a.width) < (b.height * b.width) ? -1 : 1))
-				setSortedProducts([]);
-		}
+		let items = [];
+		products.map((product) => {
+			if (product.width === type.width && product.height === type.height) {
+				items.push(product);
+			}
+		})
+		setSortedProducts([]);
+		setFilteredProducts(items);
 	}
 
 	return (
 
 		<div className="w-full flex flex-col mt-20 md:mt-36">
-			<div className="w-full bg-primary flex items-center justify-center mb-10" style={{ height: '256px' }}>
+			<div className="w-full bg-primary flex items-center justify-center mb-10" style={{ height: '512px' }}>
 				<h1 className="text-white text-2xl md:text-5xl uppercase">{subCategoryName}</h1>
 			</div>
 			<div className="relative w-full md:w-4/5 px-6 md:px-0 mx-auto ">
@@ -170,7 +180,7 @@ const SubCategory = () => {
 						<p className="cursor-pointer px-1 relative" onClick={handleFilter}>Filter<ArrowDropDownIcon className={`filter-btn ${filter && 'rotate-180'}`} />
 							{filter && (<div className={`inline-table absolute top-6 right-0 z-10 bg-white text-right py-2 shadow-lg w-28 h-0 transition-all ${filter && 'h-auto'}`}>
 								{filters.map((item, i) => (
-									<p className="px-4 py-2 whitespace-nowrap" onClick={() => FilterUtil(item.name)} key={i}>{item.name}</p>
+									<p className="px-4 py-2 whitespace-nowrap" onClick={() => FilterUtil(item)} key={i}>{item.name}</p>
 								))}
 							</div>)}
 						</p>
@@ -186,20 +196,25 @@ const SubCategory = () => {
 				{products.length > 0 ?
 					<div className={`w-full grid ${halfScreen && 'grid-cols-1 md:grid-cols-2'} ${fullScreen && 'grid-cols-2 xl:grid-cols-4'} gap-2 gap-y-6 mt-4 mb-12 `}>
 
-						{sortedProducts === false ?
+						{sortedProducts.length > 0 ?
 							sortedProducts.map((product) => (<div className="max-w-sm">
 								<PaintingCard product={product} key={product.id} />
 							</div>))
-							: filteredProducts === false ?
+							: filteredProducts.length > 0 ?
 								filteredProducts.map((product) => (<div className="max-w-sm">
 									<PaintingCard product={product} key={product.id} />
 								</div>))
 								:
-								products.map((product, i) => (
-									<div className="max-w-sm">
-										<PaintingCard product={product} key={i} />
-									</div>
-								))
+								products.length > 0 ?
+									products.map((product, i) => (
+										<div className="max-w-sm">
+											<PaintingCard product={product} key={i} />
+										</div>
+									)) : loading ?
+										<LoadingSpinner />
+										: products.length <= 0 ?
+											<h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl md:text-5xl">No products here</h1>
+											: null
 						}
 
 

@@ -3,6 +3,9 @@ import { firestore } from '../../firebase'
 import PaintingCard from './PaintingCard'
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../LoadingSpinner'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+import { PAINTING1 } from '../../assetsKalavarna';
 
 const Cards = ({ collection }) => {
 	const [products, setProducts] = useState([])
@@ -13,19 +16,19 @@ const Cards = ({ collection }) => {
 		let items = [];
 		firestore.collection('PRODUCTS').get().then((snapshot) => {
 			let p = snapshot.docs;
-			for (let i = 0; i < p.length; i++) {
-				if (p[i].data().isFeatured === true) {
-					items.push(p[i].data());
-				}
-				if (items.length >= maxCards) {
-					break;
-				}
-			}
-			// snapshot.docs.map((doc) => {
-			// 	if (doc.data().isFeatured === true) {
-			// 		items.push(doc.data());
+			// for (let i = 0; i < p.length; i++) {
+			// 	if (p[i].data().isFeatured === true) {
+			// 		items.push(p[i].data());
 			// 	}
-			// })
+			// 	if (items.length >= maxCards) {
+			// 		break;
+			// 	}
+			// }
+			snapshot.docs.map((doc) => {
+				if (doc.data().isFeatured === true) {
+					items.push(doc.data());
+				}
+			})
 		}).then(() => {
 			console.log(items);
 			setProducts(items);
@@ -34,11 +37,13 @@ const Cards = ({ collection }) => {
 		})
 	}, [])
 
+	console.log(products)
+
 	return (
-		<div className="w-full md:w-4/5 mx-auto p-6 md:p-10 flex flex-col justify-start">
-			<div className="flex items-end justify-between">
+		<div className="w-full md:w-4/5 mx-auto flex flex-col justify-start">
+			<div className="flex items-end justify-between p-6 md:p-10 ">
 				<div className="flex">
-					<h1 className="text-2xl md:text-3xl font-bold pb-2">{collection}</h1>
+					<h1 className="text-xl md:text-3xl font-bold pb-2">{collection}</h1>
 				</div>
 				<Link to="/featured">
 					<div className="w-28 h-12 flex items-center justify-center px-3 py-1 md:p-3  border-2 border-black text-md uppercase">VIEW ALL</div>
@@ -46,12 +51,12 @@ const Cards = ({ collection }) => {
 			</div>
 
 
+			
 			{products.length > 0 ?
-				<div className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
+				// <div className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 mt-4">
+				<div className="dress-cards dress-cards-overflow">
 					{products.map((product) => (
-						// <div className="w-32 xl:w-64 md:w-48 max-w-xs mx-4">
-						<div className="max-w-sm">
-
+						<div className="w-64 flex-none mx-5" key={product.id}>
 							<PaintingCard product={product} key={product.id} />
 						</div>
 					))}

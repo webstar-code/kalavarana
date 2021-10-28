@@ -32,7 +32,8 @@ export const placeOrder = (data, getCartItems) => async (dispatch, getState) => 
         bookingTime: Date.now(),
         state: "newOrder",
         deliveryCharge: data.deliveryCharge,
-        isPaymentDone: data.isPaymentDone
+        isPaymentDone: data.isPaymentDone,
+        paymentId: data.paymentId
     }).then(() => {
         dispatch({ type: PLACE_ORDER, payload: data })
     }).then(() => {

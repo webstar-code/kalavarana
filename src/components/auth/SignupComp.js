@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import './inputstyle.css'
 import '../../styles/auth.css'
@@ -11,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 import Loader from "react-loader-spinner";
 import Loading from '../Loading';
+import { history } from '../../history'
 
 const SignupComp = (props) => {
   const [name, setName] = useState('')
@@ -24,7 +25,19 @@ const SignupComp = (props) => {
   const location = useLocation();
   console.log(location.state);
 
-  console.log(props.mobNo)
+  useEffect(() => {
+    if(props.user.id) {
+      history.goBack();
+    }
+  }, [props.user.id]);
+
+  useEffect(() => {
+    if(!props.mobNo) {
+      history.goBack();
+    }
+  }, [props.mobNo]);
+
+
   const validate = (type, value) => {
     if (type == 'number' && !value.match(/^\d{10}$/)) {
       setIsNumber(false);
@@ -43,7 +56,6 @@ const SignupComp = (props) => {
     } else {
       setIsName(true);
     }
-
   }
 
   const onSignInSubmit = (e) => {

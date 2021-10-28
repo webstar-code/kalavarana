@@ -89,44 +89,39 @@ const Cart = (props) => {
 								} else {
 									history.push('/login');
 								}
-							}}><AddIcon className="adress-add-icon" /></div>
+							}}>
+								{props.addresses.length > 0 && <AddIcon className="adress-add-icon" />}
+							</div>
 						</div>
 						<div className="address">
 							{
-								props.addresses.map((address, i) => (
-									<AddressCard
-										key={i} getActiveAdd={getActiveAdd}
-										i={i}
-										address={address}
-										style={i === activeIndex ? { border: '3px solid #08263F' } : null}
-									/>
-								))
+								props.addresses.length > 0 ?
+									<>
+										{
+											props.addresses.map((address, i) => (
+												<AddressCard
+													key={i} getActiveAdd={getActiveAdd}
+													i={i}
+													address={address}
+													style={i === activeIndex ? { border: '3px solid #08263F' } : null}
+												/>
+											))
+										}
+									</> :
+									<div className="w-80 h-40 mt-4 flex flex-col p-2 items-center justify-center cursor-pointer 
+										rounded-md border-dashed border border-black hover:border-primary hover:scale-110"
+										onClick={() => setShowForm(true)}>
+										<div className="add-icon self-center">
+											<AddIcon className="icon-add" />
+										</div>
+										<h3 className="self-center">Add New Address</h3>
+									</div>
 							}
 						</div>
 
-						{/* <div className="payment-method">
-							<h1 className="text-xl font-bold">Payment Mode</h1>
-							<div className="payment-btns">
-								<button className={`${payOnline && 'active'}`}>Pay Online</button>
-							</div>
-						</div>
-
-
-						<div className="cupon-code-area">
-							<div className="select-cupon">
-								<h1 className="text-xl font-bold">Got a coupon ?</h1>
-								<p onClick={() => setShowPromo(true)}>SELECT COUPON</p>
-							</div>
-							<div className="cupon-fields">
-								<input value={Code} type="text" placeholder="coupon" />
-								<button className="bg-primary">Apply</button>
-							</div>
-						</div> */}
-
-
 						<div className="process-area ">
 							<button
-								className={`bg-primary ${props.cartItems.length <= 0 ? 'opacity-70' : 'opacity-100'}`} onClick={() => handleCheckout()}>Process</button>
+								className={`bg-primary ${props.cartItems.length <= 0 ? 'opacity-70' : 'opacity-100'}`} onClick={() => handleCheckout()}>Proceed</button>
 						</div>
 					</div>
 				</div>

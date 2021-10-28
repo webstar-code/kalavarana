@@ -3,8 +3,9 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { logout } from '../../actions/index'
 import { connect } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import Header from '../Header';
+
 const ProfileNavigation = (props) => {
   const history = useHistory();
   const path = history.location.pathname;
@@ -15,10 +16,11 @@ const ProfileNavigation = (props) => {
 
   return (
     <>
+      {/* {!props.user.id && <Redirect to='/login' />} */}
       {/* {path === '/profile-and-details' && <Header />} */}
-      <div 
-      className="md:z-50" 
-      style={path === '/profile-and-details' ? { marginTop: '70px' } : { marginTop: '0px' }} className={`profile-nav ${path === '/profile-and-details' && 'show-porfile'}`}>
+      <div
+        className="md:z-50"
+        style={path === '/profile-and-details' ? { marginTop: '70px' } : { marginTop: '0px' }} className={`profile-nav ${path === '/profile-and-details' && 'show-porfile'}`}>
         <h1>< KeyboardBackspaceIcon /> Profile</h1>
         <p className="font-bold text-sm">PROFILE AND DETAILS</p>
         <div className="nav">
@@ -39,4 +41,7 @@ const ProfileNavigation = (props) => {
   )
 }
 
-export default connect(null, { logout })(ProfileNavigation)
+const mapStateToProps = (state) => {
+  return { user: state.user?.user }
+}
+export default connect(mapStateToProps, { logout })(ProfileNavigation)
