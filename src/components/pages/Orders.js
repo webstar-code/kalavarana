@@ -36,10 +36,10 @@ const Orders = (props) => {
                             My Orders</h1>
                         {
                             props.orders.length > 0 ? props.orders.map((order, i) => (
-                                <>
+                                <div key={order.id}>
                                     <h2>{formatDate(order.bookingTime)}</h2>
                                     <OrderCard key={order.id} order={order} />
-                                </>
+                                </div>
                             ))
                                 : <h1>No orders yet</h1>
                         }

@@ -5,7 +5,7 @@ import { notification } from './index'
 export const addToWhislist = (product, getWishList) => async (dispatch, getState) => {
   const userID = getState().user?.user?.id;
   const userDbRef = db.users.doc(userID);
-  console.log(product)
+  // console.log(product)
   userDbRef.collection('WISHLIST').doc(product.id).set({
     ...product,
     userID

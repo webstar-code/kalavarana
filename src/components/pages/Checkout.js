@@ -15,7 +15,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const Checkout = (props) => {
 
-	console.log(props);
+	// console.log(props);
 
 	const donation = 50;
 	const [grandTotal, setGrandTotal] = useState((props.checkout.total + props.checkout.deliveryCharge) - props.checkout.couponDiscount);

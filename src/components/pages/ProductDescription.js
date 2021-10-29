@@ -3,7 +3,7 @@ import '../../styles/productDes.css'
 import Header from '../Header'
 import { connect } from 'react-redux'
 import { firestore } from '../../firebase'
-import { addToWhislist } from '../../actions/wishlist'
+import { addToWhislist, getWishList } from '../../actions/wishlist'
 import { addToCart, getCartItems, getLocalCartItems, showCart } from '../../actions/cart'
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
@@ -39,7 +39,7 @@ const ProductDescription = (props) => {
     props.showCart(false);
     firestore.collection('PRODUCTS').doc(productID).get()
       .then((doc) => {
-        console.log(doc.data());
+        // console.log(doc.data());
         setProduct(doc.data());
       }).catch((err) => {
         console.log(err);
@@ -98,7 +98,7 @@ const ProductDescription = (props) => {
     if (props.user.id) {
       props.addToWhislist({
         ...product
-      })
+      }, props.getWishList)
     } else {
       history.push('/login');
     }
@@ -196,4 +196,4 @@ const mapStateToProsp = (state, ownProps) => {
     cartItems: state.cart
   }
 }
-export default connect(mapStateToProsp, { addToWhislist, addToCart, getCartItems, getLocalCartItems, showCart })(ProductDescription)
+export default connect(mapStateToProsp, { addToWhislist, addToCart, getCartItems, getLocalCartItems,getWishList, showCart })(ProductDescription)

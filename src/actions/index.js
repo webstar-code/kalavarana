@@ -139,7 +139,7 @@ export const submitOtp = (otp) => async dispatch => {
 }
 
 export const userStateChanged = (user) => {
-  console.log(user)
+  // console.log(user)
   return { type: AUTH_STATE, payload: user }
 }
 

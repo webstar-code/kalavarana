@@ -39,11 +39,11 @@
 }
 .text-area{
     padding-top: 2rem;
-    color: #808080;
+    /* color: #808080; */
 }
 .text-area p{
     font-size: 16px;
-    line-height: 2;
+    line-height: 1.75;
 }
 @media(max-width:360px){
     .nav-header{

@@ -18,7 +18,7 @@ export const addToCart = (data, callback) => async (dispatch, getState) => {
         userDbRef.collection('CARTITEMS').get().then((items) => {
             items.forEach((item) => {
                 if (item.id === data.product.id) {
-                    console.log("updating quantity");
+                    // console.log("updating quantity");
                     userDbRef.collection('CARTITEMS').doc(item.id).update({
                         quantity: data.quantity
                     }).then(() => {

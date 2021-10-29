@@ -10,8 +10,8 @@ import { Redirect } from 'react-router'
 const Profile = (props) => {
   // console.log(props.user.id)
   useEffect(() => {
-    console.log("changed")
-    console.log(props.user)
+    // console.log("changed")
+    // console.log(props.user)
   }, [props.user.id])
 
     return (

@@ -127,7 +127,7 @@ const UserInfo = (props) => {
 
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return { user: state.user?.user }
 }
 export default connect(mapStateToProps, { notify })(UserInfo)

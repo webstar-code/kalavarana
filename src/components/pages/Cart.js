@@ -37,7 +37,7 @@ const Cart = (props) => {
 	}
 
 	const handleCheckout = () => {
-		console.log(props.user.id)
+		// console.log(props.user.id)
 		if (props.cartItems.length <= 0) {
 			props.notify("No item in the cart.", true);
 		} else {

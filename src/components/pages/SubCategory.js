@@ -177,20 +177,20 @@ const SubCategory = () => {
 						<div className="px-1" onClick={handleHalfScreen}><ViewModuleIcon className={`view-icon large ${halfScreen && 'active'}`} /></div>
 					</div>
 					<div className="flex">
-						<p className="cursor-pointer px-1 relative" onClick={handleFilter}>Filter<ArrowDropDownIcon className={`filter-btn ${filter && 'rotate-180'}`} />
+						<div className="cursor-pointer px-1 relative" onClick={handleFilter}>Filter<ArrowDropDownIcon className={`filter-btn ${filter && 'rotate-180'}`} />
 							{filter && (<div className={`inline-table absolute top-6 right-0 z-10 bg-white text-right py-2 shadow-lg w-28 h-0 transition-all ${filter && 'h-auto'}`}>
 								{filters.map((item, i) => (
 									<p className="px-4 py-2 whitespace-nowrap" onClick={() => FilterUtil(item)} key={i}>{item.name}</p>
 								))}
 							</div>)}
-						</p>
-						<p className="cursor-pointer px-1 relative" onClick={handleSort}>Sort <ArrowDropDownIcon className={`sort-btn ${sort && 'rotate-180'}`} />
+						</div>
+						<div className="cursor-pointer px-1 relative" onClick={handleSort}>Sort <ArrowDropDownIcon className={`sort-btn ${sort && 'rotate-180'}`} />
 							{sort && (<div className={`inline-table absolute top-6 right-0 z-10 bg-white text-right py-2 shadow-lg w-28 h-0 transition-all ${sort && 'h-auto'}`}>
 								{sorts.map((item, i) => (
 									<p className="px-4 py-2 whitespace-nowrap" onClick={() => SortUtil(item.name)} key={i}>{item.name}</p>
 								))}
 							</div>)}
-						</p>
+						</div>
 					</div>
 				</div>
 				{products.length > 0 ?
