@@ -5,10 +5,8 @@ import { RUPPEEICON } from '../../assetsKalavarna'
 import { Link, Redirect } from 'react-router-dom';
 import { addToWhislist, getWishList, deleteWishList } from '../../actions/wishlist';
 import { connect } from 'react-redux';
-import Msg from '../notification/Msg';
 import { history } from '../../history';
 import CancelPrompt from '../CancelPrompt';
-import Skeletion from '@material-ui/lab/Skeleton';
 
 const PaintingCard = (props) => {
     const product = props.product;
@@ -43,18 +41,14 @@ const PaintingCard = (props) => {
 
     return (
         <>
-            <Msg />
             <div className="w-full">
                 <Link
                     // to={`/products/${product.id}` } 
                     to={{ pathname: `/products/${product.id}` }}
                 >
                     <div className="relative w-full">
-                        {product?.picUrl ?
-                            <img src={product.picUrl} alt="" className="w-full" />
-                            :
-                            <Skeletion animation="wave" variant="rect" style={{ minWidth: '144px', maxWidth: '280px', minHeight: '200px', maxHeight: ' 400px' }} />
-                        }
+                        <img src={product.picUrl} alt="" className="w-full" />
+
                         {product.onSale && <div className="w-14 h-7 md:w-16 md:h-8 text-xs md:text-sm flex items-center justify-center absolute top-0 right-0 m-4 bg-gray-200 p-1">ON SALE</div>}
                     </div>
                 </Link>
@@ -69,7 +63,8 @@ const PaintingCard = (props) => {
                         </div>
                     </div>
                     {saved ?
-                        <div className="" onClick={() => setShowModal(true)}>
+                        // <div className="" onClick={() => setShowModal(true)}>
+                        <div className="" onClick={() => handleDeleteWishList()}>
                             <Bookmark className="cursor-pointer" />
                         </div>
                         :
@@ -79,7 +74,7 @@ const PaintingCard = (props) => {
                     }
                 </div >
             </div >
-            {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDeleteWishList} message="Are you sure you want to remove this item from your wishlist?"/>}
+            {/* {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDeleteWishList} message="Are you sure you want to remove this item from your wishlist?" />} */}
         </>
     )
 }

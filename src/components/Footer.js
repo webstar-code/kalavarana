@@ -35,7 +35,6 @@ const Footer = () => {
                     <div className="ml-10 flex flex-col h-full justify-evenly">
                         <h3 className="text-sm font-medium md:text-xl md:font-bold">CUSTOMER CARE</h3>
                         <Link to="/connect"><p className="font-normal py-2">Support & FAQ</p></Link>
-                        <p className="font-normal py-2">Shipping & Returns</p>
                     </div>
                 </div>
                 {/* <div className="footer-icons-2 h-1/2 flex items-center justify-evenly text-white text-xl">

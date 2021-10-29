@@ -15,6 +15,9 @@ module.exports = {
         secondary: '#E5AC74',
       }
     },
+    fontFamily: {
+      'newYork': ['NewYork']
+    }
 
   },
   variants: {

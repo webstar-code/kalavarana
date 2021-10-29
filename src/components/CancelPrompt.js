@@ -5,7 +5,7 @@ const CancelPrompt = ({ setShowModal, callback, message }) => {
 
     return (
         <>
-            (<div className="delete-modal" onClick={() => setShowModal(false)}>
+            <div className="delete-modal" onClick={() => setShowModal(false)}>
                 <div className="bg-white flex flex-col justify-center items-center p-8" onClick={(e) => e.stopPropagation()} >
                     <WarningIcon className="text-red-500" />
                     <h1 className="py-3 text-center" style={{ maxWidth: '350px', minWidth: '320px' }}>{message}</h1>
@@ -14,7 +14,7 @@ const CancelPrompt = ({ setShowModal, callback, message }) => {
                         <button onClick={() => callback()} className="bg-red-500 text-white px-4 py-2 w-36">Delete</button>
                     </div>
                 </div>
-            </div>)
+            </div>
         </>
     )
 }
