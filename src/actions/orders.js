@@ -17,6 +17,7 @@ import { getAddresses } from "./address"
 // }
 
 export const placeOrder = (data, getCartItems) => async (dispatch, getState) => {
+    console.log(db.getCurrentTimeStamp)
     const cart = getState().cart
     const userID = getState().user?.user?.id;
     const orderRef = firestore.collection('ORDERS').doc();
@@ -33,7 +34,9 @@ export const placeOrder = (data, getCartItems) => async (dispatch, getState) => 
         state: "newOrder",
         deliveryCharge: data.deliveryCharge,
         isPaymentDone: data.isPaymentDone,
-        paymentId: data.paymentId
+        paymentId: data.paymentId,
+        deliveredOn: '',
+        donation: data.donation
     }).then(() => {
         dispatch({ type: PLACE_ORDER, payload: data })
     }).then(() => {

@@ -26,13 +26,13 @@ const SignupComp = (props) => {
   console.log(location.state);
 
   useEffect(() => {
-    if(props.user.id) {
+    if (props.user.id) {
       history.goBack();
     }
   }, [props.user.id]);
 
   useEffect(() => {
-    if(!props.mobNo) {
+    if (!props.mobNo) {
       history.goBack();
     }
   }, [props.mobNo]);
@@ -61,7 +61,7 @@ const SignupComp = (props) => {
   const onSignInSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     // setTimeout(() => {
     //   setIsLoading(false);
     // }, 10000);
@@ -100,6 +100,7 @@ const SignupComp = (props) => {
 
           <h1 className="text-2xl font-bold flex items-center py-10 text-primary"><AiOutlineArrowLeft className="text-xl mr-4" />Just a small step,</h1>
           <TextField
+            style={{ marginTop: '20px', maxWidth: '350px' }}
             onChange={(e) => {
               setEmail(e.target.value)
             }}
@@ -112,7 +113,7 @@ const SignupComp = (props) => {
           {!isEmail && <p className="text-red-500">Email is required</p>}
 
           <TextField
-            style={{ marginTop: '10px' }}
+            style={{ marginTop: '20px', maxWidth: '350px' }}
             onChange={(e) => {
               setName(e.target.value)
             }}
@@ -123,7 +124,7 @@ const SignupComp = (props) => {
           {!isName && <p className="text-red-500">Name is required</p>}
 
           {/* <TextField
-            style={{ marginTop: '10px' }}
+            style={{ marginTop: '20px' }}
             disabled
             defaultValue={props.mobNo}
             // value={props.mobNo ? props.mobNo : number}
@@ -135,8 +136,10 @@ const SignupComp = (props) => {
 
           <PhoneNumberInput value={number}
             disabled
+            containerStyle={{ marginTop: '20px', maxWidth: '350px' }}
+
           />
-          <button type="submit" className="w-full sm:w-1/2 flex justify-center items-center py-2 px-3 my-2 text-white mt-8 bg-primary">
+          <button type="submit" className="w-full md:w-32 flex justify-center items-center py-2 px-3 my-2 text-white mt-8 bg-primary">
             {isLoading ? <Loading /> : 'Proceed'}</button>
         </form>
       </div>

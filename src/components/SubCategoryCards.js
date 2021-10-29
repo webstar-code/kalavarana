@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { firestore } from '../firebase';
 import PaintingCard from './cards/PaintingCard'
 import LoadingSpinner from './LoadingSpinner'
-import Msg from '../notification/Msg'
+import Msg from './notification/Msg'
 
 const SubCat = ({ subcat, banner = true }) => {
     const [products, setProducts] = useState([]);

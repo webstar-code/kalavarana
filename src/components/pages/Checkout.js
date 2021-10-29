@@ -32,7 +32,7 @@ const Checkout = (props) => {
 
 	// local for offline purpose
 	const handlePlaceOrder = () => {
-		props.placeOrder({ ...props.checkout, grandTotal, isPaymentDone: true, paymentId: '123213' }, props.getCartItems)
+		props.placeOrder({ ...props.checkout, grandTotal, isPaymentDone: true, paymentId: '123456', donation }, props.getCartItems)
 	}
 
 	const loadScripts = (src) => {
@@ -168,8 +168,8 @@ const Checkout = (props) => {
 						</div>
 
 						<div className="process-area ">
-							<button className="bg-primary" onClick={() => displayRazorpay()}>Pay Online</button>
-							{/* <button className="bg-primary" onClick={() => handlePlaceOrder()}>Pay Online</button> */}
+							{/* <button className="bg-primary" onClick={() => displayRazorpay()}>Pay Online</button> */}
+							<button className="bg-primary" onClick={() => handlePlaceOrder()}>Pay Online</button>
 
 							{/* {props.checkout.orderType === "Paid Online" ? 
 							<button onClick={displayRazorpay}>Pay Online</button> 

@@ -74,19 +74,19 @@ const LoginComp = (props) => {
           <img src={KALAVARANA_LOGO} alt="ANA" style={{ width: '125px' }} className="mx-auto sm:-ml-2" />
           <h1 className="text-2xl font-bold py-12 text-primary">Welcome, to kalavarana</h1>
 
-          <PhoneNumberInput value={number} setValue={setNumber} setPhoneCount={setPhoneCount} />
+          <PhoneNumberInput value={number} setValue={setNumber} setPhoneCount={setPhoneCount}containerStyle={{ maxWidth: '350px'}}/>
 
           {!isNum && <p className="text-red-500">Number is required</p>}
 
 
-          {!props.showOtp && <button type="submit" className="w-full sm:w-1/2 flex justify-center items-center py-2 px-3 my-2 text-white mt-8 bg-primary">
+          {!props.showOtp && <button type="submit" className="w-full md:w-32 flex justify-center items-center py-2 px-3 my-2 text-white mt-8 bg-primary">
             {isLoading ? <Loader type="TailSpin" color="#fff" height={15} width={15} /> : 'Proceed'}</button>}
           <div id="recaptcha-container"></div>
 
         </form>
 
         {props.showOtp && (<form onSubmit={onSubmitOtp} className="flex flex-col items-start justify-evenly text-sm rounded w-full">
-          <div className="otp-input pr-4 flex items-center justify-between my-2 outline-none border border-gray w-full">
+          <div className="otp-input pr-4 flex items-center justify-between my-2 outline-none border border-gray" style={{width: '350px'}}>
             <TextField
               autoComplete="off"
               id="outlined-basic"
@@ -94,10 +94,11 @@ const LoginComp = (props) => {
               variant="outlined"
               onChange={(e) => setOtp(e.target.value)}
               placeholder="OTP"
+              style={{maxWidth: '350px'}}
             />
             <span className="h-full text-black cursor-pointer" onClick={() => props.login(number)}>RESEND</span>
           </div>
-          <button type="submit" className="w-full sm:w-1/2 flex justify-center items-center py-2 px-3 my-2 text-white mt-8 bg-primary">
+          <button type="submit" className="w-full md:w-32 flex justify-center items-center py-2 px-3 my-2 text-white mt-8 bg-primary">
             {/* {sigin ? <LoadingSpinner /> : 'Login'} */}
             Login
           </button>

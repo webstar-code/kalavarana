@@ -72,14 +72,15 @@ export const sendOtp = (phoneNumber, dispatch) => {
 }
 
 export const sigin = (phoneNumber, email, name, uid) => async dispatch => {
-  console.log(uid);
+  // console.log(uid);
   const newUser = {
     name,
     email,
     phoneNumber,
     role: 'user',
     picUrl: '',
-    id: uid
+    id: uid,
+    isBlocked: false
   }
 
   const docref = db.users.doc(uid);
