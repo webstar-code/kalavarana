@@ -10,6 +10,7 @@ import { PAINTING2 } from '../../assetsKalavarna';
 import PaintingCard from '../cards/PaintingCard';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Link } from 'react-router-dom';
+import Msg from '../notification/Msg'
 
 
 const dummyData = [
@@ -49,6 +50,7 @@ const WhisList = (props) => {
     // }, [props.userId])
     return (
         <>
+            <Msg />
             <div className="profile-page">
                 <ProfileNavigation />
                 <div className="w-full md:w-3/5 py-12 px-6 md:px-12 flex flex-col justify-center ml-auto ">

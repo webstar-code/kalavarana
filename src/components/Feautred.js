@@ -22,7 +22,7 @@
 //                <div className="images-row">
 //                    <img src={modelRow} alt="" />
 //                    <img src={modelRow} alt="" />
-//                    <img src={modelRow} alt="" />
+//                    <img src={modelRow} alt="" />++
 //                    <img src={modelRow} alt="" />
 //                    <img src={modelRow} alt="" />
 //                    <img src={modelRow} alt="" />

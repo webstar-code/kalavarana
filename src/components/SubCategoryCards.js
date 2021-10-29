@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { firestore } from '../firebase';
 import PaintingCard from './cards/PaintingCard'
 import LoadingSpinner from './LoadingSpinner'
+import Msg from '../notification/Msg'
 
 const SubCat = ({ subcat, banner = true }) => {
     const [products, setProducts] = useState([]);
@@ -37,6 +38,7 @@ const SubCat = ({ subcat, banner = true }) => {
 
     return (
         <>
+        <Msg />
             <div className="w-full px-2 md:w-4/5 mx-auto my-12 md:my-16 flex flex-col">
                 {banner &&
                     <div className="bg-primary flex" style={{ height: '256px' }}>

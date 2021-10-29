@@ -42,6 +42,7 @@ import Featured from './components/pages/Featured'
 import Sales from './components/pages/Sales'
 import Header from './components/Header'
 import localdb from './localDB'
+import Msg from '../notification/Msg'
 
 // import dummy from './dummy'
 
@@ -105,6 +106,7 @@ const App = (props) => {
             <SplashScreen />
             <Router history={history}>
                 <Header />
+                <Msg />
                 <ScrollToTop>
                     <Switch>
                         <Route path="/login" component={Login} />

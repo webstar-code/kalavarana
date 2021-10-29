@@ -7,6 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { PAINTING1 } from '../../assetsKalavarna';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Msg from '../notification/Msg'
 
 
 const dummyData = [
@@ -100,6 +101,8 @@ const Cards = ({ collection }) => {
 
 	return (
 		<div className="w-full md:w-4/5  mx-auto flex flex-col justify-start">
+            <Msg />
+
 			<div className="flex items-end justify-between p-6 md:p-10 ">
 				<div className="flex">
 					<h1 className="text-xl md:text-3xl font-bold pb-2">{collection}</h1>

@@ -5,6 +5,7 @@ import { db, firestore } from '../../firebase';
 import '../../styles/dresess.css';
 import Footer from '../Footer';
 import LoadingSpinner from '../LoadingSpinner';
+import Msg from '../notification/Msg'
 
 const Featured = () => {
     const [loading, setLoading] = useState(false);
@@ -26,6 +27,7 @@ const Featured = () => {
     return (
 
         <div className="w-full flex flex-col mt-20 md:mt-36">
+                <Msg />
             <div className="w-full bg-primary flex items-center justify-center mb-10" style={{ height: '512px' }}>
                 <h1 className="text-white text-2xl md:text-5xl uppercase">Featured Paintings</h1>
             </div>

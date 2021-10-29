@@ -7,6 +7,7 @@ import { addToWhislist, getWishList, deleteWishList } from '../../actions/wishli
 import { connect } from 'react-redux';
 import { history } from '../../history';
 import CancelPrompt from '../CancelPrompt';
+import Msg from '../notification/Msg'
 
 const PaintingCard = (props) => {
     const product = props.product;
