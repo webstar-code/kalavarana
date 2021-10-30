@@ -58,7 +58,7 @@ const MainPage = () => {
                   data-yt2html5="https://youtu.be/xeXcCxvjVfA"
                   className="w-full h-96 md:w-full md:h-full mt-20 md:mt-36 object-cover"
                ></video>
-               <h1 className="absolute font-newYork text-4xl md:text-8xl ml-auto mt-auto z-10 text-white font-normal text-center md:-mt-20 select-none leading-relaxed">Home for<br />Tanjore Paintings</h1>
+               <h1 className="absolute font-newYork text-4xl md:text-8xl ml-auto mt-auto z-10 text-white font-normal text-center md:-mt-20 select-none leading-relaxed">Arts Emporium</h1>
             </div>
 
             <Cards
@@ -78,9 +78,9 @@ const MainPage = () => {
                         <img src={subcat.picUrl} className="w-full" />
                         <div className="flex flex-col p-1 md:p-2 md:px-1 mb-2 md:mb-4 text-black">
                            <h3 className="text-md my-2 md:text-2xl text-primary font-medium py-1">{subcat.name}</h3>
-                           {/* <Link to={`/category/${subcat.category.name}/${subcat.name}`}> */}
+                           <Link to={`/category/${subcat.category.name}/${subcat.name}`}>
                            <button className="w-24 md:w-32 text-sm md:text-base py-1 px-2 bg-transparent border border-primary uppercase">View aLL</button>
-                           {/* </Link> */}
+                           </Link>
                         </div>
                      </div>
                   ))}

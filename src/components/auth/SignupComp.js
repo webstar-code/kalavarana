@@ -23,7 +23,7 @@ const SignupComp = (props) => {
   const [isLoading, setIsLoading] = useState(false)
   // const [validate,setValidate]=useState({isName:true,isNumber:true,isEmail:true,hasOtp:true})
   const location = useLocation();
-  console.log(location.state);
+  // console.log(location.state);
 
   useEffect(() => {
     if (props.user.id) {

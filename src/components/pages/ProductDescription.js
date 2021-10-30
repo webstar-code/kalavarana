@@ -31,12 +31,13 @@ const dummyData = {
 
 
 const ProductDescription = (props) => {
+  // console.log(props);
   let productID = useParams().id;
   const [product, setProduct] = useState({})
-  const [quantity, setCount] = useState(1)
+  const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
-    props.showCart(false);
+    // props.showCart(false);
     firestore.collection('PRODUCTS').doc(productID).get()
       .then((doc) => {
         // console.log(doc.data());
@@ -44,36 +45,36 @@ const ProductDescription = (props) => {
       }).catch((err) => {
         console.log(err);
       })
-
-
-      if(props.cartItems.length > 0) {
-        props.cartItems.map((item) => {
-          if(item.product.id === productID) {
-            setCount(item.quantity);
-          }
-        })
-      }
-
   }, [useParams().id])
+
+
+  useEffect(() => {
+    if (props.cartItems.length > 0) {
+      props.cartItems.map((item) => {
+        if (item.product.id === productID) {
+          setQuantity(item.quantity);
+        }
+      })
+    }
+  }, [props]);
 
   // useEffect(() => {
   // }, [pathname]);
 
   if (quantity <= 0) {
-    setCount(1)
+    setQuantity(1)
   }
 
 
   const handleAddToCart = () => {
     console.log(props.user);
     if (props.user.id) {
-      console.log("Add");
       props.addToCart({
         product: { ...product },
         quantity
       }, props.getCartItems)
+
     } else {
-      console.log("local")
       localdb.transaction('rw', localdb.cart, () => {
         localdb.cart.put({
           id: productID,
@@ -82,15 +83,12 @@ const ProductDescription = (props) => {
         });
       }).then(() => {
         // add to cart
-        // dispatch(showCart(true))
         props.showCart(true);
-
         props.getLocalCartItems();
       })
         .catch(function (e) {
           console.log(e);
         });
-
     }
   }
 
@@ -151,7 +149,7 @@ const ProductDescription = (props) => {
                 <div className="flex ">
                   <button disabled={product?.outOfStock ? true : false}
                     className={`w-9 h-9 flex items-center justify-center text-white border border-primary bg-primary ${product?.outOfStock ? 'opacity-70 cursor-default' : 'opacity-100 cursor-pointer'}`}
-                    onClick={() => setCount(quantity - 1)}>
+                    onClick={() => setQuantity(quantity - 1)}>
                     <RemoveIcon />
                   </button>
                   <div className="w-9 h-9 flex items-center justify-center text-primary border border-primary cursor-pointer bg-white">
@@ -159,7 +157,7 @@ const ProductDescription = (props) => {
                   </div>
                   <button disabled={product?.outOfStock ? true : false}
                     className={`w-9 h-9 flex items-center justify-center text-white border border-primary bg-primary ${product?.outOfStock ? 'opacity-70 cursor-default' : 'opacity-100 cursor-pointer'}`}
-                    onClick={() => setCount(quantity + 1)}>
+                    onClick={() => setQuantity(quantity + 1)}>
                     <AddIcon />
                   </button>
                 </div>
@@ -196,4 +194,4 @@ const mapStateToProsp = (state, ownProps) => {
     cartItems: state.cart
   }
 }
-export default connect(mapStateToProsp, { addToWhislist, addToCart, getCartItems, getLocalCartItems,getWishList, showCart })(ProductDescription)
+export default connect(mapStateToProsp, { addToWhislist, addToCart, getCartItems, getLocalCartItems, getWishList, showCart })(ProductDescription)

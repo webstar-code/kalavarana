@@ -4,17 +4,6 @@ import { CANCEL_ORDER, DELETE_CART_ITEM, GET_ORDERS, PLACE_ORDER } from "./types
 import { getCartItems } from './cart'
 import { getAddresses } from "./address"
 
-// const Orders =  {
-//     id: unique Id,
-//     user: user,
-//     address: whole entity,
-//     totalmrp: grandPrice,
-//     items: CART Item,
-//     state: newOrder, inPacking, readyForDelivery, pickedUp, delivered, canceled
-//     delivreryChrges: 
-//     isPaymentDone
-
-// }
 
 export const placeOrder = (data, getCartItems) => async (dispatch, getState) => {
     console.log(db.getCurrentTimeStamp)
@@ -23,7 +12,7 @@ export const placeOrder = (data, getCartItems) => async (dispatch, getState) => 
     const orderRef = firestore.collection('ORDERS').doc();
     const user = getState().user?.user;
     data = { ...data, id: orderRef.id, user, items: cart, bookingTime: Date.now() };
-    console.log(data);
+    // console.log(data);
     orderRef.set({
         id: orderRef.id,
         user: data.user,
@@ -35,7 +24,7 @@ export const placeOrder = (data, getCartItems) => async (dispatch, getState) => 
         deliveryCharge: data.deliveryCharge,
         isPaymentDone: data.isPaymentDone,
         paymentId: data.paymentId,
-        deliveredOn: '',
+        deliveredOn: 0,
         donation: data.donation
     }).then(() => {
         dispatch({ type: PLACE_ORDER, payload: data })

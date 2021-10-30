@@ -3,29 +3,9 @@ import { PAINTING1, PAINTING3 } from '../../assetsKalavarna'
 import { firestore } from '../../firebase';
 import PaintingCard from '../cards/PaintingCard';
 import { Link } from 'react-router-dom';
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import LoadingSpinner from '../LoadingSpinner'
 import Msg from '../notification/Msg'
-
-const responsive = {
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 4,
-        paritialVisibilityGutter: 0
-    },
-    tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 4,
-        paritialVisibilityGutter: 0
-    },
-    mobile: {
-        breakpoint: { max: 464, min: 0 },
-        items: 1,
-        paritialVisibilityGutter: 70
-    }
-};
-
+import Scroller from '../Scroller';
 
 const RelatedProducts = (props) => {
     const [products, setProducts] = useState(new Set());
@@ -77,27 +57,16 @@ const RelatedProducts = (props) => {
                 <div className="w-full md:w-4/5 mx-auto flex flex-col justify-start">
 
                     {products.length > 0 ?
-                        <Carousel
-                            partialVisbile
-                            itemClass="image-item"
-                            responsive={responsive}
-                            removeArrowOnDeviceType={["tablet", "mobile"]}
-                        >
+                        <Scroller>
                             {products.map((product) => (
-                                <div className="w-64 mx-5" >
+                                <div className="w-64 flex-none mx-5 text-center" >
                                     <PaintingCard product={product} />
                                 </div>
                             ))}
-                        </Carousel>
-                        : <LoadingSpinner />}
+                        </Scroller> :
+                        <LoadingSpinner />
+                    }
 
-                    {/* <div className="dress-cards dress-cards-overflow">
-                    {products.length > 0 && products.map((product) => (
-                        <div className="w-64 flex-none mx-5"  key={product.id}>
-                            <PaintingCard product={product} />
-                        </div>
-                    ))}
-                </div> */}
                 </div>
             </div>
         </>

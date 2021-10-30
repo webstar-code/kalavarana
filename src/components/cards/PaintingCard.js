@@ -64,8 +64,7 @@ const PaintingCard = (props) => {
                         </div>
                     </div>
                     {saved ?
-                        // <div className="" onClick={() => setShowModal(true)}>
-                        <div className="" onClick={() => handleDeleteWishList()}>
+                        <div className="" onClick={() => setShowModal(true)}>
                             <Bookmark className="cursor-pointer" />
                         </div>
                         :
@@ -75,7 +74,7 @@ const PaintingCard = (props) => {
                     }
                 </div >
             </div >
-            {/* {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDeleteWishList} message="Are you sure you want to remove this item from your wishlist?" />} */}
+            {showModal && <CancelPrompt setShowModal={setShowModal} callback={handleDeleteWishList} message="Are you sure you want to remove this item from your wishlist?" />}
         </>
     )
 }

@@ -72,7 +72,7 @@ const LoginComp = (props) => {
         <form onSubmit={onSignInSubmit} className="flex flex-col text-sm w-full">
 
           <img src={KALAVARANA_LOGO} alt="ANA" style={{ width: '125px' }} className="mx-auto sm:-ml-2" />
-          <h1 className="text-2xl font-bold py-12 text-primary">Welcome, to kalavarana</h1>
+          <h1 className="text-2xl font-bold py-12 text-primary">Welcome to Kalavarana</h1>
 
           <PhoneNumberInput value={number} setValue={setNumber} setPhoneCount={setPhoneCount}containerStyle={{ maxWidth: '350px'}}/>
 

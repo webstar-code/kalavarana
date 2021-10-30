@@ -59,7 +59,7 @@ const Checkout = (props) => {
 		"description": props.user.name,
 		//This is a sample Order ID. Pass the `id` obtained in the response of Step 1
 		"handler": function (response) {
-			props.placeOrder({ ...props.checkout, grandTotal, paymentId: response.razorpay_payment_id, isPaymentDone: true })
+			props.placeOrder({ ...props.checkout, grandTotal, paymentId: response.razorpay_payment_id, isPaymentDone: true, donation })
 			// console.log(response)
 			const payRef = firestore.collection('PAYMENTS')
 				.doc(props.user.email).set({
@@ -168,8 +168,8 @@ const Checkout = (props) => {
 						</div>
 
 						<div className="process-area ">
-							{/* <button className="bg-primary" onClick={() => displayRazorpay()}>Pay Online</button> */}
-							<button className="bg-primary" onClick={() => handlePlaceOrder()}>Pay Online</button>
+							<button className="bg-primary" onClick={() => displayRazorpay()}>Pay Online</button>
+							{/* <button className="bg-primary" onClick={() => handlePlaceOrder()}>Pay Online</button> */}
 
 							{/* {props.checkout.orderType === "Paid Online" ? 
 							<button onClick={displayRazorpay}>Pay Online</button> 

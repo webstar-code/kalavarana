@@ -83,9 +83,9 @@ const EditAddressForm = (props) => {
 
         />
         <Autocomplete
+          autoComplete='off'
           value={country}
           onChange={(event, newValue) => {
-            console.log(newValue);
             setCountry(newValue);
           }}
           id="controllable-states-demo"
@@ -95,15 +95,15 @@ const EditAddressForm = (props) => {
         />
 
         <Autocomplete
+          autoComplete='off'
           id="combo-box-demo"
           value={state}
           onChange={(event, newValue) => {
-            console.log(newValue);
             setState(newValue);
           }}
           options={states}
           style={{ width: '100%' }}
-          renderInput={(params) => <TextField {...params} label="State" variant="outlined" />}
+          renderInput={(params) => <TextField required {...params} label="State" variant="outlined" />}
         />
 
         <button type="submit" className="update-profile-btn" >NEXT</button>

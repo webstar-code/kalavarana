@@ -161,7 +161,15 @@
 .dress-cards-overflow::-webkit-scrollbar{
     display: none;
 }
-
+.dress-cards-overflow{
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 40px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+}
 @media(max-width:985px){
     .dress-card{
         height: 337px;
@@ -178,14 +186,7 @@
 }
 
 @media(max-width:769px){
-    .dress-cards-overflow{
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 40px;
-        width: 100%;
-        overflow-x: scroll;
-        overflow-y: hidden;
-    }
+ 
  
       
 }

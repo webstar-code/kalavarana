@@ -22,22 +22,32 @@ const Cart = (props) => {
 	const [couponDiscount, setCouponDiscount] = useState(0)
 	const [Code, setCode] = useState('')
 	const [selectedAddress, setSelectedAddress] = useState(props.addresses[0])
-
+	console.log(props.addresses);
 	const getCodeNDiscount = (couponDiscount, code) => {
 		setCouponDiscount(couponDiscount)
 		setCode(code)
-		console.log(couponDiscount, code)
+		// console.log(couponDiscount, code)
 		console.log(couponDiscount, Code)
 	}
 
 	const getActiveAdd = (addIndex, selecAdd) => {
 		setActiveIndex(addIndex)
 		setSelectedAddress(selecAdd)
-		console.log(selecAdd);
 	}
 
+	useEffect(() => {
+		if (props.addresses.length == 1) {
+			setSelectedAddress(props.addresses[0]);
+		}
+		// setSelectedAddress(props.addresses[props.addresses.length - 1]);
+	}, [props.addresses]);
+
 	const handleCheckout = () => {
+		// if(props.addresses.length == 1) {
+		// 	setSelectedAddress(props.addresses[0]);
+		// }
 		// console.log(props.user.id)
+		// console.log(selectedAddress);
 		if (props.cartItems.length <= 0) {
 			props.notify("No item in the cart.", true);
 		} else {
@@ -110,7 +120,13 @@ const Cart = (props) => {
 									</> :
 									<div className="w-80 h-40 mt-4 flex flex-col p-2 items-center justify-center cursor-pointer 
 										rounded-md border-dashed border border-black hover:border-primary hover:scale-110"
-										onClick={() => setShowForm(true)}>
+										onClick={() => {
+											if (props.user.id) {
+												setShowForm(true);
+											} else {
+												history.push('/login');
+											}
+										}}>
 										<div className="add-icon self-center">
 											<AddIcon className="icon-add" />
 										</div>

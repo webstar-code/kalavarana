@@ -9,6 +9,7 @@ import AddressForm from './AddressForm';
 import Msg from '../notification/Msg'
 import { Link } from 'react-router-dom'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import { history } from '../../history'
 
 const Adress = (props) => {
 	const [showForm, setShowForm] = useState(false);
@@ -41,7 +42,13 @@ const Adress = (props) => {
 							}
 							<div className="w-80 h-40 mt-4 flex flex-col p-2 items-center justify-center cursor-pointer 
 					rounded-md border-dashed border border-black hover:border-primary hover:scale-110"
-								onClick={() => setShowForm(true)}>
+								onClick={() => {
+									if(props.userId) {
+										setShowForm(true);
+									}else{
+										history.push('/login');
+									}
+								}}>
 								<div className="add-icon self-center">
 									<AddIcon className="icon-add" />
 								</div>

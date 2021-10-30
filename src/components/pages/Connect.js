@@ -13,13 +13,17 @@ import Msg from '../notification/Msg'
 import { connect } from 'react-redux'
 import { notify } from '../../actions'
 import Footer from '../Footer';
-
+import { history } from '../../history';
+import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 
 const Enquiry = (props) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [reason, setReason] = useState('')
+    const [phoneCount, setPhoneCount] = useState();
+
+
 
 
     const saveData = (e) => {
@@ -31,13 +35,15 @@ const Enquiry = (props) => {
             email,
             phoneNumber,
             reason,
-            userid: props.user.id
         }).then(() => {
             setName('')
             setEmail('')
             setPhoneNumber('')
             setReason('')
-            props.notify("enquiry sent")
+            props.notify("Enquiry sent")
+        }).catch(err => {
+            console.log(err);
+            history.push('/Error');
         })
     }
 
@@ -57,21 +63,28 @@ const Enquiry = (props) => {
                         <div className="connect-from">
                             <form onSubmit={saveData}>
                                 <TextField
+                                    required
                                     value={name}
                                     autoComplete="off" id="outlined-basic" label="NAME" variant="outlined"
                                     onChange={(e) => setName(e.target.value)}
                                 />
                                 <TextField
+                                    required
                                     value={email}
                                     autoComplete="off" id="outlined-basic" label="EMAIL" variant="outlined"
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <TextField
+                                <PhoneNumberInput />
+
+                                {/* <TextField
+                                required
+
                                     value={phoneNumber}
                                     autoComplete="off" id="outlined-basic" label="PHONE" variant="outlined"
                                     onChange={(e) => setPhoneNumber(e.target.value)}
-                                />
+                                /> */}
                                 <TextField
+                                    required
                                     value={reason}
                                     autoComplete="off" id="outlined-basic" label="CONTACT REASON" variant="outlined"
                                     onChange={(e) => setReason(e.target.value)}
