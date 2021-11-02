@@ -43,6 +43,7 @@ import Sales from './components/pages/Sales'
 import Header from './components/Header'
 import localdb from './localDB'
 import Msg from './components/notification/Msg'
+import Footer from './components/Footer'
 
 // import dummy from './dummy'
 
@@ -141,6 +142,7 @@ const App = (props) => {
                         <Route component={NotFound} />
                     </Switch>
                 </ScrollToTop>
+                <Footer />
             </Router>
         </>
     )

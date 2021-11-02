@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/cart.css'
+import { history } from '../../history'
 import { connect } from 'react-redux'
+import AddIcon from '@material-ui/icons/Add';
 import { checkout } from '../../actions/checkout'
+import { notify } from '../../actions'
 import SideCartItem from '../sideCart/SideCartItem'
-import Header from '../Header'
 import AddressCard from '../profile/AddressCard'
 import AddressForm from '../profile/AddressForm'
-import AddIcon from '@material-ui/icons/Add';
 import Msg from '../notification/Msg'
 import Coupon from '../cart/Coupon'
-import { history } from '../../history'
-import { Redirect } from 'react-router'
-import { notify } from '../../actions'
-
 
 const Cart = (props) => {
 	const [showForm, setShowForm] = useState(false)
 	const [showPromo, setShowPromo] = useState(false)
-	const [payOnline, setPayOnline] = useState(true)
 	const [activeIndex, setActiveIndex] = useState(0)
 	const [couponDiscount, setCouponDiscount] = useState(0)
 	const [Code, setCode] = useState('')

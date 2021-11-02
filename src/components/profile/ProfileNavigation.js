@@ -1,10 +1,9 @@
 import React from 'react'
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { logout } from '../../actions/index'
 import { connect } from 'react-redux'
-import { Link, useHistory, Redirect } from 'react-router-dom';
-import Header from '../Header';
 
 const ProfileNavigation = (props) => {
   const history = useHistory();

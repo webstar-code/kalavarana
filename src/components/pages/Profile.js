@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import {connect} from 'react-redux'
 import {logout} from '../../actions'
-import Header from '../Header'
 import '../../styles/profile.css'
 import UserInfo from '../profile/UserInfo'
 import ProfileNavigation from '../profile/ProfileNavigation'
 import { history } from '../../history'
 import { Redirect } from 'react-router'
+
 const Profile = (props) => {
   // console.log(props.user.id)
   useEffect(() => {

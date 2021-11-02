@@ -6,11 +6,10 @@ import { FiShoppingCart, FiMenu } from 'react-icons/fi'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { KALAVARANA_LOGO2X } from '../assetsKalavarna';
+import { KALAVARANA_LOGO2X } from '../assets';
 import { firestore } from '../firebase'
 
 const Header = (props) => {
-	console.log("Header render");
 	const [showSideBar, setShowSideBar] = useState(false)
 	const [categories, setCategories] = useState([]);
 	const [showHeader, setShowHeader] = useState({ show: true, scrollPos: 0 });

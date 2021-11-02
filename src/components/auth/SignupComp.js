@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { sigin } from '../../actions'
 import Msg from '../notification/Msg'
 import TextField from '@material-ui/core/TextField';
-import { COLLAGE, KALAVARANA_LOGO } from '../../assetsKalavarna'
+import { COLLAGE, KALAVARANA_LOGO } from '../../assets'
 import { useLocation } from 'react-router-dom';
 import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 import Loader from "react-loader-spinner";

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import SideCartItem from '../sideCart/SideCartItem'
-import AddressCard from '../profile/AddressCard'
-import { connect } from 'react-redux'
-import { placeOrder } from '../../actions/orders'
-import { getCartItems } from '../../actions/cart'
-import InfoIcon from '@material-ui/icons/Info'
-import { KALAVARANA_LOGO } from '../../assetsKalavarna/index'
-import Checkbox from '@material-ui/core/Checkbox';
+import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import { history } from '../../history'
-import { Link } from 'react-router-dom'
 import { firestore } from '../../firebase'
+import { connect } from 'react-redux'
+import { getCartItems } from '../../actions/cart'
+import { placeOrder } from '../../actions/orders'
+import InfoIcon from '@material-ui/icons/Info'
+import SideCartItem from '../sideCart/SideCartItem'
+import AddressCard from '../profile/AddressCard'
+import { KALAVARANA_LOGO } from '../../assets'
+import Checkbox from '@material-ui/core/Checkbox';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const Checkout = (props) => {

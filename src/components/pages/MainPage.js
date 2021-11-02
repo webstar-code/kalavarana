@@ -2,29 +2,27 @@ import React, { useEffect, useState } from 'react'
 import LoadingSpinner from '../LoadingSpinner'
 import Banner from '../Banner'
 import Cards from '../cards/Cards'
-import banner2 from '../../assetsKalavarna/images/3.png'
-import Footer from '../Footer'
+import {PAINTING3} from '../../assets'
 import YouTubeToHtml5 from '@thelevicole/youtube-to-html5-loader'
-import SubCatProducts from '../SubCategoryCards';
 import '../../styles/home.css'
 import { firestore } from '../../firebase'
 import { Link } from 'react-router-dom'
 
 const dummyData = [
    {
-      picUrl: banner2,
+      picUrl: PAINTING3,
       name: 'Ganesh Painting',
    },
    {
-      picUrl: banner2,
+      picUrl: PAINTING3,
       name: 'Balaji Painting',
    },
    {
-      picUrl: banner2,
+      picUrl: PAINTING3,
       name: 'Trimuti Painting',
    },
    {
-      picUrl: banner2,
+      picUrl: PAINTING3,
       name: 'Chakra Painting',
    },
 
@@ -44,12 +42,11 @@ const MainPage = () => {
    // new YouTubeToHtml5();
 
    useEffect(() => {
-      console.log("Ad");
       new YouTubeToHtml5();
    }, []);
    return (
       <>
-         <div className="w-full h-screen mb-12" style={{ marginBottom: '20px' }}>
+         <div className="w-full mb-12" style={{ marginBottom: '20px' }}>
             <div className="relative flex items-center justify-center">
                <video
                   autoPlay
@@ -66,7 +63,7 @@ const MainPage = () => {
                colors />
 
             <Banner
-               img={banner2}
+               img={PAINTING3}
                height="512px"
             />
 
@@ -113,7 +110,6 @@ const MainPage = () => {
             </div> */}
 
 
-            <Footer />
          </div>
       </>
    )

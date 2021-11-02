@@ -4,7 +4,7 @@ import PaintingCard from './PaintingCard'
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../LoadingSpinner'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { PAINTING1 } from '../../assetsKalavarna';
+import { PAINTING1 } from '../../assets';
 import Msg from '../notification/Msg'
 import Scroller from '../Scroller';
 
