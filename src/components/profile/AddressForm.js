@@ -84,7 +84,7 @@ const AddressForm = (props) => {
         />
 
         <Autocomplete
-          autoComplete='off'
+          autoComplete={false}
           value={country}
           onChange={(event, newValue) => {
             setCountry(newValue);
@@ -96,7 +96,7 @@ const AddressForm = (props) => {
         />
 
         <Autocomplete
-          autoComplete='off'
+          autoComplete={false}
           id="combo-box-demo"
           value={state}
           onChange={(event, newValue) => {

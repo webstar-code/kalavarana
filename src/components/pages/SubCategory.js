@@ -178,7 +178,8 @@ const SubCategory = () => {
 					</div>
 					<div className="flex">
 						<div className="cursor-pointer px-1 relative" onClick={handleFilter}>Filter<ArrowDropDownIcon className={`filter-btn ${filter && 'rotate-180'}`} />
-							{filter && (<div className={`inline-table absolute top-6 right-0 z-10 bg-white text-right py-2 shadow-lg w-28 h-0 transition-all ${filter && 'h-auto'}`}>
+							{filter && filters.length > 0 && (<div className={`inline-table absolute top-6 right-0 z-10 bg-white text-right py-2 shadow-lg w-28 h-0 transition-all ${filter && 'h-auto'}`}>
+								{console.log(filters.length)}
 								{filters.map((item, i) => (
 									<p className="px-4 py-2 whitespace-nowrap" onClick={() => FilterUtil(item)} key={i}>{item.name}</p>
 								))}
@@ -194,7 +195,7 @@ const SubCategory = () => {
 					</div>
 				</div>
 				{products.length > 0 ?
-					<div className={`w-full grid ${halfScreen && 'grid-cols-1 md:grid-cols-2'} ${fullScreen && 'grid-cols-2 xl:grid-cols-4'} gap-2 gap-y-6 mt-4 mb-12 `}>
+					<div className={`w-full grid ${halfScreen && 'grid-cols-1 md:grid-cols-2 place-items-center'} ${fullScreen && 'grid-cols-2 xl:grid-cols-4'} gap-2 gap-y-6 mt-4 mb-12 `}>
 
 						{sortedProducts.length > 0 ?
 							sortedProducts.map((product) => (<div className="max-w-sm">
@@ -228,7 +229,7 @@ const SubCategory = () => {
 					loading ?
 						<LoadingSpinner />
 						: products.length <= 0 ?
-							<h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl md:text-5xl">No products here</h1>
+							<h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl">No products here</h1>
 							: null}
 			</div>
 			<Footer />

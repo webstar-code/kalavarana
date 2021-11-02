@@ -37,7 +37,7 @@ const ProductDescription = (props) => {
   const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
-    // props.showCart(false);
+    props.showCart(false);
     firestore.collection('PRODUCTS').doc(productID).get()
       .then((doc) => {
         // console.log(doc.data());
@@ -49,14 +49,17 @@ const ProductDescription = (props) => {
 
 
   useEffect(() => {
+    setQuantity(1);
     if (props.cartItems.length > 0) {
       props.cartItems.map((item) => {
         if (item.product.id === productID) {
           setQuantity(item.quantity);
         }
       })
+    } else {
+      setQuantity(1);
     }
-  }, [props]);
+  }, [useParams().id, props.cartItems]);
 
   // useEffect(() => {
   // }, [pathname]);
@@ -67,7 +70,7 @@ const ProductDescription = (props) => {
 
 
   const handleAddToCart = () => {
-    console.log(props.user);
+    // console.log(props.user);
     if (props.user.id) {
       props.addToCart({
         product: { ...product },
@@ -75,6 +78,7 @@ const ProductDescription = (props) => {
       }, props.getCartItems)
 
     } else {
+      console.log("p: ",quantity)
       localdb.transaction('rw', localdb.cart, () => {
         localdb.cart.put({
           id: productID,
@@ -83,6 +87,7 @@ const ProductDescription = (props) => {
         });
       }).then(() => {
         // add to cart
+        console.log("who");
         props.showCart(true);
         props.getLocalCartItems();
       })
@@ -110,7 +115,7 @@ const ProductDescription = (props) => {
         <div className="w-full h-full flex flex-col items-center justify-center mt-20 md:mt-36">
           <div className="w-full h-full md:w-4/5 px-5 md:px-0  mt-10 grid grid-cols-1 md:grid-cols-2 place-items-start items-start justify-between">
             <div className="w-full flex justify-center items-center">
-              <img src={PAINTING1} className=" md:max-w-xs h-full" />
+              <img src={product?.picUrl} className=" md:max-w-xs h-full" />
             </div>
             <div className="w-full h-full flex flex-col items-start justify-start px-4 md:px-0">
               <div className="w-full flex justify-between items-start py-4 md:py-0">
@@ -157,7 +162,13 @@ const ProductDescription = (props) => {
                   </div>
                   <button disabled={product?.outOfStock ? true : false}
                     className={`w-9 h-9 flex items-center justify-center text-white border border-primary bg-primary ${product?.outOfStock ? 'opacity-70 cursor-default' : 'opacity-100 cursor-pointer'}`}
-                    onClick={() => setQuantity(quantity + 1)}>
+                    onClick={() => {
+                      if(quantity == product?.stock) {
+                        setQuantity(quantity);
+                      }else{
+                        setQuantity(quantity + 1);
+                      }
+                    }}>
                     <AddIcon />
                   </button>
                 </div>

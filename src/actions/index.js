@@ -34,9 +34,8 @@ export const showOtp = (boolean) => {
 //   role: 'user',
 // }
 
-export const login = (data) => async dispatch => {
-  let phoneNumber = data.number;
-  console.log(phoneNumber);
+export const login = (number) => async dispatch => {
+  let phoneNumber = number;
   sendOtp(phoneNumber, dispatch);
 }
 
@@ -50,7 +49,7 @@ export const sendOtp = (phoneNumber, dispatch) => {
       // user in with confirmationResult.confirm(code).
       window.confirmationResult = confirmationResult;
       // console.log(confirmationResult);
-      console.log("OTP is sent");
+      // console.log("OTP is sent");
       dispatch({ type: SIGN_IN, payload: 'OTP is sent' })
       dispatch(notification({ msg: 'OTP sent', err: false }))
       setTimeout(() => {
@@ -62,7 +61,7 @@ export const sendOtp = (phoneNumber, dispatch) => {
     })
     .catch(function (error) {
       dispatch({ type: SHOW_OTP, payload: false });
-      dispatch(notification({ msg: error.message, err: true }))
+      dispatch(notification({ msg: "something went wrong", err: true }))
       setTimeout(() => {
         dispatch(notification({ msg: "", err: false }))
       }, 2000);
@@ -108,7 +107,7 @@ export const submitOtp = (otp) => async dispatch => {
   let optConfirm = window.confirmationResult;
   optConfirm.confirm(otpInput).then((result) => {
     let user = result.user;
-    // console.log(result);
+    console.log(user);
     // check if the user already exists
     db.users.get().then(querySnapshot => {
       querySnapshot.forEach((doc) => {

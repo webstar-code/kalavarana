@@ -4,7 +4,6 @@ import firebase from '../../firebase'
 import { connect } from 'react-redux'
 import { sigin, submitOtp, login } from '../../actions'
 import { COLLAGE, KALAVARANA_LOGO } from '../../assetsKalavarna';
-import Msg from '../notification/Msg'
 import TextField from '@material-ui/core/TextField';
 import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 import Loader from "react-loader-spinner";
@@ -14,7 +13,6 @@ const LoginComp = (props) => {
   const [otp, setOtp] = useState('')
   const [number, setNumber] = useState('')
   const [isNum, setIsNum] = useState(true);
-  const [countryCode, setCountryCode] = useState('+91')
   const [isLoading, setIsLoading] = useState(false)
   const [phoneCount, setPhoneCount] = useState();
 
@@ -24,7 +22,11 @@ const LoginComp = (props) => {
 
   useEffect(() => {
     if(props.user.id) {
-      history.goBack();
+      if(history.length > 1) {
+        history.goBack();
+      }else{
+        history.push('/')
+      }
     }
   }, [props.user.id]);
 
@@ -34,10 +36,10 @@ const LoginComp = (props) => {
       {
         size: "invisible",
         callback: function (response) {
-          console.log("Captcha Resolved");
+          // console.log("Captcha Resolved");
           onSignInSubmit();
         },
-        defaultCountry: "IN",
+        // defaultCountry: "IN",
       }
     );
   };
@@ -52,7 +54,7 @@ const LoginComp = (props) => {
       setIsNum(true)
       setIsLoading(true)
       setUpRecaptcha();
-      props.login({ number: '+' + number, countryCode });
+      props.login(`+${number}`);
     }
   };
 
@@ -63,7 +65,7 @@ const LoginComp = (props) => {
 
   return (
     <div className="mt-8 flex items-center justify-center w-11/12 h-11/12 mx-auto px-4 sm:px-20">
-      <Msg />
+      {/* <Msg /> */}
 
       <div className="w-1/2 h-full hidden md:flex">
         <img src={COLLAGE} alt="loginImg" className="w-full h-full" />
@@ -71,7 +73,7 @@ const LoginComp = (props) => {
       <div className="flex flex-col items-center justify-evenly text-sm rounded w-full md:w-1/2 h-full px-4 sm:px-8 lg:px-32">
         <form onSubmit={onSignInSubmit} className="flex flex-col text-sm w-full">
 
-          <img src={KALAVARANA_LOGO} alt="ANA" style={{ width: '125px' }} className="mx-auto sm:-ml-2" />
+          <img src={KALAVARANA_LOGO} alt="Kalavarana" style={{ width: '125px' }} className="mx-auto sm:-ml-2" />
           <h1 className="text-2xl font-bold py-12 text-primary">Welcome to Kalavarana</h1>
 
           <PhoneNumberInput value={number} setValue={setNumber} setPhoneCount={setPhoneCount}containerStyle={{ maxWidth: '350px'}}/>
@@ -96,7 +98,7 @@ const LoginComp = (props) => {
               placeholder="OTP"
               style={{maxWidth: '350px'}}
             />
-            <span className="h-full text-black cursor-pointer" onClick={() => props.login(number)}>RESEND</span>
+            <span className="h-full text-black cursor-pointer" onClick={() => props.login(`+${number}`)}>RESEND</span>
           </div>
           <button type="submit" className="w-full md:w-32 flex justify-center items-center py-2 px-3 my-2 text-white mt-8 bg-primary">
             {/* {sigin ? <LoadingSpinner /> : 'Login'} */}

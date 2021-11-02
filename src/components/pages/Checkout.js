@@ -14,9 +14,6 @@ import { firestore } from '../../firebase'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const Checkout = (props) => {
-
-	// console.log(props);
-
 	const donation = 50;
 	const [grandTotal, setGrandTotal] = useState((props.checkout.total + props.checkout.deliveryCharge) - props.checkout.couponDiscount);
 	const [checked, setChecked] = useState(false);
@@ -30,7 +27,7 @@ const Checkout = (props) => {
 		}
 	}, [checked]);
 
-	// local for offline purpose
+	// for offline testing purpose
 	const handlePlaceOrder = () => {
 		props.placeOrder({ ...props.checkout, grandTotal, isPaymentDone: true, paymentId: '123456', donation }, props.getCartItems)
 	}
@@ -76,8 +73,6 @@ const Checkout = (props) => {
 		},
 	};
 
-
-
 	const displayRazorpay = async () => {
 		const res = await loadScripts('https://checkout.razorpay.com/v1/checkout.js');
 		if (!res) {
@@ -89,7 +84,6 @@ const Checkout = (props) => {
 		});
 		paymentObject.open();
 	}
-
 
 	return (
 		<>
@@ -154,9 +148,14 @@ const Checkout = (props) => {
 											inputProps={{ 'aria-label': 'checkbox with small size' }}
 										/>
 										<p>I would like to donate</p>
-										<Link to="">
-											<InfoIcon className="text-sm w-4 h-4 text-primary mx-2 cursor-pointer" />
-										</Link>
+										{/* <Link to=""> */}
+										<div className="group relative">
+											<InfoIcon className="text-primary text-xs ml-2 cursor-pointer " style={{width: '20px',height: '20px'}} />
+											<div className=" text-xs w-72 -ml-36 opacity-0 group-hover:opacity-100 bg-primary text-white p-1 rounded text-center absolute z-10 left-1/2 bottom-full">
+												This donation goes to one of the charity partners
+											</div>
+										</div>
+										{/* </Link> */}
 									</div>
 									<p>{donation}</p>
 								</div>
@@ -171,9 +170,6 @@ const Checkout = (props) => {
 							<button className="bg-primary" onClick={() => displayRazorpay()}>Pay Online</button>
 							{/* <button className="bg-primary" onClick={() => handlePlaceOrder()}>Pay Online</button> */}
 
-							{/* {props.checkout.orderType === "Paid Online" ? 
-							<button onClick={displayRazorpay}>Pay Online</button> 
-							: <button onClick={handlePlaceOrder}>Process</button>} */}
 						</div>
 					</div>
 

@@ -22,7 +22,6 @@ const Cart = (props) => {
 	const [couponDiscount, setCouponDiscount] = useState(0)
 	const [Code, setCode] = useState('')
 	const [selectedAddress, setSelectedAddress] = useState(props.addresses[0])
-	console.log(props.addresses);
 	const getCodeNDiscount = (couponDiscount, code) => {
 		setCouponDiscount(couponDiscount)
 		setCode(code)

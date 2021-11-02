@@ -14,6 +14,17 @@ const SideCartItem = (props) => {
     const [maxQuantityReached, setMaxQuantityReached] = useState(false);
     const [showModal, setShowModal] = useState(false)
 
+    console.log(Quantity);
+
+    useEffect(() => {
+        if(props.quantity === props.product.stock) {
+            setMaxQuantityReached(true);
+        }else{
+            setMaxQuantityReached(false);
+        }
+        setQuantity(props.quantity);
+    }, [props]);
+
     if (Quantity <= 0) {
         setQuantity(1)
     }
@@ -64,9 +75,19 @@ const SideCartItem = (props) => {
                 </div>
                 <div className="item-handler">
                     <div className="item-quanity">
-                        {!props.disable && <button onClick={() => setQuantity(props.quantity - 1)}>-</button>}
+                        {!props.disable && <button onClick={() => {setQuantity(props.quantity - 1)
+                                setMaxQuantityReached(false);
+                            }}>-</button>}
                         <p>{props.quantity}</p>
-                        {!props.disable && <button onClick={() => setQuantity(props.quantity + 1)}>+</button>}
+                        {!props.disable && <button onClick={() => {
+                            if (Quantity == props.product?.stock) {
+                                setQuantity(Quantity);
+                                setMaxQuantityReached(true);
+                            } else {
+                                setMaxQuantityReached(false);
+                                setQuantity(Quantity + 1);
+                            }
+                        }}>+</button>}
                     </div>
                     {!props.disable && <div className="trash-btn">
                         <button onClick={() => setShowModal(true)} className="p-2 hover:bg-gray-100 rounded-full"><DeleteOutlineIcon /></button>

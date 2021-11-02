@@ -6,6 +6,10 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import SideCartItem from './SideCartItem';
 const SideCart = (props) => {
+
+  useEffect(() => {
+
+  }, [props]);
   // console.log(props.cartItems);
   return (
     <div onClick={() => props.showCart(false)} className={`cart-full ${props.showcart && 'show-side-cart'}`}>

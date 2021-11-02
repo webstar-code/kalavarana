@@ -6,15 +6,17 @@ import { FiShoppingCart, FiMenu } from 'react-icons/fi'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
-import {  KALAVARANA_LOGO2X} from '../assetsKalavarna';
+import { KALAVARANA_LOGO2X } from '../assetsKalavarna';
 import { firestore } from '../firebase'
 
 const Header = (props) => {
+	console.log("Header render");
 	const [showSideBar, setShowSideBar] = useState(false)
 	const [categories, setCategories] = useState([]);
 	const [showHeader, setShowHeader] = useState({ show: true, scrollPos: 0 });
 
 	useEffect(() => {
+		console.log("useEffect")
 		let items = [];
 		firestore.collection('CATAGORIES').get().then((snapshot) => {
 			for (let i = 0; i < snapshot.docs.length; i++) {
@@ -28,11 +30,15 @@ const Header = (props) => {
 					})
 				})
 			}
-		}).then(() => {
+			console.log(items);
 			setCategories(items);
 		}).
 			catch(err => console.log(err));
 	}, []);
+
+	useEffect(() => {
+
+	}, [categories])
 
 	const handleScroll = () => {
 		if (window.scrollY < 100) {
@@ -102,19 +108,19 @@ const Header = (props) => {
 						<Link to="/sales" onClick={() => setShowSideBar(false)}>
 							<li className="relative">Sales</li>
 						</Link>
-
-						{categories.length > 0 && categories.map((item) => (
+						{categories.length > 0  && categories.map((item) => (
 							<>
 								<Link to={`/category/${item.cat.name}`} key={item.cat.id} onClick={() => setShowSideBar(false)}>
 									<li className="hover relative first-list whitespace-nowrap">{item.cat.name}
-										<div className="drop-down whitespace-nowrap">
-											{item.subcats.length > 0 && item.subcats.map((subcat) => (
-												<Link to={`/category/${item.cat.name}/${subcat.name}`} key={subcat.id}>
-													<p className="flex py-2">{subcat.name}</p>
-												</Link>
-											))}
-
-										</div>
+										{item.subcats.length > 0 && item.subcats ?
+											<div className="drop-down whitespace-nowrap">
+												{item.subcats.map((subcat) => (
+													<Link to={`/category/${item.cat.name}/${subcat.name}`} key={subcat.id}>
+														<p className="flex py-2">{subcat.name}</p>
+													</Link>
+												))}
+											</div>
+										: null}
 									</li>
 								</Link>
 								<ListItem item={item} setShowSideBar={setShowSideBar} key={item.cat.name} />
@@ -137,7 +143,7 @@ const Header = (props) => {
 const ListItem = ({ item, setShowSideBar }) => {
 	const [state, setState] = useState();
 	return (
-		<li className="onclick relative first-list whitespace-nowrap outline-none focus:outline-none select-none"  key={item.cat.name}>
+		<li className="onclick relative first-list whitespace-nowrap outline-none focus:outline-none select-none" key={item.cat.name}>
 			<span className="flex items-center justify-between" >
 				<Link to={`/category/${item.cat.name}`} onClick={() => setShowSideBar(false)}>
 					<p>{item.cat.name}</p>
@@ -146,7 +152,7 @@ const ListItem = ({ item, setShowSideBar }) => {
 			</span>
 			<div className={`onclick-drop-down ${state && 'showOnClick'}`}>
 				{item.subcats.length > 0 && item.subcats.map((subcat) => (
-					<Link to={`/category/${item.cat.name}/${subcat.name}`} onClick={() => setShowSideBar(false)}  key={subcat.name}>
+					<Link to={`/category/${item.cat.name}/${subcat.name}`} onClick={() => setShowSideBar(false)} key={subcat.name}>
 						<p className="flex py-2">{subcat.name}</p>
 					</Link>
 				))}

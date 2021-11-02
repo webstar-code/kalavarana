@@ -58,7 +58,7 @@ const MainPage = () => {
                   data-yt2html5="https://youtu.be/xeXcCxvjVfA"
                   className="w-full h-96 md:w-full md:h-full mt-20 md:mt-36 object-cover"
                ></video>
-               <h1 className="absolute font-newYork text-4xl md:text-8xl ml-auto mt-auto z-10 text-white font-normal text-center md:-mt-20 select-none leading-relaxed">Arts Emporium</h1>
+               <h1 className="absolute font-newYork text-4xl md:text-8xl ml-auto mt-auto z-10 text-white text-center md:-mt-20 select-none leading-relaxed">Arts Emporium</h1>
             </div>
 
             <Cards

@@ -1,6 +1,7 @@
 import { ADD_TO_CART, SHOW_CART, GET_CART, CART_TOTAL, DELETE_CART_ITEM, UPDATE_CART_QUANITY } from './types'
 import { db } from '../firebase'
 import localdb from '../localDB'
+import { notification } from './index'
 
 export const showCart = (boolean) => {
     return { type: SHOW_CART, payload: boolean }
@@ -76,7 +77,15 @@ export const deleteCartItem = (id, getCartItems) => (dispatch, getState) => {
         .then(() => {
             dispatch({ type: DELETE_CART_ITEM, payload: id })
             getCartItems()
+            dispatch(notification({ msg: "Product removed from cart", err: false }))
+            setTimeout(() => {
+                dispatch(notification({ msg: "", err: false }))
+            }, 2000);
         }).catch((err) => {
+            dispatch(notification({ msg: "Unable to remove the product from cart", err: false }))
+            setTimeout(() => {
+                dispatch(notification({ msg: "", err: false }))
+            }, 2000);
             console.log(err)
         })
 
