@@ -5,7 +5,7 @@ import { useState } from 'react';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Link } from 'react-router-dom';
 import { db } from '../../firebase';
-import { message, notify } from '../../actions';
+import { notify, userStateChanged } from '../../actions';
 import Msg from '../notification/Msg'
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -21,7 +21,7 @@ const UserInfo = (props) => {
   const [isName, setIsName] = useState(true);
   const [isEmail, setIsEmail] = useState(true)
   const [isNumber, setIsNumber] = useState(true)
-  const [phoneCount, setPhoneCount] = useState();
+  const [phoneCount, setPhoneCount] = useState(0);
 
   useEffect(() => {
     setName(props.user.name)
@@ -31,9 +31,10 @@ const UserInfo = (props) => {
 
   const validate = (type, value) => {
     if (type == 'number' && phoneCount != phoneNumber.length) {
-      setIsName(false);
+      console.log(phoneCount, phoneNumber.length);
+      setIsNumber(false);
     } else {
-      setIsName(true);
+      setIsNumber(true);
     }
     if (type == 'email' && !value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
       setIsEmail(false);
@@ -49,23 +50,42 @@ const UserInfo = (props) => {
 
   }
   const handleUpdate = () => {
+    console.log("update");
     if (email === '' && name === '' && phoneNumber === '') {
       setIsEmail(false)
       setIsName(false)
       setIsNumber(false)
     }
 
-    validate('name', name);
-    validate('email', email);
-    validate('number', phoneNumber);
 
-    if (name && email && phoneNumber && isName && isNumber && isEmail) {
+    // if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+    //   setIsEmail(false);
+    // } else {
+    //   setIsEmail(true);
+    // }
+    // if (!name.match(/^[a-zA-Z]+$/)) {
+    //   setIsName(false);
+    // } else {
+    //   setIsName(true);
+    // }
+
+    // validate('name', name);
+    // validate('email', email);
+    // validate('number', phoneNumber);
+    console.log(isNumber)
+    if (phoneCount != phoneNumber.length) {
+      setIsNumber(false)
+    } else {
+      setIsNumber(true)
       db.users.doc(props.user.id).update({
         name,
         phoneNumber,
         email
       }).then(() => {
         props.notify("profile updated", false);
+        db.users.doc(props.user.id).get().then((doc) =>{
+          props.userStateChanged(doc.data());
+        })
         // message("profile updated");
       }).catch((err) => {
         console.log(err);
@@ -84,6 +104,7 @@ const UserInfo = (props) => {
               Profile Details</h1>
             <div className="info">
               <TextField
+                required
                 style={{ marginTop: '40px', maxWidth: '350px' }}
                 autoComplete="off"
                 id="outlined-basic"
@@ -98,8 +119,8 @@ const UserInfo = (props) => {
 
               {/* <div className="" style={{ marginTop: '40px' }}> */}
               <TextField
+                required
                 style={{ marginTop: '40px', maxWidth: '350px' }}
-
                 autoComplete="off"
                 id="outlined-basic"
                 label="EMAIL ADDRESS"
@@ -111,7 +132,7 @@ const UserInfo = (props) => {
               />
               <PhoneNumberInput value={phoneNumber} setValue={setPhoneNumber} setPhoneCount={setPhoneCount} containerStyle={{ maxWidth: '350px', marginTop: '40px' }} />
 
-              {!isNumber && <p className="text-red-500">Name is required</p>}
+              {!isNumber && <p className="text-red-500">Number is required</p>}
 
               <button onClick={() => handleUpdate()} className="update-profile-btn bg-primary">Update Info</button>
             </div>
@@ -130,4 +151,4 @@ const mapStateToProps = (state) => {
   // console.log(state);
   return { user: state.user?.user }
 }
-export default connect(mapStateToProps, { notify })(UserInfo)
+export default connect(mapStateToProps, { notify, userStateChanged })(UserInfo)

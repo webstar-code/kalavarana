@@ -42,7 +42,7 @@ const Adress = (props) => {
 							<div className="w-80 h-40 mt-4 flex flex-col p-2 items-center justify-center cursor-pointer 
 					rounded-md border-dashed border border-black hover:border-primary hover:scale-110"
 								onClick={() => {
-									if(props.userId) {
+									if(props.user.id) {
 										setShowForm(true);
 									}else{
 										history.push('/login');
@@ -68,7 +68,7 @@ const Adress = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		addresses: state.addresses,
-		userId: state.user?.user?.userId,
+		user: state.user.user,
 	}
 }
 

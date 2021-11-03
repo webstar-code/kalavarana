@@ -7,9 +7,9 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Country, State } from 'country-state-city';
-
-
+import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 import '../../styles/addressform.css'
+
 const EditAddressForm = (props) => {
   const [country, setCountry] = useState(props.country)
   const [addressType, setAddressType] = useState(props.addressType)
@@ -22,6 +22,8 @@ const EditAddressForm = (props) => {
   const [number, setNumber] = useState(props.number)
   const [showFirstForm, setShowFirstForm] = useState(true)
   const [state, setState] = useState(props.state)
+  const [phoneCount, setPhoneCount] = useState(0);
+  const [isNum, setIsNum] = useState(true)
 
   const options = Country.getAllCountries().map((i) => i.name);
   const [states, setStates] = useState([]);
@@ -44,9 +46,13 @@ const EditAddressForm = (props) => {
   }
 
 
-  const submitForm1 = () => {
-    // console.log(country)
-    setShowFirstForm(false)
+  const submitForm1 = (e) => {
+    e.preventDefault()
+    if (phoneCount != number.length) {
+      setIsNum(false);
+    } else {
+      setShowFirstForm(false)
+    }
   }
   const submitAddress = (e) => {
     e.preventDefault()
@@ -70,7 +76,7 @@ const EditAddressForm = (props) => {
           required
 
         />
-        <TextField
+        {/* <TextField
           autoComplete="off"
           id="outlined-basic"
           label="MOBILE NUMBER"
@@ -81,7 +87,11 @@ const EditAddressForm = (props) => {
           required
           type="number"
 
-        />
+        /> */}
+
+        <PhoneNumberInput value={number} setValue={setNumber} setPhoneCount={setPhoneCount} />
+        {!isNum && <p className="text-red-500">Number is required</p>}
+
         <Autocomplete
           autoComplete={false}
           value={country}

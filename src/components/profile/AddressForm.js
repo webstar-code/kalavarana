@@ -7,12 +7,13 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 
 import { Country, State } from 'country-state-city';
 
 const AddressForm = (props) => {
   const [name, setName] = useState('')
-  const [number, setNumber] = useState('')
+  const [number, setNumber] = useState('+91')
   const [country, setCountry] = useState('')
   const [state, setState] = useState('')
   const [pinCode, setPinCode] = useState('')
@@ -22,6 +23,8 @@ const AddressForm = (props) => {
   const [landmark, setLanmark] = useState('')
   const [city, setCity] = useState('')
   const [showFirstForm, setShowFirstForm] = useState(true)
+  const [phoneCount, setPhoneCount] = useState(0);
+  const [isNum, setIsNum] = useState(true)
 
 
   const options = Country.getAllCountries().map((i) => i.name);
@@ -45,10 +48,13 @@ const AddressForm = (props) => {
   }
 
 
-  const submitForm1 = () => {
-    console.log(country);
-    console.log(state);
-    setShowFirstForm(false)
+  const submitForm1 = (e) => {
+    e.preventDefault()
+    if(phoneCount != number.length) {
+      setIsNum(false);
+    }else{
+      setShowFirstForm(false)
+    }
   }
 
   const submitAddress = (e) => {
@@ -72,7 +78,8 @@ const AddressForm = (props) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <TextField
+
+        {/* <TextField
           autoComplete="off"
           id="outlined-basic"
           label="MOBILE NUMBER"
@@ -81,7 +88,10 @@ const AddressForm = (props) => {
           onChange={(e) => setNumber(e.target.value)}
           type="number"
           required
-        />
+        /> */}
+
+        <PhoneNumberInput value={number} setValue={setNumber} setPhoneCount={setPhoneCount} />
+        {!isNum && <p className="text-red-500">Number is required</p>}
 
         <Autocomplete
           autoComplete={false}
