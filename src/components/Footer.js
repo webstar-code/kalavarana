@@ -9,7 +9,7 @@ const Footer = () => {
 
     // ignore footer on these paths
     if (path === '/login' || path === '/signup' || path === '/checkout'
-        || path === '/profile' || path === '/profile/address' || path === '/profile/wishlist'
+        || path === '/profile' || path === '/profile/address' || path === '/profile/whislist'
         || path === '/profile/orders' || path === '/cart' || path === '/profile-and-details') {
         return null;
     }
