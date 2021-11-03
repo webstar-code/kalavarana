@@ -22,7 +22,7 @@ const SideCart = (props) => {
         </div>
         {props.cartItems.length == 0 && 
         <div className="w-full flex items-start justify-center pt-28">
-          <p className="text-3xl font-medium text-gray-400">Your Cart is Empty</p>
+          <p className="text-3xl font-medium text-gray-400">Your cart is currently empty.</p>
         </div>
         }
         <div className="side-cart-items">

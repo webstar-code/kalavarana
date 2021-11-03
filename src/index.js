@@ -18,4 +18,3 @@ document.getElementById('root')
 )
 
 serviceWorker.register();
-// serviceWorkerRegistration.register()

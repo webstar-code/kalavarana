@@ -19,7 +19,7 @@ import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 const Enquiry = (props) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('+91')
     const [reason, setReason] = useState('')
     const [phoneCount, setPhoneCount] = useState();
 
@@ -33,12 +33,12 @@ const Enquiry = (props) => {
             id: ref.id,
             name,
             email,
-            phoneNumber,
+            phoneNumber: `+${phoneNumber}`,
             reason,
         }).then(() => {
             setName('')
             setEmail('')
-            setPhoneNumber('')
+            setPhoneNumber('+91')
             setReason('')
             props.notify("Enquiry sent")
         }).catch(err => {
@@ -74,15 +74,8 @@ const Enquiry = (props) => {
                                     autoComplete="off" id="outlined-basic" label="EMAIL" variant="outlined"
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <PhoneNumberInput />
+                                <PhoneNumberInput value={phoneNumber} setValue={setPhoneNumber} />
 
-                                {/* <TextField
-                                required
-
-                                    value={phoneNumber}
-                                    autoComplete="off" id="outlined-basic" label="PHONE" variant="outlined"
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                /> */}
                                 <TextField
                                     required
                                     value={reason}
