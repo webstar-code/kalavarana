@@ -1,12 +1,12 @@
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import WarningIcon from '@material-ui/icons/Warning';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { deleteAdress, getAddresses } from '../../actions/address';
 import CancelPrompt from '../CancelPrompt';
 import Msg from '../notification/Msg';
 import EditAddressForm from './EditAddressForm';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import WarningIcon from '@material-ui/icons/Warning';
 
 const AddressCard = (props) => {
   const [showModal, setShowModal] = useState(false)

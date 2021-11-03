@@ -2,9 +2,7 @@ import React from 'react'
 import '../../styles/orders.css'
 import ProfileNavigation from '../profile/ProfileNavigation'
 import { connect } from 'react-redux'
-import Header from '../Header'
 import OrderCard from '../cards/OrderCard'
-import { PAINTING2 } from '../../assetsKalavarna'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Link } from 'react-router-dom';
 

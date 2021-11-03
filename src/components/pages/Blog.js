@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { firestore } from '../../firebase'
 import '../../styles/blog.css'
 import BlogCard from '../cards/BlogCard'
-import Footer from '../Footer'
 
 const Blog = () => {
     const [blogs, setBlogs] = useState([]);
@@ -25,7 +24,6 @@ const Blog = () => {
                     ))}
                 </div>
             </div>
-            <Footer />
         </>
     )
 }

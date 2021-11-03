@@ -43,6 +43,7 @@ import Sales from './components/pages/Sales'
 import Header from './components/Header'
 import localdb from './localDB'
 import Msg from './components/notification/Msg'
+import Footer from './components/Footer'
 
 // import dummy from './dummy'
 
@@ -141,6 +142,7 @@ const App = (props) => {
                         <Route component={NotFound} />
                     </Switch>
                 </ScrollToTop>
+                <Footer />
             </Router>
         </>
     )
@@ -151,20 +153,3 @@ const mapStateToProps = (state) => {
     return { user: state.user?.user, cart: state.cart }
 }
 export default connect(mapStateToProps, { userStateChanged, getCartItems, getCartTotal, getAddresses, getOrders, getWishList, addToCart, getLocalCartItems })(App)
-
-// <Route path="/" exact><Layout><MainPage /></Layout></Route>
-// <Route path="/category/:category" exact><Layout><Category /></Layout></Route>
-// <Route path="/category/:category/:sub_category" exact ><Layout><SubCategory /></Layout></Route>
-// <Route path="/featured" exact ><Layout><Featured /></Layout></Route>
-// <Route path="/sales" exact ><Layout><Sales /></Layout></Route>
-// <Route path="/loader" exact ><Layout><Loading /></Layout></Route>
-// <Route path="/profile" exact ><Layout><Profile /></Layout></Route>
-// <Route path="/profile/address" exact ><Layout><Adress /></Layout></Route>
-// <Route path="/profile/orders" exact ><Layout><Orders /></Layout></Route>
-// <Route path="/profile/whislist" exact ><Layout><WhisList /></Layout></Route>
-// <Route path="/profile/orders" exact ><Layout><Orders /></Layout></Route>
-// <Route path="/checkout" exact ><Layout><Checkout /></Layout></Route>
-// <Route path="/order-confirmed" exact ><Layout><Confirm /></Layout></Route>
-// <Route path="/cart" exact ><Layout><Cart /></Layout></Route>
-// <Route path="/privacy-policy" exact ><Layout><PrivacyPolicy /></Layout></Route>
-// <Route path="/terms" exact ><Layout><Terms /></Layout></Route>

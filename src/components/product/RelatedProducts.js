@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { PAINTING1, PAINTING3 } from '../../assetsKalavarna'
+import { PAINTING1, PAINTING3 } from '../../assets'
 import { firestore } from '../../firebase';
 import PaintingCard from '../cards/PaintingCard';
 import { Link } from 'react-router-dom';

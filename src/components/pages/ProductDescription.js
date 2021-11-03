@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/productDes.css'
-import Header from '../Header'
 import { connect } from 'react-redux'
 import { firestore } from '../../firebase'
 import { addToWhislist, getWishList } from '../../actions/wishlist'
@@ -13,11 +12,10 @@ import Rating from '../product/Rating'
 import Reviews from '../product/Reviews'
 import RelatedProducts from '../product/RelatedProducts'
 import SideCart from '../sideCart/SideCart'
-import { PAINTING1 } from '../../assetsKalavarna'
+import { PAINTING1 } from '../../assets'
 import { useParams } from 'react-router-dom'
-import { RUPPEEICON } from '../../assetsKalavarna'
+import { RUPPEEICON } from '../../assets'
 import { history } from '../../history'
-import Footer from '../Footer'
 import localdb from '../../localDB'
 
 const dummyData = {
@@ -40,7 +38,7 @@ const ProductDescription = (props) => {
     props.showCart(false);
     firestore.collection('PRODUCTS').doc(productID).get()
       .then((doc) => {
-        // console.log(doc.data());
+        console.log(doc.data());
         setProduct(doc.data());
       }).catch((err) => {
         console.log(err);
@@ -193,7 +191,6 @@ const ProductDescription = (props) => {
           <SideCart />
         </div>
       </div>
-      <Footer />
     </>
   )
 }

@@ -3,7 +3,8 @@ import './inputstyle.css'
 import firebase from '../../firebase'
 import { connect } from 'react-redux'
 import { sigin, submitOtp, login } from '../../actions'
-import { COLLAGE, KALAVARANA_LOGO } from '../../assetsKalavarna';
+import { COLLAGE, KALAVARANA_LOGO } from '../../assets';
+
 import TextField from '@material-ui/core/TextField';
 import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 import Loader from "react-loader-spinner";

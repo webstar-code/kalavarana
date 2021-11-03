@@ -1,7 +1,6 @@
 import React from 'react'
 import '../../styles/notification.css'
 import {BsBellFill} from 'react-icons/bs'
-import Header from '../Header'
 const Notification = () => {
     return (
         <>

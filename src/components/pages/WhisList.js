@@ -1,16 +1,11 @@
 import React from 'react'
 import ProfileNavigation from '../profile/ProfileNavigation'
-import Header from '../Header'
 import { connect } from 'react-redux'
 import '../../styles/wishlist.css';
-import { db } from '../../firebase'
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { PAINTING2 } from '../../assetsKalavarna';
+import { PAINTING2 } from '../../assets';
 import PaintingCard from '../cards/PaintingCard';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Link } from 'react-router-dom';
-import Msg from '../notification/Msg'
 
 
 const dummyData = [
@@ -50,7 +45,6 @@ const WhisList = (props) => {
     // }, [props.userId])
     return (
         <>
-            <Msg />
             <div className="profile-page">
                 <ProfileNavigation />
                 <div className="w-full md:w-3/5 py-12 px-6 md:px-12 flex flex-col justify-center ml-auto ">
@@ -61,11 +55,11 @@ const WhisList = (props) => {
                         {
                             props.wishlist.length > 0 ? props.wishlist.map((pro) => (
                                 <div className="" key={pro.id}>
-                                <PaintingCard product={pro} key={pro.id} />
+                                    <PaintingCard product={pro} key={pro.id} />
                                 </div>
                             ))
-                            :
-                            <h1>No items in wishlist</h1>
+                                :
+                                <h1>No items in wishlist</h1>
                             // dummyData.map((pro) => (
                             //     <PaintingCard product={pro} key={pro.id} />
                             // ))
@@ -80,7 +74,7 @@ const WhisList = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    return { 
+    return {
         user: state.user?.user,
         wishlist: state.wishlist
     }

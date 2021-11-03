@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import Bookmark from '@material-ui/icons/Bookmark';
-import { RUPPEEICON } from '../../assetsKalavarna'
+import { RUPPEEICON } from '../../assets'
 import { Link, Redirect } from 'react-router-dom';
 import { addToWhislist, getWishList, deleteWishList } from '../../actions/wishlist';
 import { connect } from 'react-redux';

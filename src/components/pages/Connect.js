@@ -47,7 +47,6 @@ const Enquiry = (props) => {
         })
     }
 
-
     return (
         <>
             <Msg />

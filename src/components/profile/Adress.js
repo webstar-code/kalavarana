@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import ProfileNavigation from './ProfileNavigation'
-import Header from '../Header'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { history } from '../../history'
+import ProfileNavigation from './ProfileNavigation'
 import { getAddresses } from '../../actions/address'
 import AddressCard from './AddressCard'
-import AddIcon from '@material-ui/icons/Add';
 import AddressForm from './AddressForm';
 import Msg from '../notification/Msg'
-import { Link } from 'react-router-dom'
+import AddIcon from '@material-ui/icons/Add';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import { history } from '../../history'
 
 const Adress = (props) => {
 	const [showForm, setShowForm] = useState(false);

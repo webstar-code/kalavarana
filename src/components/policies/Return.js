@@ -1,7 +1,6 @@
 import React from 'react'
 import Privcy from '../pages/Privcy'
 import '../../styles/privacy.css'
-import Footer from '../Footer'
 
 const Return = () => {
     return (
@@ -14,7 +13,6 @@ const Return = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
 
     )

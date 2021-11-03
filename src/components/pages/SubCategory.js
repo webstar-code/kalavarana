@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PAINTING1 } from '../../assetsKalavarna';
+import { PAINTING1 } from '../../assets';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import ViewComfyIcon from '@material-ui/icons/ViewComfy';
@@ -7,7 +7,6 @@ import PaintingCard from '../cards/PaintingCard'
 import { db, firestore } from '../../firebase';
 import { useParams } from 'react-router-dom'
 import '../../styles/dresess.css';
-import Footer from '../Footer';
 import LoadingSpinner from '../LoadingSpinner';
 
 const dummyData = [
@@ -232,7 +231,6 @@ const SubCategory = () => {
 							<h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl">No products here</h1>
 							: null}
 			</div>
-			<Footer />
 		</div>
 
 	)

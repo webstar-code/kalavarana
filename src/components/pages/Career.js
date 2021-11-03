@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../styles/career.css'
 import CareeerAccordian from '../CarrerAccordian'
-import Header from '../Header'
+
 const Career = () => {
     return (
         <>

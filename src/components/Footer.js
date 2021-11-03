@@ -1,15 +1,24 @@
 import React from 'react'
-import logo from '../assetsKalavarna/logos/blue_bg_logo.png';
-import { Link } from 'react-router-dom'
+import { KALAVARANA_BLUE_LOGO } from '../assets';
+import { Link, useLocation } from 'react-router-dom'
 import { AiFillInstagram, AiFillYoutube, AiOutlineTwitter } from 'react-icons/ai'
 import { FaFacebookF } from 'react-icons/fa'
 import '../styles/footer.css'
 const Footer = () => {
+    const path = useLocation().pathname;
+
+    // ignore footer on these paths
+    if (path === '/login' || path === '/signup' || path === '/checkout'
+        || path === '/profile' || path === '/profile/address' || path === '/profile/whislist'
+        || path === '/profile/orders' || path === '/cart' || path === '/profile-and-details') {
+        return null;
+    }
+
     return (
-        <div className="w-full  bg-primary">
+        <div className="w-full bg-primary">
             <footer className="w-full md:w-4/5 mx-auto px-32 py-8 flex justify-between items-center ">
                 <div className="flex flex-col h-full items-center">
-                    <img src={logo} alt="KALAVARNA" className="w-32 h-24 md:w-52 md:h-36 mb-6" />
+                    <img src={KALAVARANA_BLUE_LOGO} alt="KALAVARNA" className="w-32 h-24 md:w-52 md:h-36 mb-6" />
                     <div className="w-full flex items-center justify-evenly text-white text-xl mb-24">
                         <a href="https://www.facebook.com/kalavarana/" className="cursor-pointer" target="_blank" rel="noopener noreferrer">
                             <FaFacebookF />

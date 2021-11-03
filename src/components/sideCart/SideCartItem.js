@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { deleteCartItem, updateCartQauntity, getCartItems, getLocalCartItems } from '../../actions/cart'
 import { Link, useLocation } from 'react-router-dom'
 import { useEffect } from 'react';
-import { RUPPEEICON } from '../../assetsKalavarna'
+import { RUPPEEICON } from '../../assets'
 import CancelPrompt from '../CancelPrompt';
 import localdb from '../../localDB'
 
