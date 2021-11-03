@@ -39,7 +39,8 @@ const Orders = (props) => {
                                     <OrderCard key={order.id} order={order} />
                                 </div>
                             ))
-                                : <h1>No orders yet</h1>
+                                : <h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl">No items in your wishlist</h1>
+
                         }
                         {/* <h2>03 FEBRUARY 2021</h2> */}
                         {/* <OrderCard/>*/}

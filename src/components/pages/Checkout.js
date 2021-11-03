@@ -167,8 +167,8 @@ const Checkout = (props) => {
 						</div>
 
 						<div className="process-area ">
-							<button className="bg-primary" onClick={() => displayRazorpay()}>Pay Online</button>
-							{/* <button className="bg-primary" onClick={() => handlePlaceOrder()}>Pay Online</button> */}
+							{/* <button className="bg-primary" onClick={() => displayRazorpay()}>Pay Online</button> */}
+							<button className="bg-primary" onClick={() => handlePlaceOrder()}>Pay Online</button>
 
 						</div>
 					</div>

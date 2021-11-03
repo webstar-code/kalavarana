@@ -51,22 +51,24 @@ const WhisList = (props) => {
                     <h1 className="text-primary flex items-center justify-start mb-3 md:mb-0 md:hidden text-2xl font-medium">
                         <span className="pr-2"><Link to={'/profile-and-details'}><KeyboardBackspaceIcon /></Link></span>
                         Wishlist</h1>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        {
-                            props.wishlist.length > 0 ? props.wishlist.map((pro) => (
-                                <div className="" key={pro.id}>
-                                    <PaintingCard product={pro} key={pro.id} />
-                                </div>
-                            ))
-                                :
-                                <h1>No items in wishlist</h1>
-                            // dummyData.map((pro) => (
-                            //     <PaintingCard product={pro} key={pro.id} />
-                            // ))
+                    {props.wishlist.length > 0 ?
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            {
+                                props.wishlist.map((pro) => (
+                                    <div className="" key={pro.id}>
+                                        <PaintingCard product={pro} key={pro.id} />
+                                    </div>
+                                ))
+                                // dummyData.map((pro) => (
+                                //     <PaintingCard product={pro} key={pro.id} />
+                                // ))
 
-                        }
+                            }
 
-                    </div>
+                        </div>
+                        :
+                        <h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl">No items in your wishlist</h1>
+                    }
                 </div>
             </div>
         </>

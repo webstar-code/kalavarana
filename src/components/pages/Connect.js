@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
 import '../../styles/connect.css'
-import connectpng from '../../assets/img/connect.png'
-import chat from '../../assets/img/chat.png'
+import { CHAT, PHONEICON, watsapp, CONNECT, WATSAPP } from '../../assets'
 import TextField from '@material-ui/core/TextField';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import Home from '@material-ui/icons/Store';
-import phone from '../../assets/img/phone-icon.png'
-import watsapp from '../../assets/img/watsapp.png'
 import Accordain from '../Accordian'
 import { firestore } from '../../firebase'
 import Msg from '../notification/Msg'
 import { connect } from 'react-redux'
 import { notify } from '../../actions'
-import Footer from '../Footer';
 import { history } from '../../history';
 import PhoneNumberInput from '../PhoneNumberInput/PhoneNumberInput';
 
@@ -54,7 +50,7 @@ const Enquiry = (props) => {
                 <div className="connect">
                     <div className="connect-banner">
                         <div className="img-container">
-                            <img src={connectpng} alt="" />
+                            <img src={CONNECT} alt="" />
                             <h1 className="img-text">
                                 LETS CONNECT
                             </h1>
@@ -91,7 +87,7 @@ const Enquiry = (props) => {
                             <div className="line"></div>
                         </div>
                         <div className="connect-detail">
-                            <img src={chat} alt="" />
+                            <img src={CHAT} alt="" />
                             <div className="detail-des">
                                 <h1 className="text-2xl py-6 font-bold">We are always here to help you</h1>
                                 <p>If you face any problem with our service feel free to contact us directly</p>
@@ -100,14 +96,14 @@ const Enquiry = (props) => {
                                     <a href="mailto:info@kalavarana.com">info@kalavarana.com</a>
                                 </div>
                                 <div className="mobile">
-                                    <img src={phone} alt="" />
+                                    <img src={PHONEICON} alt="" />
                                     <p>+91 9108784301</p>
                                 </div>
                                 <div className="email">
                                     <Home />
                                     <p>Kalavarana,#147,tgr argade,Bethel nagar layout,<br />kodigehalli main road,K.r.puram, bangalore 36</p>
                                 </div>
-                                <a href="https://wa.me/917066397333" target="_blank"> <button> <img src={watsapp} alt="" /> WhatsApp us</button></a>
+                                <a href="https://wa.me/917066397333" target="_blank"> <button> <img src={WATSAPP} alt="" /> WhatsApp us</button></a>
                             </div>
                         </div>
                     </div>
@@ -130,7 +126,6 @@ const Enquiry = (props) => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     )
 }

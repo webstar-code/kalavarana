@@ -195,7 +195,6 @@ const SubCategory = () => {
 				</div>
 				{products.length > 0 ?
 					<div className={`w-full grid ${halfScreen && 'grid-cols-1 md:grid-cols-2 place-items-center'} ${fullScreen && 'grid-cols-2 xl:grid-cols-4'} gap-2 gap-y-6 mt-4 mb-12 `}>
-
 						{sortedProducts.length > 0 ?
 							sortedProducts.map((product) => (<div className="max-w-sm">
 								<PaintingCard product={product} key={product.id} />
@@ -213,7 +212,7 @@ const SubCategory = () => {
 									)) : loading ?
 										<LoadingSpinner />
 										: products.length <= 0 ?
-											<h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl md:text-5xl">No products here</h1>
+											<h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl">No products here</h1>
 											: null
 						}
 
