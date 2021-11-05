@@ -1,49 +1,56 @@
 import React, { useState } from 'react'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { connect } from 'react-redux'
-import { deleteCartItem, updateCartQauntity, getCartItems, getLocalCartItems } from '../../actions/cart'
-import { Link, useLocation } from 'react-router-dom'
+import { deleteCartItem, updateCartQauntity, getCartItems, getLocalCartItems, showCart } from '../../actions/cart'
+import { useParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import { RUPPEEICON } from '../../assets'
 import CancelPrompt from '../CancelPrompt';
 import localdb from '../../localDB'
+import { history } from '../../history';
 
 const SideCartItem = (props) => {
-    const location = useLocation().pathname
-    const [Quantity, setQuantity] = useState(props.quantity)
     const [maxQuantityReached, setMaxQuantityReached] = useState(false);
     const [showModal, setShowModal] = useState(false)
-
-    console.log(Quantity);
+    let productID = useParams().id;
 
     useEffect(() => {
-        if(props.quantity === props.product.stock) {
+        if (props.quantity === props.product.stock) {
             setMaxQuantityReached(true);
-        }else{
+        } else {
             setMaxQuantityReached(false);
         }
-        setQuantity(props.quantity);
-    }, [props]);
+    }, [props.quantity]);
 
-    if (Quantity <= 0) {
-        setQuantity(1)
+    const AddQuantity = () => {
+        const quantity = props.quantity + 1;
+        if (quantity <= props.product.stock) {
+            if (props.user.id) {
+                if (!props.disable) {
+                    props.updateCartQauntity(props.product.id, quantity, props.getCartItems)
+                }
+            } else {
+                localdb.cart.where('id').equals(props.product.id).modify({ quantity });
+                props.getLocalCartItems();
+            }
+        }
     }
-    useEffect(() => {
-        if (props.user.id) {
-            // if (props.quantity >= props.product.stock) {
-            //     setQuantity(props.quantity);
-            //     setMaxQuantityReached(true);
-            // }
-            if (!props.disable) {
-                props.updateCartQauntity(props.product.id, Quantity, props.getCartItems)
+    const DecQuantity = () => {
+        const quantity = props.quantity - 1;
+        if (quantity > 0) {
+
+            if (props.user.id) {
+                if (!props.disable) {
+                    props.updateCartQauntity(props.product.id, quantity, props.getCartItems)
+                }
+            } else {
+                localdb.cart.where('id').equals(props.product.id).modify({ quantity });
+                props.getLocalCartItems();
             }
         } else {
-            // update local cart items
-            console.log(Quantity);
-            localdb.cart.where('id').equals(props.product.id).modify({ quantity: Quantity });
-            props.getLocalCartItems();
+
         }
-    }, [Quantity])
+    }
 
     const handleDelete = () => {
         if (props.user.id) {
@@ -57,11 +64,12 @@ const SideCartItem = (props) => {
 
     return (
         <div className="side-cart-item">
-            <Link to={location.pathname === '/products' ? `/${props.product.id}` : `/products/${props.product.id}`}>
+            <div onClick={() => (productID === props.product.id) ? props.showCart(false) : history.push(`/products/${props.product.id}`)}
+                className="cursor-pointer">
                 <div className="side-cart-item-img">
                     <img src={props.product.picUrl} alt="" />
                 </div>
-            </Link>
+            </div>
             <div className="side-cart-item-des pl-4 ">
                 <div className="item-des">
                     <p className="text-lg font-medium mb-3">{props.product.name}</p>
@@ -75,19 +83,9 @@ const SideCartItem = (props) => {
                 </div>
                 <div className="item-handler">
                     <div className="item-quanity">
-                        {!props.disable && <button onClick={() => {setQuantity(props.quantity - 1)
-                                setMaxQuantityReached(false);
-                            }}>-</button>}
+                        {!props.disable && <button onClick={() => DecQuantity()}>-</button>}
                         <p>{props.quantity}</p>
-                        {!props.disable && <button onClick={() => {
-                            if (Quantity == props.product?.stock) {
-                                setQuantity(Quantity);
-                                setMaxQuantityReached(true);
-                            } else {
-                                setMaxQuantityReached(false);
-                                setQuantity(Quantity + 1);
-                            }
-                        }}>+</button>}
+                        {!props.disable && <button onClick={() => AddQuantity()}>+</button>}
                     </div>
                     {!props.disable && <div className="trash-btn">
                         <button onClick={() => setShowModal(true)} className="p-2 hover:bg-gray-100 rounded-full"><DeleteOutlineIcon /></button>
@@ -107,4 +105,4 @@ const mapStateToProsp = (state,) => {
 }
 
 
-export default connect(mapStateToProsp, { deleteCartItem, updateCartQauntity, getCartItems, getLocalCartItems })(SideCartItem)
+export default connect(mapStateToProsp, { deleteCartItem, updateCartQauntity, getCartItems, getLocalCartItems, showCart })(SideCartItem)
