@@ -72,23 +72,27 @@ const Cards = ({ collection }) => {
 
 	useEffect(() => {
 		let items = [];
-		firestore.collection('PRODUCTS').get().then((snapshot) => {
-			let p = snapshot.docs;
-
-			snapshot.docs.map((doc) => {
-				if (doc.data().isFeatured === true) {
-					items.push(doc.data());
-				}
-			})
-		}).then(() => {
-			// console.log(items);
-			setProducts(items);
-		}).catch((err) => {
-			console.log(err);
+		firestore.collection('PRODUCTS').where("isFeatured", "==", "true").get().then((querySnapshot) => {
+			setProducts(querySnapshot.docs.map((item) => item.data()));
+			setLoading(false);
 		})
+		// firestore.collection('PRODUCTS').get().then((snapshot) => {
+		// 	let p = snapshot.docs;
+
+		// 	snapshot.docs.map((doc) => {
+		// 		if (doc.data().isFeatured === true) {
+		// 			items.push(doc.data());
+		// 		}
+		// 	})
+		// }).then(() => {
+		// 	console.log(items);
+		// 	setProducts(items);
+		// }).catch((err) => {
+		// 	console.log(err);
+		// })
 	}, [])
 
-	
+
 
 
 	return (
@@ -97,13 +101,13 @@ const Cards = ({ collection }) => {
 
 			<div className="flex items-end justify-between p-6 md:p-10 ">
 				<div className="flex">
-					<h1 className="text-xl md:text-3xl font-bold pb-2">{collection}</h1>
+					<h1 className="text-xl md:text-3xl font-bold pb-2 uppercase text-primary">{collection}</h1>
 				</div>
 				<Link to="/featured">
 					<div className="w-28 h-12 flex items-center justify-center px-3 py-1 md:p-3  border-2 border-black text-md uppercase">VIEW ALL</div>
 				</Link>
 			</div>
-	
+
 			{products.length > 0 ?
 				<Scroller>
 					{/* <div className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 mt-4"> */}
@@ -113,8 +117,10 @@ const Cards = ({ collection }) => {
 						</div>
 					))}
 				</Scroller>
-				:
-				<LoadingSpinner />}
+				: loading ?
+					<LoadingSpinner /> :
+					<h1 className="h-64 flex items-center justify-center text-gray-400 text-2xl">No featured products available</h1>
+			}
 
 		</div >
 	)

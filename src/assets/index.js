@@ -9,6 +9,9 @@ import PAINTING1 from './images/4.png';
 import PAINTING2 from './images/8.png';
 import PAINTING3 from './images/3.png';
 import COLLAGE from './images/collage.png';
+import banner1 from './images/banner1.png';
+import banner2 from './images/banner2.png';
+
 
 // icons
 import RUPPEEICON from './icons/ruppee.png'
@@ -42,4 +45,8 @@ export {
     ORDER_CONFIRMED,
     PHONEICON,
     WATSAPP,
+
+
+    banner1,
+    banner2
 }

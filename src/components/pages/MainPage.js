@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import LoadingSpinner from '../LoadingSpinner'
 import Banner from '../Banner'
 import Cards from '../cards/Cards'
-import {PAINTING3} from '../../assets'
+import { banner1, banner2, PAINTING3 } from '../../assets'
 import YouTubeToHtml5 from '@thelevicole/youtube-to-html5-loader'
 import '../../styles/home.css'
 import { firestore } from '../../firebase'
@@ -63,11 +63,13 @@ const MainPage = () => {
                colors />
 
             <Banner
-               img={PAINTING3}
+               img={banner1}
                height="512px"
+               text="Lorem ipsum dolor sit amet"
+               styles="text-white"
             />
 
-      
+
             <div className="flex p-6 flex-col-reverse md:flex-col items-center justify-center my-32">
                <div className="w-full md:w-4/5 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                   {subcats.length > 0 && subcats.map((subcat) => (
@@ -76,13 +78,21 @@ const MainPage = () => {
                         <div className="flex flex-col p-1 md:p-2 md:px-1 mb-2 md:mb-4 text-black">
                            <h3 className="text-md my-2 md:text-2xl text-primary font-medium py-1">{subcat.name}</h3>
                            <Link to={`/category/${subcat.category.name}/${subcat.name}`}>
-                           <button className="w-24 md:w-32 text-sm md:text-base py-1 px-2 bg-transparent border border-primary uppercase">View aLL</button>
+                              <button className="w-24 md:w-32 text-sm md:text-base py-1 px-2 bg-transparent border border-primary uppercase">View aLL</button>
                            </Link>
                         </div>
                      </div>
                   ))}
                </div>
             </div>
+
+
+            <Banner
+               img={banner2}
+               height="512px"
+               text="Lorem ipsum dolor sit amet"
+               styles="text-primary"
+            />
 
             {/* <div className="w-full bg-gray-100">
                <div className="bg-gray-100 md:w-4/5 mx-auto p-6 md:p-32 flex flex-col justify-start">
