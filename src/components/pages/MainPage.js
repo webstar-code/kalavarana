@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import LoadingSpinner from '../LoadingSpinner'
 import Banner from '../Banner'
 import Cards from '../cards/Cards'
-import { banner1, banner2, PAINTING3 } from '../../assets'
+import { banner1, banner2, banner3, PAINTING3 } from '../../assets'
 import YouTubeToHtml5 from '@thelevicole/youtube-to-html5-loader'
 import '../../styles/home.css'
 import { firestore } from '../../firebase'
 import { Link } from 'react-router-dom'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 const dummyData = [
    {
@@ -61,13 +63,31 @@ const MainPage = () => {
             <Cards
                collection="Featured Paintings"
                colors />
-
-            <Banner
+            <Carousel
+               autoPlay
+               interval={4000}
+               showArrows={false}
+               showStatus={false}
+               showThumbs={false}
+               showIndicators={false}
+               infiniteLoop
+            >
+               <div className="w-full h-56 md:h-full object-cover">
+                  <img src={banner1} className="w-full h-full object-cover object-left" />
+               </div>
+               <div className="w-full h-56 md:h-full object-cover">
+                  <img src={banner2} className="w-full h-full object-cover object-left" />
+               </div>
+               <div className="w-full h-56 md:h-full object-cover">
+                  <img src={banner3} className="w-full h-full object-cover object-left" />
+               </div>
+            </Carousel>
+            {/* <Banner
                img={banner1}
                height="512px"
                text="Lorem ipsum dolor sit amet"
                styles="text-white"
-            />
+            /> */}
 
 
             <div className="flex p-6 flex-col-reverse md:flex-col items-center justify-center my-32">
@@ -86,13 +106,31 @@ const MainPage = () => {
                </div>
             </div>
 
-
-            <Banner
+            <Carousel
+               autoPlay
+               interval={4000}
+               showArrows={false}
+               showStatus={false}
+               showThumbs={false}
+               showIndicators={false}
+               infiniteLoop
+            >
+               <div className="w-full h-56 md:h-full object-cover">
+                  <img src={banner1} className="w-full h-full object-cover object-left" />
+               </div>
+               <div className="w-full h-56 md:h-full object-cover">
+                  <img src={banner2} className="w-full h-full object-cover object-left" />
+               </div>
+               <div className="w-full h-56 md:h-full object-cover">
+                  <img src={banner3} className="w-full h-full object-cover object-left" />
+               </div>
+            </Carousel>
+            {/* <Banner
                img={banner2}
                height="512px"
                text="Lorem ipsum dolor sit amet"
                styles="text-primary"
-            />
+            /> */}
 
             {/* <div className="w-full bg-gray-100">
                <div className="bg-gray-100 md:w-4/5 mx-auto p-6 md:p-32 flex flex-col justify-start">
